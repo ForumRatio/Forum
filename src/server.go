@@ -16,6 +16,9 @@ func profil(w http.ResponseWriter, r *http.Request) {
 	template.Execute(w, r)
 }
 func Execute() {
+	db := InitDatabase("test")
+	//InsertIntoSubject(db, "kzi", 5)
+	fmt.Println(SelectAllFromSubject(db, 2))
 	fmt.Println("http://localhost:8080/")
 
 	http.HandleFunc("/profil", func(rw http.ResponseWriter, r *http.Request) {
