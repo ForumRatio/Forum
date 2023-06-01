@@ -16,7 +16,9 @@ func index(w http.ResponseWriter, r *http.Request) {
 	template.Execute(w, r)
 }
 func Execute() {
-	InitDatabase("test")
+	db := InitDatabase("test")
+	//InsertIntoContent(db, "moi", 1, 1)
+	fmt.Println(SelectPostWithPattern(db, "o"))
 	fmt.Println("http://localhost:8080/")
 
 	http.HandleFunc("/", func(rw http.ResponseWriter, r *http.Request) {

@@ -50,9 +50,9 @@ func InitDatabase(dbname string) *sql.DB {
 	return db
 }
 
-func InsertIntoUsers(db *sql.DB, name string, email string, password string) (int64, error) {
-	query1 := `INSERT INTO users ('name','email','password')
-	Values('` + name + `','` + email + `','` + password + `')
+func InsertIntoUsers(db *sql.DB, name string, cellphone string, email string, password string) (int64, error) {
+	query1 := `INSERT INTO users ('name','cellphone','email','password')
+	Values('` + name + `','` + cellphone + `','` + email + `','` + password + `')
 	`
 	result, err := db.Exec(query1)
 	if err != nil {
@@ -83,11 +83,10 @@ func SelectUserById(db *sql.DB, id int) User {
 	montre := `SELECT * FROM users WHERE id = ` + strconv.Itoa(id)
 	result := db.QueryRow(montre)
 	var result2 User
-	err := result.Scan(&result2.Id, &result2.Name, &result2.Email, &result2.Password)
+	err := result.Scan(&result2.Id, &result2.Name, &result2.Cellphone, &result2.Email, &result2.Password)
 	if err != nil {
 		log.Fatalf("Scan: %v", err)
 	}
-	//fmt.Println(result)
 	return result2
 }
 func SelectUserNameWithPattern(db *sql.DB, pattern string) []User {
@@ -100,7 +99,7 @@ func SelectUserNameWithPattern(db *sql.DB, pattern string) []User {
 	got := []User{}
 	for result.Next() {
 		var r User
-		err = result.Scan(&r.Id, &r.Name, &r.Email, &r.Password)
+		err = result.Scan(&r.Id, &r.Name, &r.Cellphone, &r.Email, &r.Password)
 		if err != nil {
 			log.Fatalf("Scan: %v", err)
 		}
@@ -108,9 +107,112 @@ func SelectUserNameWithPattern(db *sql.DB, pattern string) []User {
 	}
 	return got
 }
-func InsertIntoContent(db *sql.DB, content string, user_id int) (int64, error) {
-	query1 := `INSERT INTO posts ('content','user_id')
-	Values('` + content + `','` + strconv.Itoa(user_id) + `')
+func SelectAllFromSubject(db *sql.DB, table string, table2 string) []Subject {
+	montre := `SELECT subject.id, subject.subject, subject.category_id FROM ` + table + ` INNER JOIN ` + table2 + ` ON ` + table + `.id = ` + table2 + `.id`
+	result, err := db.Query(montre)
+	if err != nil {
+		log.Printf("%q: %s\n", err, montre)
+		return nil
+	}
+	got := []Subject{}
+	for result.Next() {
+		var r Subject
+		err = result.Scan(&r.Id, &r.Subject, &r.Category_id)
+		if err != nil {
+			log.Fatalf("Scan: %v", err)
+		}
+		got = append(got, r)
+	}
+	return got
+}
+func SelectSubjectById(db *sql.DB, id int) Subject {
+	montre := `SELECT * FROM subject WHERE id = ` + strconv.Itoa(id)
+	result := db.QueryRow(montre)
+	var result2 Subject
+	err := result.Scan(&result2.Id, &result2.Subject, &result2.Category_id)
+	if err != nil {
+		log.Fatalf("Scan: %v", err)
+	}
+	return result2
+}
+func SelectSubjectWithPattern(db *sql.DB, pattern string) []Subject {
+	montre := `SELECT * FROM subject WHERE subject LIKE '%` + pattern + `%'`
+	result, err := db.Query(montre)
+	if err != nil {
+		log.Printf("%q: %s\n", err, montre)
+		return nil
+	}
+	got := []Subject{}
+	for result.Next() {
+		var r Subject
+		err = result.Scan(&r.Id, &r.Subject, &r.Category_id)
+		if err != nil {
+			log.Fatalf("Scan: %v", err)
+		}
+		got = append(got, r)
+	}
+	return got
+}
+func SelectAllFromPosts(db *sql.DB, table string, table2 string) []Posts {
+	montre := `SELECT posts.id, posts.content, posts.subject_id, posts.user_id FROM ` + table + ` INNER JOIN ` + table2 + ` ON ` + table + `.id = ` + table2 + `.id`
+	result, err := db.Query(montre)
+	if err != nil {
+		log.Printf("%q: %s\n", err, montre)
+		return nil
+	}
+	got := []Posts{}
+	for result.Next() {
+		var r Posts
+		err = result.Scan(&r.Id, &r.Content, &r.Subject_id, &r.User_id)
+		if err != nil {
+			log.Fatalf("Scan: %v", err)
+		}
+		got = append(got, r)
+	}
+	return got
+}
+func SelectPostrById(db *sql.DB, id int) Posts {
+	montre := `SELECT * FROM posts WHERE id = ` + strconv.Itoa(id)
+	result := db.QueryRow(montre)
+	var result2 Posts
+	err := result.Scan(&result2.Id, &result2.Content, &result2.Subject_id, &result2.User_id)
+	if err != nil {
+		log.Fatalf("Scan: %v", err)
+	}
+	return result2
+}
+func SelectPostWithPattern(db *sql.DB, pattern string) []Posts {
+	montre := `SELECT * FROM posts WHERE content LIKE '%` + pattern + `%'`
+	result, err := db.Query(montre)
+	if err != nil {
+		log.Printf("%q: %s\n", err, montre)
+		return nil
+	}
+	got := []Posts{}
+	for result.Next() {
+		var r Posts
+		err = result.Scan(&r.Id, &r.Content, &r.Subject_id, &r.User_id)
+		if err != nil {
+			log.Fatalf("Scan: %v", err)
+		}
+		got = append(got, r)
+	}
+	return got
+}
+func InsertIntoContent(db *sql.DB, content string, subject_id, user_id int) (int64, error) {
+	query1 := `INSERT INTO posts ('content','subject_id','user_id')
+	Values('` + content + `','` + strconv.Itoa(subject_id) + `','` + strconv.Itoa(user_id) + `')
+	`
+	result, err := db.Exec(query1)
+	if err != nil {
+		log.Printf("%q: %s\n", err, query1)
+		return 0, nil
+	}
+	return result.LastInsertId()
+}
+func InsertIntoSubject(db *sql.DB, subject string, category_id int) (int64, error) {
+	query1 := `INSERT INTO subject ('subject','category_id')
+	Values('` + subject + `','` + strconv.Itoa(category_id) + `')
 	`
 	result, err := db.Exec(query1)
 	if err != nil {
