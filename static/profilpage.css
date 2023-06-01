@@ -69,7 +69,7 @@ li a:hover:not(.active) {
 
 /*header*/
 
-.title {
+.title, .id {
     display: flex;
     align-items: center;
 }
@@ -94,9 +94,10 @@ li a:hover:not(.active) {
     align-items: center;
 }
 
-.main{
+.main, .info{
     display: flex;
     justify-content: center;
+    flex-direction: column;
 }
 
 .changeme{
@@ -117,4 +118,115 @@ li a:hover:not(.active) {
     border-bottom : 50px solid transparent;
     border-left : 50px solid white;
 }
+
+.contain {
+    width: 500px;
+    height: 50px;
+    background-color: transparent;
+    transform: skew(-20deg);
+    margin-left: 50px;
+    margin-top: 50px;
+    border: 2px solid white;
+    padding: 10px;
+}
+
+.contain p {
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    color: #333;
+    text-align: center;
+}
+
+.id, .pseudo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.id p, .pseudo p, .pseudo input {
+    color: white;
+    margin-bottom: -2.5%;
+    font-family: "p5hatty";
+    font-size: 50px;
+}
+
+.container {
+    width: 500px;
+    height: 50px;
+    background-color: transparent;
+    transform: skew(20deg);
+    margin-left: 50px;
+    margin-top: 50px;
+    border: 2px solid white;
+    padding: 10px;
+}
+
+.pseudo input {
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+    border: none;
+    color: white;
+    font-family: "p5hatty";
+    font-size: 50px;
+    padding: 0;
+    margin: 0;
+    text-align: center;
+    outline: none;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 19%;
+    padding-bottom: 20%;
+}
+
+.save, .logout {
+    width: 100px;
+    height: 100px;
+    background-size: cover;
+    background-position: center;
+    border: none;
+    transform: scale(5);
+    margin-top: -5%;
+}
+
+.save {
+    background-image: url("../asset/save_left.png");
+    margin-right: 30%;
+}
+
+.logout {
+    background-image: url("../asset/deconnexion.png");
+    transform: scale(5);
+}
+
+.frame {
+    width: 90%;
+    margin: 0 auto;
+    border: 2px solid white;
+    padding: 10px;
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  td {
+    width: 25%;
+    padding: 10px;
+  }
+  
+  .category {
+    text-align: center;
+  }
+  
+  .category img {
+    max-width: 100%;
+    height: auto;
+  }
+
   
