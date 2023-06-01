@@ -154,8 +154,8 @@ func SelectSubjectWithPattern(db *sql.DB, pattern string) []Subject {
 	}
 	return got
 }
-func SelectAllFromPosts(db *sql.DB, table string, table2 string) []Posts {
-	montre := `SELECT posts.id, posts.content, posts.subject_id, posts.user_id FROM ` + table + ` INNER JOIN ` + table2 + ` ON ` + table + `.id = ` + table2 + `.id`
+func SelectAllFromPosts(db *sql.DB, cat int) []Posts {
+	montre := `SELECT posts.id, posts.content, posts.subject_id, posts.user_id FROM posts WHERE posts.subject_id = ` + strconv.Itoa(cat)
 	result, err := db.Query(montre)
 	if err != nil {
 		log.Printf("%q: %s\n", err, montre)
