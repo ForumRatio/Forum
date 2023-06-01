@@ -1,13 +1,13 @@
 const triangle = document.getElementById('triangle');
 const profileImage = document.getElementById('profileImage');
-let imageChanged = false;
+let image = ["morganapdp.png","igypdp.png"]
+let imageChanged = 0;
         
 triangle.addEventListener('click', () => {
-    if (imageChanged) {
-        profileImage.src = '../asset/morganapdp.png';
-        imageChanged = false;
+    if (imageChanged+1 == image.length){
+        imageChanged = 0
     } else {
-        profileImage.src = '../asset/igypdp.png';
-        imageChanged = true;
+        imageChanged++
     }
+    profileImage.src = '../asset/' + image[imageChanged]
 });
