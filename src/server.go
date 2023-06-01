@@ -16,6 +16,7 @@ func index(w http.ResponseWriter, r *http.Request) {
 	template.Execute(w, r)
 }
 func Execute() {
+	InitDatabase("test")
 	fmt.Println("http://localhost:8080/")
 
 	http.HandleFunc("/", func(rw http.ResponseWriter, r *http.Request) {

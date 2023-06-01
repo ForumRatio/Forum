@@ -1,6 +1,8 @@
 package main
 
-import forum "forum/src"
+import (
+	forum "forum/src"
+)
 
 func main() {
 	forum.Execute()
