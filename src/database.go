@@ -41,7 +41,8 @@ func InitDatabase(dbname string) *sql.DB {
 			PRIMARY KEY ('id'),
 			FOREIGN KEY (subject_id) REFERENCES subject(id)
 			FOREIGN KEY (user_id) REFERENCES users(id)
-			);`
+			);
+			PRAGMA foreign_keys = ON;`
 	_, err = db.Exec(sqlStmt)
 	if err != nil {
 		log.Printf("%q: %s\n", err, sqlStmt)
@@ -107,8 +108,8 @@ func SelectUserNameWithPattern(db *sql.DB, pattern string) []User {
 	}
 	return got
 }
-func SelectAllFromSubject(db *sql.DB, table string, table2 string) []Subject {
-	montre := `SELECT subject.id, subject.subject, subject.category_id FROM ` + table + ` INNER JOIN ` + table2 + ` ON ` + table + `.id = ` + table2 + `.id`
+func SelectAllFromSubject(db *sql.DB, cat int) []Subject {
+	montre := `SELECT subject.id, subject.subject, subject.category_id FROM subject WHERE subject.category_id = ` + strconv.Itoa(cat)
 	result, err := db.Query(montre)
 	if err != nil {
 		log.Printf("%q: %s\n", err, montre)
