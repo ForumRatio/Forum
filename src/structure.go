@@ -6,8 +6,12 @@ type User struct {
 	Cellphone string
 	Email     string
 	Password  string
+	Picture   int
 }
-
+type modifyProfil struct {
+	Pictures int
+	Name     string
+}
 type Category struct {
 	Id       int
 	Category string

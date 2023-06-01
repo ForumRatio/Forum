@@ -20,6 +20,7 @@ func InitDatabase(dbname string) *sql.DB {
 		cellphone varchar(255),
 		email varchar(255),
 		password varchar(255),
+		picture INTERGER,
 		PRIMARY KEY ('id'),
 		UNIQUE ('email')
 		);
@@ -31,6 +32,7 @@ func InitDatabase(dbname string) *sql.DB {
 			id INTEGER PRIMARY KEY,
 			subject TEXT,
 			category_id INTEGER NOT NULL,
+			UNIQUE ('subject'),
 			FOREIGN KEY (category_id) REFERENCES categories(id)
 		);
 		CREATE TABLE IF NOT EXISTS posts(
@@ -51,9 +53,9 @@ func InitDatabase(dbname string) *sql.DB {
 	return db
 }
 
-func InsertIntoUsers(db *sql.DB, name string, cellphone string, email string, password string) (int64, error) {
-	query1 := `INSERT INTO users ('name','cellphone','email','password')
-	Values('` + name + `','` + cellphone + `','` + email + `','` + password + `')
+func InsertIntoUsers(db *sql.DB, name string, cellphone string, email string, password string, picture int) (int64, error) {
+	query1 := `INSERT INTO users ('name','cellphone','email','password','picture')
+	Values('` + name + `','` + cellphone + `','` + email + `','` + password + `','` + strconv.Itoa(picture) + `')
 	`
 	result, err := db.Exec(query1)
 	if err != nil {
@@ -72,7 +74,7 @@ func SelectAllFromUsers(db *sql.DB, table string) []User {
 	got := []User{}
 	for result.Next() {
 		var r User
-		err = result.Scan(&r.Id, &r.Name, &r.Cellphone, &r.Email, &r.Password)
+		err = result.Scan(&r.Id, &r.Name, &r.Cellphone, &r.Email, &r.Password, &r.Picture)
 		if err != nil {
 			log.Fatalf("Scan: %v", err)
 		}
@@ -84,7 +86,7 @@ func SelectUserById(db *sql.DB, id int) User {
 	montre := `SELECT * FROM users WHERE id = ` + strconv.Itoa(id)
 	result := db.QueryRow(montre)
 	var result2 User
-	err := result.Scan(&result2.Id, &result2.Name, &result2.Cellphone, &result2.Email, &result2.Password)
+	err := result.Scan(&result2.Id, &result2.Name, &result2.Cellphone, &result2.Email, &result2.Password, &result2.Picture)
 	if err != nil {
 		log.Fatalf("Scan: %v", err)
 	}
@@ -100,7 +102,7 @@ func SelectUserNameWithPattern(db *sql.DB, pattern string) []User {
 	got := []User{}
 	for result.Next() {
 		var r User
-		err = result.Scan(&r.Id, &r.Name, &r.Cellphone, &r.Email, &r.Password)
+		err = result.Scan(&r.Id, &r.Name, &r.Cellphone, &r.Email, &r.Password, &r.Picture)
 		if err != nil {
 			log.Fatalf("Scan: %v", err)
 		}
@@ -202,7 +204,7 @@ func SelectPostWithPattern(db *sql.DB, pattern string) []Posts {
 }
 func InsertIntoContent(db *sql.DB, content string, subject_id, user_id int) (int64, error) {
 	query1 := `INSERT INTO posts ('content','subject_id','user_id')
-	Values('` + content + `','` + strconv.Itoa(subject_id) + `','` + strconv.Itoa(user_id) + `')
+	Values("` + content + `","` + strconv.Itoa(subject_id) + `","` + strconv.Itoa(user_id) + `")
 	`
 	result, err := db.Exec(query1)
 	if err != nil {
@@ -213,11 +215,21 @@ func InsertIntoContent(db *sql.DB, content string, subject_id, user_id int) (int
 }
 func InsertIntoSubject(db *sql.DB, subject string, category_id int) (int64, error) {
 	query1 := `INSERT INTO subject ('subject','category_id')
-	Values('` + subject + `','` + strconv.Itoa(category_id) + `')
+	Values("` + subject + `","` + strconv.Itoa(category_id) + `")
 	`
 	result, err := db.Exec(query1)
 	if err != nil {
 		log.Printf("%q: %s\n", err, query1)
+		return 0, nil
+	}
+	return result.LastInsertId()
+}
+func UpdateUser(db *sql.DB, id int, name string, picture int) (int64, error) {
+	montre := `UPDATE users SET name = "` + name + `", picture = "` + strconv.Itoa(picture) + `" WHERE id = ` + strconv.Itoa(id)
+	result, err := db.Exec(montre)
+	//err := result.Scan(&result2.Id, &result2.Content, &result2.Subject_id, &result2.User_id)
+	if err != nil {
+		log.Printf("%q: %s\n", err, montre)
 		return 0, nil
 	}
 	return result.LastInsertId()

@@ -194,13 +194,19 @@ li a:hover:not(.active) {
 }
 
 .save {
+    height: 500px;
+    width: 500px;
+    transform: scale(1);
     background-image: url("../asset/save_left.png");
     margin-right: 30%;
+    
 }
 
 .logout {
     background-image: url("../asset/deconnexion.png");
-    transform: scale(5);
+    transform: scale(1);
+    height: 500px;
+    width: 500px;
 }
 
 .frame {
