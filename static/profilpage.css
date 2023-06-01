@@ -1,0 +1,120 @@
+/*all*/
+*{
+    margin: 0;
+    padding: 0;
+    background-color: black;
+}
+
+@font-face {
+    font-family: "earwing factory rg";
+    src: url("../asset/font/earwig\ factory\ rg.otf") format("opentype");
+}
+
+@font-face {
+    font-family: "p5hatty";
+    src: url("../asset/font/p5hatty.ttf") format("truetype");
+}
+
+
+/*header*/
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: transparent;
+    border-bottom:2px solid white;
+}
+
+li {
+    float: left;
+}
+
+li a {
+    display: block;
+    color: white;
+    text-align: left;
+    margin-left: 14px;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+li a:hover:not(.active) {
+    background-color: #111;
+}
+
+.active {
+    background-color: transparent;
+}
+
+.home img {
+    width : 7.5%;
+    height : auto;
+}
+
+.map img {
+    width: 75%;
+    height: auto;
+}
+
+.active img {
+    width: 80%;
+    height: auto;
+}
+
+.sub img {
+    width: 80%;
+    height: auto;
+}
+
+/*header*/
+
+.title {
+    display: flex;
+    align-items: center;
+}
+  
+.title img {
+    margin-right: 10px;
+    height: 10rem;
+    width: auto;
+}
+
+.title p{
+    color:white;
+    font-family: "earwing factory rg";
+    font-size: 100px;
+}
+
+
+/*body*/
+
+.pdp{
+    display: flex;
+    align-items: center;
+}
+
+.main{
+    display: flex;
+    justify-content: center;
+}
+
+.changeme{
+    display: flex;
+    align-content: center;
+}
+
+.changeme img {
+    height: 35rem;
+    width: auto;
+}
+
+.triangle-code{
+    display : inline-block;
+    height : 0;
+    width : 0;
+    border-top : 50px solid transparent;
+    border-bottom : 50px solid transparent;
+    border-left : 50px solid white;
+}
+  
