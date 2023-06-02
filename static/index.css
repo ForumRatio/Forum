@@ -105,19 +105,15 @@ width: 100%;
   -webkit-transform-style: preserve-3d;
 }
 .connexion{
-    height: 140.6%; 
-    width: 140%;
-    top:-35.7%;
-    right: -5.6vw;
+    top:-7.7%;
+    right: -4.6vw;
     position: absolute;
     transform: rotateY(180deg);
     z-index: 1;
 }
 .inscription{
-    height: 135%; 
-    width: 133.7%;
-    top: -35.5%;
-    right: -4.3vw;
+    top: -7%;
+    right: -3.3vw;
     align-items: center;
     position: absolute;
 }
