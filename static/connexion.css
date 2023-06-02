@@ -1,6 +1,7 @@
 body {
     margin: 0;
     padding: 0;
+    overflow: hidden;
 }
 
 @font-face {
@@ -10,7 +11,7 @@ body {
   
 .background-image {
     background-image: url('/asset/connexion_page.png');
-    background-size: cover;
+    background-size: 105% auto;
     background-position: center;
     position: fixed;
     top: 0;
@@ -39,7 +40,7 @@ body {
     color: #FFFFFF;
     border: 6px solid white;
     padding-left: 10px;
-    padding-right: 10px;
+    padding-right: 40px;
     margin-top: 30px;
     width: 130px; 
     height: 75px;
@@ -72,7 +73,7 @@ body {
 .forms {
     display: flex;
     flex-direction: column;
-    margin-top: 75px;
+    margin-top: -35rem;
     margin-left: auto;
     text-align: right;
     align-items: center; /* Centrer verticalement les éléments */
@@ -86,10 +87,14 @@ body {
     border-color: transparent;
     width: auto;
     font-size: 5px;
-    margin-top: -10rem;
 
 }
 
+.button img{
+    height: 25rem;
+    width: auto;
+    margin-top: -6rem;
+}
 
 
 
