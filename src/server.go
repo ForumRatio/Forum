@@ -9,8 +9,22 @@ import (
 	"text/template"
 )
 
+func LogPage(w http.ResponseWriter, r *http.Request) {
+	template, err := template.ParseFiles("templates/logpage.html")
+	if err != nil {
+		log.Fatal(err)
+	}
+	template.Execute(w, r)
+}
 func Welcome(w http.ResponseWriter, r *http.Request) {
 	template, err := template.ParseFiles("templates/welcomepage.html")
+	if err != nil {
+		log.Fatal(err)
+	}
+	template.Execute(w, r)
+}
+func Login(w http.ResponseWriter, r *http.Request) {
+	template, err := template.ParseFiles("templates/connexion.html")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -64,8 +78,14 @@ func Execute() {
 	http.HandleFunc("/", func(rw http.ResponseWriter, r *http.Request) {
 		Welcome(rw, r)
 	})
+	http.HandleFunc("/logpage", func(rw http.ResponseWriter, r *http.Request) {
+		LogPage(rw, r)
+	})
 	http.HandleFunc("/profil", func(rw http.ResponseWriter, r *http.Request) {
 		Profil(rw, r)
+	})
+	http.HandleFunc("/login", func(rw http.ResponseWriter, r *http.Request) {
+		Login(rw, r)
 	})
 	http.HandleFunc("/loadUser", func(rw http.ResponseWriter, r *http.Request) {
 		LoadUser(rw, r, PtsU)

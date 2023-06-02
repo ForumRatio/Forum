@@ -255,4 +255,8 @@ li a:hover:not(.active) {
     max-width: 100%;
     height: auto;
   }
+  .cat{
+    max-width: 128px;
+    max-height: 128px;
+  }
   
