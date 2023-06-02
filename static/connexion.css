@@ -44,9 +44,9 @@ body {
     margin-top: 30px;
     width: 130px; 
     height: 75px;
-    background: black;
     font-family: "p5hatty";
     font-size: 20px;
+    background-color: rgba(255, 255, 255, 0.07)
 }
 
 .uti{

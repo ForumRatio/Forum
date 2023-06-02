@@ -38,6 +38,9 @@ func InitDatabase(dbname string) *sql.DB {
 		CREATE TABLE IF NOT EXISTS posts(
 			id INTEGER NOT NULL,
 			content varchar(255) NOT NULL,
+			like INTEGER,
+			dislike INTEGER,
+			fuck INTEGER,
 			subject_id INTEGER NOT NULL,
 			category_id INTEGER NOT NULL,
 			user_id INTEGER NOT NULL,
@@ -159,7 +162,7 @@ func SelectSubjectWithPattern(db *sql.DB, pattern string) []Subject {
 	return got
 }
 func SelectAllFromPosts(db *sql.DB, cat int) []Posts {
-	montre := `SELECT posts.id, posts.content, posts.subject_id, posts.category_id, posts.user_id FROM posts WHERE posts.subject_id = ` + strconv.Itoa(cat)
+	montre := `SELECT * FROM posts WHERE posts.subject_id = ` + strconv.Itoa(cat)
 	result, err := db.Query(montre)
 	if err != nil {
 		log.Printf("%q: %s\n", err, montre)
@@ -168,7 +171,7 @@ func SelectAllFromPosts(db *sql.DB, cat int) []Posts {
 	got := []Posts{}
 	for result.Next() {
 		var r Posts
-		err = result.Scan(&r.Id, &r.Content, &r.Subject_id, &r.Category_id, &r.User_id)
+		err = result.Scan(&r.Id, &r.Content, &r.Like, &r.Dislike, &r.Fuck, &r.Subject_id, &r.Category_id, &r.User_id)
 		if err != nil {
 			log.Fatalf("Scan: %v", err)
 		}
@@ -180,7 +183,7 @@ func SelectPostrById(db *sql.DB, id int) Posts {
 	montre := `SELECT * FROM posts WHERE id = ` + strconv.Itoa(id)
 	result := db.QueryRow(montre)
 	var result2 Posts
-	err := result.Scan(&result2.Id, &result2.Content, &result2.Subject_id, &result2.Category_id, &result2.User_id)
+	err := result.Scan(&result2.Id, &result2.Content, &result2.Like, &result2.Dislike, &result2.Fuck, &result2.Subject_id, &result2.Category_id, &result2.User_id)
 	if err != nil {
 		log.Fatalf("Scan: %v", err)
 	}
@@ -192,7 +195,7 @@ func SelectPostrByUser(db *sql.DB, id int) []Posts {
 	got := []Posts{}
 	for result.Next() {
 		var r Posts
-		err = result.Scan(&r.Id, &r.Content, &r.Subject_id, &r.Category_id, &r.User_id)
+		err = result.Scan(&r.Id, &r.Content, &r.Like, &r.Dislike, &r.Fuck, &r.Subject_id, &r.Category_id, &r.User_id)
 		if err != nil {
 			log.Fatalf("Scan: %v", err)
 		}
@@ -210,7 +213,7 @@ func SelectPostWithPattern(db *sql.DB, pattern string) []Posts {
 	got := []Posts{}
 	for result.Next() {
 		var r Posts
-		err = result.Scan(&r.Id, &r.Content, &r.Subject_id, &r.Category_id, &r.User_id)
+		err = result.Scan(&r.Id, &r.Content, &r.Like, &r.Dislike, &r.Fuck, &r.Subject_id, &r.Category_id, &r.User_id)
 		if err != nil {
 			log.Fatalf("Scan: %v", err)
 		}
@@ -218,9 +221,9 @@ func SelectPostWithPattern(db *sql.DB, pattern string) []Posts {
 	}
 	return got
 }
-func InsertIntoContent(db *sql.DB, content string, subject_id, category_id, user_id int) (int64, error) {
-	query1 := `INSERT INTO posts ('content','subject_id','category_id','user_id')
-	Values("` + content + `","` + strconv.Itoa(subject_id) + `","` + strconv.Itoa(category_id) + `","` + strconv.Itoa(user_id) + `")
+func InsertIntoContent(db *sql.DB, content string, like, dislike, fuck, subject_id, category_id, user_id int) (int64, error) {
+	query1 := `INSERT INTO posts ('content','like','dislike','fuck','subject_id','category_id','user_id')
+	Values("` + content + `","` + strconv.Itoa(like) + `","` + strconv.Itoa(dislike) + `","` + strconv.Itoa(fuck) + `","` + strconv.Itoa(subject_id) + `","` + strconv.Itoa(category_id) + `","` + strconv.Itoa(user_id) + `")
 	`
 	result, err := db.Exec(query1)
 	if err != nil {
