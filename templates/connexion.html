@@ -3,7 +3,7 @@
 <head>
 </html>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="../static/login.css">
+    <link rel="stylesheet" href="../static/connexion.css">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
@@ -12,21 +12,21 @@
     <div class="main">
         <div class="first">
             <div class="top">
-                <form class="forms" action="/login" method="post">
-                    <div class="id">
-                        <input type="text" id = "username" name="username" placeholder="utilisateur" required class="input">
+                <div class="forms">
+                    <div class="uti">
+                        <input type="text" id="username" name="username" placeholder="utilisateur" required class="input">
                     </div>
                     <div class="mdp">
-                        <input type="password" id = "Mot de passe" name="password" required class="input">
+                        <input type="password" id="password" name="password" placeholder="mot de passe" required class="input">
                     </div>
-                        <div class="button">
-                            <button type="button">
-                                <img src="../asset/connexion.png" alt="Texte alternatif">
-                            </button>
-                        </div>
-                </form>
+                </div>
+                <div class="button">
+                    <button type="button" style="background-color: transparent;border-color: transparent;">
+                        <img src="../asset/tchat_left.png">
+                    </button>
+                </div>
             </div>
         </div>
-    </div>
+    </div>    
 </body>
 </html>
