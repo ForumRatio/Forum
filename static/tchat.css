@@ -1,0 +1,109 @@
+/*all*/
+*{
+    margin: 0;
+    padding: 0;
+}
+body{
+    background-image: url(/asset/background2.png);
+    background-size:100% 500%;
+    overflow-y:scroll;
+}
+::-webkit-scrollbar-thumb {
+    background-image: url('/asset/scroll.png'); 
+  }
+
+@font-face {
+    font-family: "earwing factory rg";
+    src: url("../asset/font/earwig\ factory\ rg.otf") format("opentype");
+}
+
+@font-face {
+    font-family: "p5hatty";
+    src: url("../asset/font/p5hatty.ttf") format("truetype");
+}
+
+
+/*header*/
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: transparent;
+    border-bottom:2px solid white;
+}
+
+li {
+    float: left;
+}
+
+li a {
+    display: block;
+    color: white;
+    text-align: left;
+    margin-left: 14px;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+li a:hover{
+    background-color: #111;
+}
+
+.active {
+    background-color: transparent;
+}
+
+.home img {
+    width : 7.5%;
+    height : auto;
+}
+
+.map img {
+    width: 75%;
+    height: auto;
+}
+
+.active img {
+    width: 80%;
+    height: auto;
+}
+
+.sub img {
+    width: 80%;
+    height: auto;
+}
+
+.games{
+    position: absolute;
+    top: 25%;
+    left: 12%;
+    height: 30%;
+    width: 15%;
+}
+.bullesujet{
+    position: absolute;
+    top: 22%;
+    left: 25.5%;
+    height: 30%;
+    width:50%
+}
+.sujet{
+    position: absolute;
+    font-family: "p5hatty";
+    color: #ffffff;
+    left: 35%;
+    top: 36%;
+    font-size: 300%;
+    letter-spacing: .3rem;
+}
+.bullequestion{
+    position: absolute;
+    top: 52%;
+    left: 45%;
+    transform: rotateY(180deg);
+    height: 23%;
+    width: 35%;
+
+}
+
