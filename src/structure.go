@@ -24,8 +24,9 @@ type Subject struct {
 }
 
 type Posts struct {
-	Id         int
-	Content    string
-	Subject_id int
-	User_id    int
+	Id          int
+	Content     string
+	Subject_id  int
+	Category_id int
+	User_id     int
 }

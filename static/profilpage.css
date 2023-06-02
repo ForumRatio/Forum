@@ -234,5 +234,25 @@ li a:hover:not(.active) {
     max-width: 100%;
     height: auto;
   }
-
+  .message1 {
+    background: none;
+    color: aliceblue;
+    text-align: center;
+    position:relative;
+    z-index: 2;
+  }
+  .message {
+    background-image: url("../asset/bulle.png");
+    /* background-size: contain; */
+    background-size: 400px;
+    background-repeat: no-repeat;
+    color: aliceblue;
+    text-align: center;
+    min-width: 50px;
+  }
+  
+  .message img {
+    max-width: 100%;
+    height: auto;
+  }
   
