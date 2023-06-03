@@ -254,3 +254,12 @@ func UpdateUser(db *sql.DB, id int, name string, picture int) (int64, error) {
 	}
 	return result.LastInsertId()
 }
+func DeletePostFromId(db *sql.DB, id int) (int64, error) {
+	query1 := `DELETE FROM posts WHERE id = ` + strconv.Itoa(id)
+	result, err := db.Exec(query1)
+	if err != nil {
+		log.Printf("%q: %s\n", err, query1)
+		return 0, nil
+	}
+	return result.LastInsertId()
+}

@@ -8,9 +8,12 @@ let save = document.getElementsByClassName('save')
 let cat = document.getElementsByClassName('cat')
 let table = document.querySelector('tbody')
 let image = ["morganapdp.png","igypdp.png"]
+let delete1;
+let message1;
 let imageChanged = 0;
 let c = 0;
-//Message2[0].style.backgroundImage = "url('../asset/bulle.png')"
+let d = 0;
+
 function Saved(){
     fetch('/savedProfil',{
         method: "POST",
@@ -21,6 +24,7 @@ function Saved(){
         }) 
     })
 }
+
 let resp = fetch('/loadUser').then((res) => {
     return res.json()
 }).then((d) => {
@@ -29,6 +33,7 @@ let resp = fetch('/loadUser').then((res) => {
     IdUser.innerText = d.Id
     IdName.value = d.Name
 });
+
 let resp1 = fetch('/loadPostUser').then((res) => {
     return res.json()
 }).then((d) => {
@@ -60,12 +65,30 @@ let resp1 = fetch('/loadPostUser').then((res) => {
       </td>
       <td>
         <div class="category">
-          <img src="../asset/delete.png" alt="Category 4" a href="#">
+          <img src="../asset/delete.png" alt="Category 4" a href="#" class="delete">
         </div>
       </td>`
       table.appendChild(cat1)
     }
-    console.log(document.querySelectorAll('tr'))
+    delete1 = document.querySelectorAll('.delete')
+    message1 = document.querySelectorAll('.message1')
+    for (d = 0; d < message1.length; d++){
+      let message2 = message1[d]
+      delete1[d].addEventListener('click', ()=>{
+        console.log(message2)
+        fetch('/deletePost',{
+          method: "POST",
+          headers: {"content-type":"application/json"},
+          body: JSON.stringify({
+              Check : message2.innerHTML
+          }) 
+      }).then((res) => {
+        if (res.redirected){
+          location.reload(true);
+        }
+      })
+      })
+    }
 }).catch(error => {
     console.error(error)
 });
@@ -78,6 +101,7 @@ triangle.addEventListener('click', () => {
     }
     profileImage.src = '../asset/' + image[imageChanged]
 });
+
 save[0].addEventListener('click', () => {
    Saved();
    location.reload(true);

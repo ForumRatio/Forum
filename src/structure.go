@@ -9,11 +9,16 @@ type User struct {
 	Picture   int
 }
 type BoolLogin struct {
-	check string
+	Check string
 }
-type modifyProfil struct {
+type ModifyProfil struct {
 	Pictures int
 	Name     string
+}
+type CreateS struct {
+	Subject     string
+	Question    string
+	Category_id int
 }
 type Checkuser struct {
 	Username string

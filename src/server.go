@@ -16,6 +16,13 @@ func LogPage(w http.ResponseWriter, r *http.Request) {
 	}
 	template.Execute(w, r)
 }
+func CreateSub(w http.ResponseWriter, r *http.Request) {
+	template, err := template.ParseFiles("templates/createsub.html")
+	if err != nil {
+		log.Fatal(err)
+	}
+	template.Execute(w, r)
+}
 func Welcome(w http.ResponseWriter, r *http.Request) {
 	template, err := template.ParseFiles("templates/welcomepage.html")
 	if err != nil {
@@ -44,12 +51,64 @@ func Profil(w http.ResponseWriter, r *http.Request) {
 	}
 	template.Execute(w, r)
 }
+
+//
+
 func SavedProfil(w http.ResponseWriter, r *http.Request, pp *User) {
-	var user modifyProfil
+	var user ModifyProfil
 	db := InitDatabase("test")
 	body, _ := ioutil.ReadAll(r.Body)
 	json.Unmarshal(body, &user)
 	UpdateUser(db, pp.Id, user.Name, user.Pictures)
+}
+func DeletePost(w http.ResponseWriter, r *http.Request, pp *User) {
+	var user BoolLogin
+	var b BoolLogin
+	checklog := false
+	db := InitDatabase("test")
+	body, _ := ioutil.ReadAll(r.Body)
+	json.Unmarshal(body, &user)
+	fmt.Println(user)
+	user2 := SelectPostrByUser(db, pp.Id)
+	for i := 0; i < len(user2); i++ {
+		if user.Check == user2[i].Content {
+			checklog = true
+			DeletePostFromId(db, user2[i].Id)
+		}
+	}
+	if checklog == true {
+		http.Redirect(w, r, "/categorypage", http.StatusSeeOther)
+		fmt.Println(pp)
+		b.Check = "true"
+		b1, _ := json.Marshal(b)
+		w.Write(b1)
+	}
+}
+func SavedSub(w http.ResponseWriter, r *http.Request, pp *User) {
+	checke := false
+	var user CreateS
+	var b BoolLogin
+	db := InitDatabase("test")
+	body, _ := ioutil.ReadAll(r.Body)
+	json.Unmarshal(body, &user)
+	table := SelectAllFromSubject(db, user.Category_id)
+	for c := 0; c < len(table); c++ {
+		if user.Subject == table[c].Subject {
+			checke = true
+		}
+	}
+	if checke == false {
+		fmt.Println(user)
+		if pp.Id > 0 {
+			InsertIntoSubject(db, user.Subject, user.Category_id)
+			table2 := SelectAllFromSubject(db, user.Category_id)
+			InsertIntoContent(db, user.Question, 0, 0, 0, table2[len(table2)-1].Id, user.Category_id, pp.Id)
+			http.Redirect(w, r, "/categorypage", http.StatusSeeOther)
+			b.Check = "true"
+			b1, _ := json.Marshal(b)
+			w.Write(b1)
+		}
+	}
 }
 func CheckUser(w http.ResponseWriter, r *http.Request, pp *User) {
 	checklog := false
@@ -74,7 +133,7 @@ func CheckUser(w http.ResponseWriter, r *http.Request, pp *User) {
 	if checklog == true {
 		http.Redirect(w, r, "/categorypage", http.StatusSeeOther)
 		fmt.Println(pp)
-		b.check = "true"
+		b.Check = "true"
 		b1, _ := json.Marshal(b)
 		w.Write(b1)
 	}
@@ -100,14 +159,17 @@ func LoadUser(w http.ResponseWriter, r *http.Request, pp *User) {
 	userf, _ := json.Marshal(user)
 	w.Write(userf)
 }
+
+//
+
 func Execute() {
-	//db := InitDatabase("test")
+	// db := InitDatabase("test")
 	// InsertIntoUsers(db, "moi", "lm", "lm", "lm", 0)
 	// InsertIntoSubject(db, "name", 1)
 	// InsertIntoSubject(db, "lmlm", 2)
 	// InsertIntoSubject(db, "jkl", 3)
 	// InsertIntoSubject(db, "njk", 2)
-	//InsertIntoContent(db, "Tu sens mauvais", 0, 0, 0, 1, 1, 1)
+	// InsertIntoContent(db, "Tu sens mauvais", 0, 0, 0, 1, 1, 1)
 	// fmt.Println(SelectAllFromSubject(db, 2))
 	fmt.Println("http://localhost:8080/")
 	dataU := User{0, "", "", "", "", 0}
@@ -117,6 +179,9 @@ func Execute() {
 	})
 	http.HandleFunc("/logpage", func(rw http.ResponseWriter, r *http.Request) {
 		LogPage(rw, r)
+	})
+	http.HandleFunc("/createsub", func(rw http.ResponseWriter, r *http.Request) {
+		CreateSub(rw, r)
 	})
 	http.HandleFunc("/profil", func(rw http.ResponseWriter, r *http.Request) {
 		Profil(rw, r)
@@ -135,6 +200,12 @@ func Execute() {
 	})
 	http.HandleFunc("/savedProfil", func(rw http.ResponseWriter, r *http.Request) {
 		SavedProfil(rw, r, PtsU)
+	})
+	http.HandleFunc("/deletePost", func(rw http.ResponseWriter, r *http.Request) {
+		DeletePost(rw, r, PtsU)
+	})
+	http.HandleFunc("/savedSub", func(rw http.ResponseWriter, r *http.Request) {
+		SavedSub(rw, r, PtsU)
 	})
 	http.HandleFunc("/checkUser", func(rw http.ResponseWriter, r *http.Request) {
 		CheckUser(rw, r, PtsU)
