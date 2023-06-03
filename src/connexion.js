@@ -9,14 +9,12 @@ function Check(){
             Password: input[1].value
         }) 
     })
-    // .then((re) => {
-    //     return re.json()
-    // }).then((data) =>{
-    //     console.log(data)
-    //     if (data.check == "true"){
-    //        window.location="/categorypage"
-    //     }
-    // })
+    .then((re) => {
+        console.log(re)
+        if (re.redirected){
+            window.location="/categorypage"
+        }
+    })
 }
 button[0].addEventListener('click', () => {
     Check();

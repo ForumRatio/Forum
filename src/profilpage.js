@@ -6,8 +6,10 @@ let Message = document.getElementsByClassName('message1');
 let Message2 = document.getElementsByClassName('message');
 let save = document.getElementsByClassName('save')
 let cat = document.getElementsByClassName('cat')
+let table = document.querySelector('tbody')
 let image = ["morganapdp.png","igypdp.png"]
 let imageChanged = 0;
+let c = 0;
 //Message2[0].style.backgroundImage = "url('../asset/bulle.png')"
 function Saved(){
     fetch('/savedProfil',{
@@ -30,20 +32,44 @@ let resp = fetch('/loadUser').then((res) => {
 let resp1 = fetch('/loadPostUser').then((res) => {
     return res.json()
 }).then((d) => {
-    Message[0].innerText = d[0].Content
-    if (d[0].Category_id == 1){
-        cat[0].src = '../asset/anime.png'
+    // console.log(d)
+    let im;
+    for (c = 0; c < d.length; c++){
+        if (d[c].Category_id == 1){
+                im = '../asset/anime.png'
+            }
+        if (d[c].Category_id == 2){
+                im = '../asset/games.png'
+            }
+        if (d[c].Category_id == 3){
+                im = '../asset/random.png'
+            }
+        let cat1 = document.createElement('tr')
+        cat1.innerHTML = `<td>
+        <div class="category">
+          <img src="${im}" alt="Category 1" class="cat">
+        </div>
+      </td>
+      <td class="message">
+        <p class="message1">${d[c].Content}</p>
+      </td>
+      <td>
+        <div class="category">
+          <img src="../asset/settings.png" alt="Category 3" a href="#">
+        </div>
+      </td>
+      <td>
+        <div class="category">
+          <img src="../asset/delete.png" alt="Category 4" a href="#">
+        </div>
+      </td>`
+      table.appendChild(cat1)
     }
-    if (d[0].Category_id == 2){
-        cat[0].src = '../asset/games.png'
-    }
-    if (d[0].Category_id == 3){
-        cat[0].src = '../asset/random.png'
-    }
-    console.log(d[0])
+    console.log(document.querySelectorAll('tr'))
 }).catch(error => {
     console.error(error)
 });
+
 triangle.addEventListener('click', () => {
     if (imageChanged+1 == image.length){
         imageChanged = 0

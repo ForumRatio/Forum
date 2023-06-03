@@ -143,6 +143,7 @@ func SelectSubjectById(db *sql.DB, id int) Subject {
 	}
 	return result2
 }
+
 func SelectSubjectWithPattern(db *sql.DB, pattern string) []Subject {
 	montre := `SELECT * FROM subject WHERE subject LIKE '%` + pattern + `%'`
 	result, err := db.Query(montre)
