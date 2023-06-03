@@ -69,7 +69,7 @@ li a:hover:not(.active) {
 
 /*header*/
 
-.title, .id {
+.title, .subject, .question {
     display: flex;
     align-items: center;
 }
@@ -89,34 +89,10 @@ li a:hover:not(.active) {
 
 /*body*/
 
-.pdp{
-    display: flex;
-    align-items: center;
-}
-
-.main, .info{
+.info{
     display: flex;
     justify-content: center;
     flex-direction: column;
-}
-
-.changeme{
-    display: flex;
-    align-content: center;
-}
-
-.changeme img {
-    height: 35rem;
-    width: auto;
-}
-
-.triangle-code{
-    display : inline-block;
-    height : 0;
-    width : 0;
-    border-top : 50px solid transparent;
-    border-bottom : 50px solid transparent;
-    border-left : 50px solid white;
 }
 
 .contain {
@@ -137,17 +113,18 @@ li a:hover:not(.active) {
     text-align: center;
 }
 
-.id, .pseudo {
+.question, .subject, .category {
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.id p, .pseudo p, .pseudo input {
+.subject p, .question p, .question input, .subject input, .category p {
     color: white;
     margin-bottom: -2.5%;
     font-family: "p5hatty";
     font-size: 50px;
+    border: none;
 }
 
 .container {
@@ -159,20 +136,7 @@ li a:hover:not(.active) {
     margin-top: 50px;
     border: 2px solid white;
     padding: 10px;
-}
-
-.pseudo input {
-    width: 100%;
-    height: 100%;
-    background-color: transparent;
     border: none;
-    color: white;
-    font-family: "p5hatty";
-    font-size: 50px;
-    padding: 0;
-    margin: 0;
-    text-align: center;
-    outline: none;
 }
 
 .button-container {
@@ -183,7 +147,7 @@ li a:hover:not(.active) {
     padding-bottom: 20%;
 }
 
-.save, .logout {
+.save {
     width: 100px;
     height: 100px;
     background-size: cover;
@@ -194,39 +158,26 @@ li a:hover:not(.active) {
 }
 
 .save {
-    background-image: url("../asset/save_left.png");
-    margin-right: 30%;
+    background-image: url("../asset/tchat_right.png");
 }
 
-.logout {
-    background-image: url("../asset/deconnexion.png");
-    transform: scale(5);
+.category {
+    color: white;
+    font-family: p5hatty;
+    font-size: 30px;
 }
-
-.frame {
-    width: 90%;
-    margin: 0 auto;
+  
+.category select {
+    color: white;
+    font-family: p5hatty;
+    background-color: transparent;
+    cursor: pointer;
+    font-size: 50px;
     border: 2px solid white;
-    padding: 10px;
-  }
-  
-  table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  
-  td {
-    width: 25%;
-    padding: 10px;
-  }
-  
-  .category {
-    text-align: center;
-  }
-  
-  .category img {
-    max-width: 100%;
-    height: auto;
+    height: 75px;
+    width: 500px;
   }
 
+  
+  
   

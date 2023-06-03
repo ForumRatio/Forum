@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/createsub.css">
+    <title>Forum ● Page Crétaion sujets</title>
+</head>
+<body>
+    <header>
+        <ul>
+            <li><a class = "home" href="#home"><img src="../asset/heartless_emblem.webp"></a></li>
+            <li style="float:right"><a class = "map" href="#mappage"><img src="../asset/map.png"></a></li>
+            <li style="float:right"><a class = "active" href="#createsubjectpage"><img src="../asset/messages.png"></a></li>
+            <li style="float:right"><a class = "profil" href="#profil"><img src="../asset/contacts.png"></a></li>
+          </ul>
+    </header>
+    <head>
+        <div class="title">
+            <img src="../asset/messages.png" alt="Image">
+            <p>Posez votre question</p>
+        </div>          
+    </head>
+    <div class="info">
+      <div class="subject">
+        <p>Sujet</p>
+          <div class="contain">
+            <input type="text" placeholder="30 caracteres max...">
+          </div>
+      </div>
+      <div class="category">
+        <p>Categorie</p>
+        <div class="container">
+          <select id="category_select">
+            <option value="" selected disabled>Choisissez votre catégorie...</option>
+            <option value="category1">Anime</option>
+            <option value="category2">Jeu video</option>
+            <option value="category3">Autre</option>
+          </select>
+        </div>
+      </div>
+      <div class="question">
+        <p>Question</p>
+        <div class="contain">
+          <input type="text" placeholder="30 caracteres max...">
+        </div>
+      </div>
+      <div class="button-container">
+        <a href="#" class="save"></a>
+      </div>            
+    </div>                
+</body>
+<script src="../src/createsub.js"></script>
+</html>
