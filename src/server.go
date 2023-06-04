@@ -84,6 +84,28 @@ func DeletePost(w http.ResponseWriter, r *http.Request, pp *User) {
 		w.Write(b1)
 	}
 }
+func EditPost(w http.ResponseWriter, r *http.Request, pp *User) {
+	var user BoolLogin2
+	var b BoolLogin
+	checklog := false
+	db := InitDatabase("test")
+	body, _ := ioutil.ReadAll(r.Body)
+	json.Unmarshal(body, &user)
+	user2 := SelectPostrByUser(db, pp.Id)
+	for i := 0; i < len(user2); i++ {
+		if user.Check == user2[i].Content {
+			checklog = true
+			UpdatePost(db, user2[i].Id, user.NS)
+		}
+	}
+	if checklog == true {
+		http.Redirect(w, r, "/categorypage", http.StatusSeeOther)
+		fmt.Println(pp)
+		b.Check = "true"
+		b1, _ := json.Marshal(b)
+		w.Write(b1)
+	}
+}
 func SavedSub(w http.ResponseWriter, r *http.Request, pp *User) {
 	checke := false
 	var user CreateS
@@ -169,7 +191,7 @@ func Execute() {
 	// InsertIntoSubject(db, "lmlm", 2)
 	// InsertIntoSubject(db, "jkl", 3)
 	// InsertIntoSubject(db, "njk", 2)
-	// InsertIntoContent(db, "Tu sens mauvais", 0, 0, 0, 1, 1, 1)
+	// InsertIntoContent(db, "pas cool", 0, 0, 0, 1, 1, 1)
 	// fmt.Println(SelectAllFromSubject(db, 2))
 	fmt.Println("http://localhost:8080/")
 	dataU := User{0, "", "", "", "", 0}
@@ -203,6 +225,9 @@ func Execute() {
 	})
 	http.HandleFunc("/deletePost", func(rw http.ResponseWriter, r *http.Request) {
 		DeletePost(rw, r, PtsU)
+	})
+	http.HandleFunc("/editPost", func(rw http.ResponseWriter, r *http.Request) {
+		EditPost(rw, r, PtsU)
 	})
 	http.HandleFunc("/savedSub", func(rw http.ResponseWriter, r *http.Request) {
 		SavedSub(rw, r, PtsU)

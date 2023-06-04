@@ -259,4 +259,10 @@ li a:hover:not(.active) {
     max-width: 128px;
     max-height: 128px;
   }
-  
+  #vol{
+    /* display:flex; */
+    position: absolute;
+    right:0%;
+    max-width: 128px;
+    max-height: 128px;
+  }

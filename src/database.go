@@ -254,6 +254,16 @@ func UpdateUser(db *sql.DB, id int, name string, picture int) (int64, error) {
 	}
 	return result.LastInsertId()
 }
+func UpdatePost(db *sql.DB, id int, content string) (int64, error) {
+	montre := `UPDATE posts SET content = "` + content + `" WHERE id = ` + strconv.Itoa(id)
+	result, err := db.Exec(montre)
+	//err := result.Scan(&result2.Id, &result2.Content, &result2.Subject_id, &result2.User_id)
+	if err != nil {
+		log.Printf("%q: %s\n", err, montre)
+		return 0, nil
+	}
+	return result.LastInsertId()
+}
 func DeletePostFromId(db *sql.DB, id int) (int64, error) {
 	query1 := `DELETE FROM posts WHERE id = ` + strconv.Itoa(id)
 	result, err := db.Exec(query1)

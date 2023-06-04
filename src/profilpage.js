@@ -7,9 +7,14 @@ let Message2 = document.getElementsByClassName('message');
 let save = document.getElementsByClassName('save')
 let cat = document.getElementsByClassName('cat')
 let table = document.querySelector('tbody')
+let vol = document.getElementById('vol')
+let sunset = document.getElementById('sunset')
+let closet = document.getElementById('closet')
 let image = ["morganapdp.png","igypdp.png"]
+let playing = false;
 let delete1;
 let message1;
+let edit1;
 let imageChanged = 0;
 let c = 0;
 let d = 0;
@@ -60,7 +65,7 @@ let resp1 = fetch('/loadPostUser').then((res) => {
       </td>
       <td>
         <div class="category">
-          <img src="../asset/settings.png" alt="Category 3" a href="#">
+          <img src="../asset/settings.png" alt="Category 3" a href="#" class="edit">
         </div>
       </td>
       <td>
@@ -72,7 +77,9 @@ let resp1 = fetch('/loadPostUser').then((res) => {
     }
     delete1 = document.querySelectorAll('.delete')
     message1 = document.querySelectorAll('.message1')
+    edit1 = document.querySelectorAll('.edit')
     for (d = 0; d < message1.length; d++){
+      let e = d
       let message2 = message1[d]
       delete1[d].addEventListener('click', ()=>{
         console.log(message2)
@@ -84,11 +91,35 @@ let resp1 = fetch('/loadPostUser').then((res) => {
           }) 
       }).then((res) => {
         if (res.redirected){
-          location.reload(true);
+          // location.reload(true);
+          let cat2 = document.querySelectorAll('tr')
+          table.removeChild(cat2[e])
         }
       })
       })
-    }
+      edit1[d].addEventListener('click', ()=>{
+        let text;
+        let content = prompt("Please enter your new sentence:", "");
+        if (content == null || content == "") {
+          // text = "User cancelled the prompt.";
+        } else {
+          text = content;
+          fetch('/editPost',{
+            method: "POST",
+            headers: {"content-type":"application/json"},
+            body: JSON.stringify({
+                Check : message2.innerHTML,
+                NS : text
+            }) 
+        })
+        .then((res) => {
+          if (res.redirected){
+            message2.innerHTML = text
+          }
+        })
+      }
+    })
+  }
 }).catch(error => {
     console.error(error)
 });
@@ -104,5 +135,15 @@ triangle.addEventListener('click', () => {
 
 save[0].addEventListener('click', () => {
    Saved();
-   location.reload(true);
+  //  location.reload(true);
+});
+vol.addEventListener('click', () => {
+  // console.log(closet)
+  if (playing){
+    closet.pause()
+    playing = false;
+  } else {
+    closet.play()
+    playing = true;
+  }
 });

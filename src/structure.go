@@ -11,6 +11,10 @@ type User struct {
 type BoolLogin struct {
 	Check string
 }
+type BoolLogin2 struct {
+	Check string
+	NS    string
+}
 type ModifyProfil struct {
 	Pictures int
 	Name     string
