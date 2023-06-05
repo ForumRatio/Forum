@@ -185,14 +185,14 @@ func LoadUser(w http.ResponseWriter, r *http.Request, pp *User) {
 //
 
 func Execute() {
-	// db := InitDatabase("test")
+	db := InitDatabase("test")
 	// InsertIntoUsers(db, "moi", "lm", "lm", "lm", 0)
 	// InsertIntoSubject(db, "name", 1)
 	// InsertIntoSubject(db, "lmlm", 2)
 	// InsertIntoSubject(db, "jkl", 3)
 	// InsertIntoSubject(db, "njk", 2)
 	// InsertIntoContent(db, "pas cool", 0, 0, 0, 1, 1, 1)
-	// fmt.Println(SelectAllFromSubject(db, 2))
+	fmt.Println(SelectAllFromSubject(db, 2))
 	fmt.Println("http://localhost:8080/")
 	dataU := User{0, "", "", "", "", 0}
 	PtsU := &dataU

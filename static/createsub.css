@@ -150,6 +150,8 @@ li a:hover:not(.active) {
 .save {
     width: 100px;
     height: 100px;
+    /* max-width: 200px;
+    max-height: 200px; */
     background-size: cover;
     background-position: center;
     border: none;
@@ -158,7 +160,7 @@ li a:hover:not(.active) {
 }
 
 .save {
-    background-image: url("../asset/tchat_right.png");
+    background-image: url("../asset/tchat_right1.png");
 }
 
 .category {

@@ -49,6 +49,30 @@ func InitDatabase(dbname string) *sql.DB {
 			FOREIGN KEY (category_id) REFERENCES categories(id),
 			FOREIGN KEY (user_id) REFERENCES users(id)
 			);
+		CREATE TABLE IF NOT EXISTS like(
+			id INTEGER NOT NULL,
+			post_id INTEGER NOT NULL,
+			user_id INTEGER NOT NULL,
+			PRIMARY KEY ('id'),
+			FOREIGN KEY (post_id) REFERENCES posts(id),
+			FOREIGN KEY (user_id) REFERENCES users(id)
+			);
+		CREATE TABLE IF NOT EXISTS dislike(
+			id INTEGER NOT NULL,
+			post_id INTEGER NOT NULL,
+			user_id INTEGER NOT NULL,
+			PRIMARY KEY ('id'),
+			FOREIGN KEY (post_id) REFERENCES posts(id),
+			FOREIGN KEY (user_id) REFERENCES users(id)
+			);
+		CREATE TABLE IF NOT EXISTS fuck(
+			id INTEGER NOT NULL,
+			post_id INTEGER NOT NULL,
+			user_id INTEGER NOT NULL,
+			PRIMARY KEY ('id'),
+			FOREIGN KEY (post_id) REFERENCES posts(id),
+			FOREIGN KEY (user_id) REFERENCES users(id)
+			);
 			PRAGMA foreign_keys = ON;`
 	_, err = db.Exec(sqlStmt)
 	if err != nil {
@@ -236,6 +260,17 @@ func InsertIntoContent(db *sql.DB, content string, like, dislike, fuck, subject_
 func InsertIntoSubject(db *sql.DB, subject string, category_id int) (int64, error) {
 	query1 := `INSERT INTO subject ('subject','category_id')
 	Values("` + subject + `","` + strconv.Itoa(category_id) + `")
+	`
+	result, err := db.Exec(query1)
+	if err != nil {
+		log.Printf("%q: %s\n", err, query1)
+		return 0, nil
+	}
+	return result.LastInsertId()
+}
+func InsertIntoLike(db *sql.DB, table string, post_id, user_id int) (int64, error) {
+	query1 := `INSERT INTO ` + table + ` ('post_id','user_id')
+	Values("` + strconv.Itoa(post_id) + `","` + strconv.Itoa(user_id) + `")
 	`
 	result, err := db.Exec(query1)
 	if err != nil {

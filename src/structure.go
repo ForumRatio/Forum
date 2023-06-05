@@ -38,6 +38,11 @@ type Subject struct {
 	Subject     string
 	Category_id int
 }
+type Like struct {
+	Id      int
+	Post_id int
+	User_id int
+}
 
 type Posts struct {
 	Id          int
