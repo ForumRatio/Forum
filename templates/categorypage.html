@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../static/categorypage.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <title>Forum ● Page Catégories</title>
 </head>
 <body>
@@ -25,28 +26,28 @@
     </head>
     <div class="categories">
         <div class="subtitle">
-            <!-- <a href="#categoryanime"> -->
+            <a href="/subjects?id=1">
                 <img src="../asset/anime.png" alt="Image">
                 <p>Animes</p>
-            <!-- </a> -->
+            </a>
         </div>
         <div class="subtitle">
-            <!-- <a href="#categorygame"> -->
+            <a href="/subjects?id=2">
                 <img src="../asset/games.png" alt="Image">
                 <p>Jeux videos</p>
-            <!-- </a> -->
+            </a>
         </div>
         <div class="subtitle">
-            <!-- <a href="#categoryrandom"> -->
+            <a href="/subjects?id=3">
                 <img src="../asset/random.png" alt="Image">
                 <p>Autre</p>
-            <!-- </a> -->
+            </a>
         </div>
     </div>
+    <div id="vol"></div>
     <audio id="fishing" loop>
         <source src="../asset/Destruction.mp3" type="audio/mpeg">
     </audio>  
 </body>
 <script src="../src/categorypage.js"></script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </html>

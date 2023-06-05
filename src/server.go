@@ -6,11 +6,20 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"strconv"
 	"text/template"
 )
 
 func LogPage(w http.ResponseWriter, r *http.Request) {
 	template, err := template.ParseFiles("templates/logpage.html")
+	if err != nil {
+		log.Fatal(err)
+	}
+	template.Execute(w, r)
+}
+func SubjectPage(w http.ResponseWriter, r *http.Request) {
+	// fmt.Println(r.FormValue("id"))
+	template, err := template.ParseFiles("templates/subjectpage.html")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -191,12 +200,20 @@ func CreateUser(w http.ResponseWriter, r *http.Request, pp *User) {
 	user := SelectAllFromUsers(db, "users")
 	fmt.Println(use)
 	for i := 0; i < len(user); i++ {
-		if use.Email == user[i].Email {
+		if use.Email == user[i].Email && use.Name == user[i].Name {
 			check = true
 		}
 	}
 	if check == false {
 		InsertIntoUsers(db, use.Name, use.Cellphone, use.Email, use.Password, 0)
+		user = SelectAllFromUsers(db, "users")
+		user3 := SelectUserById(db, len(user))
+		pp.Id = user3.Id
+		pp.Cellphone = user3.Cellphone
+		pp.Name = user3.Name
+		pp.Email = user3.Email
+		pp.Password = user3.Password
+		pp.Picture = user3.Picture
 		http.Redirect(w, r, "/categorypage", http.StatusSeeOther)
 		b.Check = "true"
 		b1, _ := json.Marshal(b)
@@ -209,18 +226,27 @@ func LoadUser(w http.ResponseWriter, r *http.Request, pp *User) {
 	userf, _ := json.Marshal(user)
 	w.Write(userf)
 }
+func LoadSubjects(w http.ResponseWriter, r *http.Request) {
+	db := InitDatabase("test")
+	cat, _ := strconv.Atoi(r.FormValue("id"))
+	// fmt.Println(r.URL.Path)
+	user := SelectAllFromSubject(db, cat)
+	userf, _ := json.Marshal(user)
+	w.Write(userf)
+}
 
 //
 
 func Execute() {
-	db := InitDatabase("test")
+	// db := InitDatabase("test")
 	// InsertIntoUsers(db, "moi", "lm", "lm", "lm", 0)
 	// InsertIntoSubject(db, "name", 1)
 	// InsertIntoSubject(db, "lmlm", 2)
 	// InsertIntoSubject(db, "jkl", 3)
 	// InsertIntoSubject(db, "njk", 2)
 	// InsertIntoContent(db, "pas cool", 0, 0, 0, 1, 1, 1)
-	fmt.Println(SelectAllFromSubject(db, 2))
+	// fmt.Println(SelectAllFromSubject(db, 2))
+
 	fmt.Println("http://localhost:8080/")
 	dataU := User{0, "", "", "", "", 0}
 	PtsU := &dataU
@@ -244,6 +270,12 @@ func Execute() {
 	})
 	http.HandleFunc("/categorypage", func(rw http.ResponseWriter, r *http.Request) {
 		Categories(rw, r)
+	})
+	http.HandleFunc("/subjects", func(rw http.ResponseWriter, r *http.Request) {
+		SubjectPage(rw, r)
+	})
+	http.HandleFunc("/loadSubjects", func(rw http.ResponseWriter, r *http.Request) {
+		LoadSubjects(rw, r)
 	})
 	http.HandleFunc("/loadUser", func(rw http.ResponseWriter, r *http.Request) {
 		LoadUser(rw, r, PtsU)
