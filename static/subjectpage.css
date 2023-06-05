@@ -94,8 +94,8 @@ li a:hover:not(.active) {
     margin: 0;
     padding: 0;
     background-image: url("../asset/background3.jpg");
+    background-repeat: repeat;
     background-size: contain;
-    background-repeat: no-repeat;
     background-position: center;
     width: 100%;
     min-height: 75vh;
@@ -108,16 +108,19 @@ li a:hover:not(.active) {
     font-family: Arial, sans-serif;
 }
 
+.categories .subtitle,
+.categories .tobecontinued {
+    background: transparent;
+}
 
-
-.subtitle p{
-    color:white;
+.categories .subtitle p {
+    color: white;
     font-family: "p5hatty";
     font-size: 100px;
     background: transparent;
 }
 
-.subtitle a {
+.categories .subtitle a {
     text-decoration: none;
     color: inherit;
     background: transparent;
@@ -126,3 +129,36 @@ li a:hover:not(.active) {
     display: flex;
 }
 
+.tobecontinued {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .tobecontinued img.normal {
+    order: 2;
+    margin-right: 15px;
+  }
+  
+  .tobecontinued img.flipped {
+    order: 1;
+    margin: 5px;
+    padding-bottom: 5%;
+  }
+
+.normal {
+    width: 30%;
+    height: auto;
+    background-color: transparent;
+    margin-left: auto;
+}
+
+.flipped{
+    width: 35%;
+    height: auto;
+    background-color: transparent;
+    margin-left: auto;
+
+}
