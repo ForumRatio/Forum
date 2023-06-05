@@ -161,7 +161,6 @@ func CheckUser(w http.ResponseWriter, r *http.Request, pp *User) {
 	}
 	if checklog == true {
 		http.Redirect(w, r, "/categorypage", http.StatusSeeOther)
-		fmt.Println(pp)
 		b.Check = "true"
 		b1, _ := json.Marshal(b)
 		w.Write(b1)
@@ -181,6 +180,28 @@ func LoadPostProfile(w http.ResponseWriter, r *http.Request, pp *User) {
 	user := SelectPostrByUser(db, pp.Id)
 	userf, _ := json.Marshal(user)
 	w.Write(userf)
+}
+func CreateUser(w http.ResponseWriter, r *http.Request, pp *User) {
+	db := InitDatabase("test")
+	var b BoolLogin
+	check := false
+	var use User2
+	body, _ := ioutil.ReadAll(r.Body)
+	json.Unmarshal(body, &use)
+	user := SelectAllFromUsers(db, "users")
+	fmt.Println(use)
+	for i := 0; i < len(user); i++ {
+		if use.Email == user[i].Email {
+			check = true
+		}
+	}
+	if check == false {
+		InsertIntoUsers(db, use.Name, use.Cellphone, use.Email, use.Password, 0)
+		http.Redirect(w, r, "/categorypage", http.StatusSeeOther)
+		b.Check = "true"
+		b1, _ := json.Marshal(b)
+		w.Write(b1)
+	}
 }
 func LoadUser(w http.ResponseWriter, r *http.Request, pp *User) {
 	db := InitDatabase("test")
@@ -226,6 +247,9 @@ func Execute() {
 	})
 	http.HandleFunc("/loadUser", func(rw http.ResponseWriter, r *http.Request) {
 		LoadUser(rw, r, PtsU)
+	})
+	http.HandleFunc("/createUser", func(rw http.ResponseWriter, r *http.Request) {
+		CreateUser(rw, r, PtsU)
 	})
 	http.HandleFunc("/loadPostUser", func(rw http.ResponseWriter, r *http.Request) {
 		LoadPostProfile(rw, r, PtsU)

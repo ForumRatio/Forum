@@ -8,6 +8,12 @@ type User struct {
 	Password  string
 	Picture   int
 }
+type User2 struct {
+	Name      string
+	Cellphone string
+	Email     string
+	Password  string
+}
 type BoolLogin struct {
 	Check string
 }
