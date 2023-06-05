@@ -5,11 +5,29 @@
 }
 body{
     background-image: url(/asset/background2.png);
-    background-size:100% 500%;
+    background-size:100%;
     overflow-y:scroll;
 }
-::-webkit-scrollbar-thumb {
-    background-image: url('/asset/scroll.png'); 
+/* width */
+::-webkit-scrollbar {
+    width: 15px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey; 
+    border-radius: 10px;
+  }
+   
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: red; 
+    border-radius: 10px;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #b30000; 
   }
 
 @font-face {
@@ -90,6 +108,9 @@ li a:hover{
 }
 .sujet{
     position: absolute;
+    background-color: transparent;
+    border: none;
+    outline: none;
     font-family: "p5hatty";
     color: #ffffff;
     left: 35%;
@@ -107,3 +128,42 @@ li a:hover{
 
 }
 
+.pdp{
+    position: absolute;
+    height: 50%;
+    top: 70%;
+    left: -2%;
+
+}
+.bulletext{
+    position: absolute;
+    top: 77%;
+    left: 25%;
+    height: 20%;
+    width: 30%;
+
+}
+.pouceblo{
+    position: absolute;
+    height: 5%;
+    top: 90%;
+    left: 38%;
+    color: #ffffff;
+
+}
+.poucerouge{
+    position: absolute;
+    height: 5%;
+    top: 90%;
+    left: 43%;
+    color: #ffffff;
+
+}
+.fuck{
+    position: absolute;
+    height: 5%;
+    top: 90%;
+    left: 48%;
+    color: #ffffff;
+
+}
