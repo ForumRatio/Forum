@@ -2,6 +2,7 @@ body {
     margin: 0;
     padding: 0;
     overflow: hidden;
+    background: black;
 }
 
 @font-face {
@@ -10,8 +11,8 @@ body {
 }
   
 .background-image {
-    background-image: url('/asset/connexion_page.png');
-    background-size: 105% auto;
+    background-image: url('../asset/inscription_page.png');
+    background-size: 80% auto;
     background-position: center;
     position: fixed;
     top: 0;
@@ -19,6 +20,7 @@ body {
     width: 100%;
     height: 100%;
     z-index: -1;
+    background-repeat: no-repeat;
 }
 
 * {
@@ -34,9 +36,9 @@ body {
     border: 6px solid white;
     padding-left: 10px;
     padding-right: 40px;
-    margin-top: 30px;
-    width: 130px; 
-    height: 75px;
+    margin-top: 10px;
+    width: 150px; 
+    height: 50px;
     background: black;
     font-family: "p5hatty";
     font-size: 20px;
@@ -47,7 +49,19 @@ body {
 }
 
 .mdp{
+    transform: skew(-20deg);
+}
+
+.tel{
     transform: skew(20deg);
+}
+
+.cmdp{
+    transform: skew(20deg);
+}
+
+.email{
+    transform: skew(-20deg);
 }
 
 
@@ -66,7 +80,7 @@ body {
 .forms {
     display: flex;
     flex-direction: column;
-    margin-top: -35rem;
+    margin-top: -37rem;
     margin-left: auto;
     text-align: right;
     align-items: center; /* Centrer verticalement les éléments */
@@ -88,6 +102,3 @@ body {
     width: auto;
     margin-top: -6rem;
 }
-
-
-
