@@ -9,6 +9,11 @@ body {
     font-family: "p5hatty";
     src: url("../asset/font/p5hatty.ttf") format("truetype");
 }
+
+@font-face {
+    font-family: "earwing factory rg";
+    src: url("../asset/font/earwig\ factory\ rg.otf") format("opentype");
+}
   
 .background-image {
     background-image: url('../asset/inscription_page.png');
@@ -102,3 +107,4 @@ body {
     width: auto;
     margin-top: -6rem;
 }
+

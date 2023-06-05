@@ -37,6 +37,13 @@ func Login(w http.ResponseWriter, r *http.Request) {
 	}
 	template.Execute(w, r)
 }
+func Register(w http.ResponseWriter, r *http.Request) {
+	template, err := template.ParseFiles("templates/inscription.html")
+	if err != nil {
+		log.Fatal(err)
+	}
+	template.Execute(w, r)
+}
 func Categories(w http.ResponseWriter, r *http.Request) {
 	template, err := template.ParseFiles("templates/categorypage.html")
 	if err != nil {
@@ -210,6 +217,9 @@ func Execute() {
 	})
 	http.HandleFunc("/login", func(rw http.ResponseWriter, r *http.Request) {
 		Login(rw, r)
+	})
+	http.HandleFunc("/register", func(rw http.ResponseWriter, r *http.Request) {
+		Register(rw, r)
 	})
 	http.HandleFunc("/categorypage", func(rw http.ResponseWriter, r *http.Request) {
 		Categories(rw, r)
