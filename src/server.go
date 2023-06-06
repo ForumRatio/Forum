@@ -131,7 +131,7 @@ func SavedSub(w http.ResponseWriter, r *http.Request, pp *User) {
 		if pp.Id > 0 {
 			InsertIntoSubject(db, user.Subject, user.Category_id)
 			table2 := SelectAllFromSubject(db, user.Category_id)
-			InsertIntoContent(db, user.Question, 0, 0, 0, table2[len(table2)-1].Id, user.Category_id, pp.Id)
+			InsertIntoContent(db, user.Question, table2[len(table2)-1].Id, user.Category_id, pp.Id)
 			http.Redirect(w, r, "/categorypage", http.StatusSeeOther)
 			b.Check = "true"
 			b1, _ := json.Marshal(b)
