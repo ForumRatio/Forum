@@ -21,7 +21,7 @@ body{
    
   /* Handle */
   ::-webkit-scrollbar-thumb {
-    background: red; 
+    background: rgb(255, 0, 0); 
     border-radius: 10px;
   }
   
@@ -104,7 +104,7 @@ li a:hover{
     top: 22%;
     left: 25.5%;
     height: 30%;
-    width:50%
+    width:50%;
 }
 .sujet{
     position: absolute;
@@ -113,6 +113,7 @@ li a:hover{
     outline: none;
     font-family: "p5hatty";
     color: #ffffff;
+    width: 32%;
     left: 35%;
     top: 36%;
     font-size: 300%;
@@ -141,7 +142,6 @@ li a:hover{
     left: 25%;
     height: 20%;
     width: 30%;
-
 }
 .pouceblo{
     position: absolute;
@@ -166,4 +166,24 @@ li a:hover{
     left: 48%;
     color: #ffffff;
 
+}
+.bulleecrit{
+    position: fixed;
+    top: 73%;
+    left: 27%;
+    height: 24%;
+    width: 45%;
+}
+.comecrit{
+    position: fixed;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    font-family: "p5hatty";
+    color: #ffffff;
+    width: 24%;
+    left: 38.1%;
+    top: 85.5%;
+    font-size: 155%;
+    letter-spacing: .03rem;
 }

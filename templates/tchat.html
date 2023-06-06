@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,27 +10,32 @@
 </head>
 <header>
     <ul>
-        <li><a class = "home" href="#home"><img src="../asset/heartless_emblem.webp"></a></li>
+        <li><a class="home" href="#home"><img src="../asset/heartless_emblem.webp"></a></li>
         <li style="float:right"><a href="#mappage"><img src="../asset/map.png"></a></li>
-        <li style="float:right"><a class = "sub" href="#createsubjectpage"><img src="../asset/messages.png"></a></li>
-        <li style="float:right"><a class = "profil" href="#profilpage"><img src="../asset/contacts.png"></a></li>
-      </ul>
+        <li style="float:right"><a class="sub" href="#createsubjectpage"><img src="../asset/messages.png"></a></li>
+        <li style="float:right"><a class="profil" href="#profilpage"><img src="../asset/contacts.png"></a></li>
+    </ul>
 </header>
-<head> 
-    <img class="games" src="/asset/games.png">   
+
+<head>
+    <img class="games" src="/asset/games.png">
     <img class="bullesujet" src="/asset/bullesujet.png">
     <input class="sujet" type="text" placeholder="Sujet">
+    <script src="../src/tchat.js"></script>
 </head>
-<body>
+
+<body> 
     <img class="bullequestion" src="/asset/bulle.png">
-    <img class="pdp" src="/asset/igypdp.png" >
+    <img class="pdp" src="/asset/igypdp.png">
     <img class="bulletext" src="/asset/bulles.png">
     <span id="poucebloClics" class="pouceblo" style="left: 74vh;font-size: 200%;">0</span>
-    <input type="image" id="poucehaut"class="pouceblo" src="/asset/cool.png"></input>
-    <span id="poucerougeClics" class="poucerouge"  style="left: 85vh;font-size: 200%;">0</span>
-    <input type="image" id="poucebas"class="poucerouge" src="/asset/ugh.png"></input>
-    <span id="fuckClics" class="fuck"  style="left: 95vh;font-size: 200%;">0</span>
-    <input type="image" id="fucker" class="fuck" src="/asset/duh.png"></input>
-    <img class="bulleecrit" src="/asset/bulles.png">
+    <input type="image" id="poucehaut" class="pouceblo" src="/asset/cool.png" onclick="toggleLike()"></input>
+    <span id="poucerougeClics" class="poucerouge" style="left: 85vh;font-size: 200%;">0</span>
+    <input type="image" id="poucebas" class="poucerouge" src="/asset/ugh.png" onclick="toggleDislike()"></input>
+    <span id="fuckClics" class="fuck" style="left: 95vh;font-size: 200%;">0</span>
+    <input type="image" id="fucker" class="fuck" src="/asset/duh.png" onclick="toggleFuck()"></input>
+    <img class="bulleecrit" src="/asset/bulle.png">
+    <input class="comecrit" type="text" placeholder="Ajouter un commentaire">
 </body>
+
 </html>
