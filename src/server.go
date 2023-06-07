@@ -8,10 +8,25 @@ import (
 	"net/http"
 	"strconv"
 	"text/template"
+
+	"github.com/gorilla/sessions"
+)
+
+var (
+	// key must be 16, 24 or 32 bytes long (AES-128, AES-192 or AES-256)
+	key   = []byte("User")
+	store = sessions.NewCookieStore(key)
 )
 
 func LogPage(w http.ResponseWriter, r *http.Request) {
 	template, err := template.ParseFiles("templates/logpage.html")
+	if err != nil {
+		log.Fatal(err)
+	}
+	template.Execute(w, r)
+}
+func ChatPage(w http.ResponseWriter, r *http.Request) {
+	template, err := template.ParseFiles("templates/tchat.html")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -140,7 +155,7 @@ func SavedSub(w http.ResponseWriter, r *http.Request, pp *User) {
 		if pp.Id > 0 {
 			InsertIntoSubject(db, user.Subject, user.Category_id)
 			table2 := SelectAllFromSubject(db, user.Category_id)
-			InsertIntoContent(db, user.Question, 0, 0, 0, table2[len(table2)-1].Id, user.Category_id, pp.Id)
+			InsertIntoContent(db, user.Question, table2[len(table2)-1].Id, user.Category_id, pp.Id)
 			http.Redirect(w, r, "/categorypage", http.StatusSeeOther)
 			b.Check = "true"
 			b1, _ := json.Marshal(b)
@@ -149,6 +164,7 @@ func SavedSub(w http.ResponseWriter, r *http.Request, pp *User) {
 	}
 }
 func CheckUser(w http.ResponseWriter, r *http.Request, pp *User) {
+	session, _ := store.Get(r, "user")
 	checklog := false
 	var b BoolLogin
 	var user Checkuser
@@ -157,18 +173,23 @@ func CheckUser(w http.ResponseWriter, r *http.Request, pp *User) {
 	body, _ := ioutil.ReadAll(r.Body)
 	json.Unmarshal(body, &user)
 	for i := 0; i < len(user2); i++ {
-		if user.Username == user2[i].Name && user.Password == user2[i].Password {
-			checklog = true
-			user3 := SelectUserById(db, user2[i].Id)
-			pp.Id = user3.Id
-			pp.Cellphone = user3.Cellphone
-			pp.Name = user3.Name
-			pp.Email = user3.Email
-			pp.Password = user3.Password
-			pp.Picture = user3.Picture
+		if user.Username == user2[i].Name {
+			if CheckPasswordHash(user.Password, user2[i].Password) == true {
+				checklog = true
+				user3 := SelectUserById(db, user2[i].Id)
+				pp.Id = user3.Id
+				pp.Cellphone = user3.Cellphone
+				pp.Name = user3.Name
+				pp.Email = user3.Email
+				pp.Password = user3.Password
+				pp.Picture = user3.Picture
+			}
 		}
 	}
 	if checklog == true {
+		b2, _ := json.Marshal(pp)
+		session.Values["auth"] = string(b2)
+		session.Save(r, w)
 		http.Redirect(w, r, "/categorypage", http.StatusSeeOther)
 		b.Check = "true"
 		b1, _ := json.Marshal(b)
@@ -176,6 +197,9 @@ func CheckUser(w http.ResponseWriter, r *http.Request, pp *User) {
 	}
 }
 func Disconnect(w http.ResponseWriter, r *http.Request, pp *User) {
+	session, _ := store.Get(r, "user")
+	session.Values["auth"] = nil
+	session.Save(r, w)
 	pp.Id = 0
 	pp.Cellphone = ""
 	pp.Name = ""
@@ -190,9 +214,27 @@ func LoadPostProfile(w http.ResponseWriter, r *http.Request, pp *User) {
 	userf, _ := json.Marshal(user)
 	w.Write(userf)
 }
+func CheckCooks(w http.ResponseWriter, r *http.Request, pp *User) {
+	session, _ := store.Get(r, "user")
+	auth := session.Values["auth"]
+	var user User
+	if auth == nil || auth == "" {
+		http.Redirect(w, r, "/login", http.StatusSeeOther)
+	} else {
+		json.Unmarshal([]byte(auth.(string)), &user)
+		pp.Id = user.Id
+		pp.Cellphone = user.Cellphone
+		pp.Name = user.Name
+		pp.Email = user.Email
+		pp.Password = user.Password
+		pp.Picture = user.Picture
+		http.Redirect(w, r, "/categorypage", http.StatusSeeOther)
+	}
+}
 func CreateUser(w http.ResponseWriter, r *http.Request, pp *User) {
 	db := InitDatabase("test")
 	var b BoolLogin
+	session, _ := store.Get(r, "user")
 	check := false
 	var use User2
 	body, _ := ioutil.ReadAll(r.Body)
@@ -205,7 +247,8 @@ func CreateUser(w http.ResponseWriter, r *http.Request, pp *User) {
 		}
 	}
 	if check == false {
-		InsertIntoUsers(db, use.Name, use.Cellphone, use.Email, use.Password, 0)
+		password, _ := HashPassword(use.Password)
+		InsertIntoUsers(db, use.Name, use.Cellphone, use.Email, password, 0)
 		user = SelectAllFromUsers(db, "users")
 		user3 := SelectUserById(db, len(user))
 		pp.Id = user3.Id
@@ -214,6 +257,9 @@ func CreateUser(w http.ResponseWriter, r *http.Request, pp *User) {
 		pp.Email = user3.Email
 		pp.Password = user3.Password
 		pp.Picture = user3.Picture
+		b2, _ := json.Marshal(pp)
+		session.Values["auth"] = string(b2)
+		session.Save(r, w)
 		http.Redirect(w, r, "/categorypage", http.StatusSeeOther)
 		b.Check = "true"
 		b1, _ := json.Marshal(b)
@@ -229,7 +275,6 @@ func LoadUser(w http.ResponseWriter, r *http.Request, pp *User) {
 func LoadSubjects(w http.ResponseWriter, r *http.Request) {
 	db := InitDatabase("test")
 	cat, _ := strconv.Atoi(r.FormValue("id"))
-	// fmt.Println(r.URL.Path)
 	user := SelectAllFromSubject(db, cat)
 	userf, _ := json.Marshal(user)
 	w.Write(userf)
@@ -244,7 +289,7 @@ func Execute() {
 	// InsertIntoSubject(db, "lmlm", 2)
 	// InsertIntoSubject(db, "jkl", 3)
 	// InsertIntoSubject(db, "njk", 2)
-	// InsertIntoContent(db, "pas cool", 0, 0, 0, 1, 1, 1)
+	// InsertIntoContent(db, "pas cool", 1, 1, 1)
 	// fmt.Println(SelectAllFromSubject(db, 2))
 
 	fmt.Println("http://localhost:8080/")
@@ -264,6 +309,9 @@ func Execute() {
 	})
 	http.HandleFunc("/login", func(rw http.ResponseWriter, r *http.Request) {
 		Login(rw, r)
+	})
+	http.HandleFunc("/tchat", func(rw http.ResponseWriter, r *http.Request) {
+		ChatPage(rw, r)
 	})
 	http.HandleFunc("/register", func(rw http.ResponseWriter, r *http.Request) {
 		Register(rw, r)
@@ -285,6 +333,9 @@ func Execute() {
 	})
 	http.HandleFunc("/loadPostUser", func(rw http.ResponseWriter, r *http.Request) {
 		LoadPostProfile(rw, r, PtsU)
+	})
+	http.HandleFunc("/Cooks", func(rw http.ResponseWriter, r *http.Request) {
+		CheckCooks(rw, r, PtsU)
 	})
 	http.HandleFunc("/savedProfil", func(rw http.ResponseWriter, r *http.Request) {
 		SavedProfil(rw, r, PtsU)

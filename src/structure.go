@@ -53,9 +53,6 @@ type Like struct {
 type Posts struct {
 	Id          int
 	Content     string
-	Like        int
-	Dislike     int
-	Fuck        int
 	Subject_id  int
 	Category_id int
 	User_id     int

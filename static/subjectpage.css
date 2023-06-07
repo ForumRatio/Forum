@@ -94,8 +94,8 @@ li a:hover:not(.active) {
     margin: 0;
     padding: 0;
     background-image: url("../asset/background3.jpg");
-    background-repeat: repeat;
-    background-size: contain;
+    /* background-repeat: repeat; */
+    /* background-size: contain; */
     background-position: center;
     width: 100%;
     min-height: 75vh;
@@ -115,11 +115,12 @@ li a:hover:not(.active) {
 
 .categories .subtitle p {
     color: white;
-    position: relative;
+    /* position: relative; */
     /* right: 50%; */
-    top: 52%;
+    /* top: 52%; */
     font-family: "p5hatty";
-    font-size: 30px;
+    font-size: 50px;
+    text-align: center;
     background: transparent;
 }
 
@@ -166,6 +167,17 @@ li a:hover:not(.active) {
 
 }
 .subtitle{
-    /* z-index: 3; */
-    background-image: url('../asset/bullesujet.png');
+    z-index: 3;
+    min-width: 800px;
+    min-height: 225px;
+    text-align: center;
+    background-image: url('../asset/bullesujet2.png');
+    background-repeat: no-repeat;
 }
+#vol{
+    /* display:flex; */
+    position: absolute;
+    right:0%;
+    max-width: 128px;
+    max-height: 128px;
+  }

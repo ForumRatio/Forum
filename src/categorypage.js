@@ -31,18 +31,6 @@ $(document).ready(function() {
       }
     }
   
-    // cat.eq(0).click(function() {
-    //   Sub(1);
-    // });
-  
-    // cat.eq(1).click(function() {
-    //   Sub(2);
-    // });
-  
-    // cat.eq(2).click(function() {
-    //   Sub(3);
-    // });
-  
     vol.click(function() {
       if (playing) {
         closet[0].pause();

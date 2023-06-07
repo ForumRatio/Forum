@@ -1,0 +1,189 @@
+/*all*/
+*{
+    margin: 0;
+    padding: 0;
+}
+body{
+    background-image: url(/asset/background2.png);
+    background-size:100%;
+    overflow-y:scroll;
+}
+/* width */
+::-webkit-scrollbar {
+    width: 15px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey; 
+    border-radius: 10px;
+  }
+   
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: rgb(255, 0, 0); 
+    border-radius: 10px;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #b30000; 
+  }
+
+@font-face {
+    font-family: "earwing factory rg";
+    src: url("../asset/font/earwig\ factory\ rg.otf") format("opentype");
+}
+
+@font-face {
+    font-family: "p5hatty";
+    src: url("../asset/font/p5hatty.ttf") format("truetype");
+}
+
+
+/*header*/
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: transparent;
+    border-bottom:2px solid white;
+}
+
+li {
+    float: left;
+}
+
+li a {
+    display: block;
+    color: white;
+    text-align: left;
+    margin-left: 14px;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+li a:hover{
+    background-color: #111;
+}
+
+.active {
+    background-color: transparent;
+}
+
+.home img {
+    width : 7.5%;
+    height : auto;
+}
+
+.map img {
+    width: 75%;
+    height: auto;
+}
+
+.active img {
+    width: 80%;
+    height: auto;
+}
+
+.sub img {
+    width: 80%;
+    height: auto;
+}
+
+.games{
+    position: absolute;
+    top: 25%;
+    left: 12%;
+    height: 30%;
+    width: 15%;
+}
+.bullesujet{
+    position: absolute;
+    top: 22%;
+    left: 25.5%;
+    height: 30%;
+    width:50%;
+}
+.sujet{
+    position: absolute;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    font-family: "p5hatty";
+    color: #ffffff;
+    width: 32%;
+    left: 35%;
+    top: 36%;
+    font-size: 300%;
+    letter-spacing: .3rem;
+}
+.bullequestion{
+    position: absolute;
+    top: 52%;
+    left: 45%;
+    transform: rotateY(180deg);
+    height: 23%;
+    width: 35%;
+
+}
+
+.pdp{
+    position: absolute;
+    height: 50%;
+    top: 70%;
+    left: -2%;
+
+}
+.bulletext{
+    position: absolute;
+    top: 77%;
+    left: 25%;
+    height: 20%;
+    width: 30%;
+}
+.pouceblo{
+    position: absolute;
+    height: 5%;
+    top: 90%;
+    left: 38%;
+    color: #ffffff;
+
+}
+.poucerouge{
+    position: absolute;
+    height: 5%;
+    top: 90%;
+    left: 43%;
+    color: #ffffff;
+
+}
+.fuck{
+    position: absolute;
+    height: 5%;
+    top: 90%;
+    left: 48%;
+    color: #ffffff;
+
+}
+.bulleecrit{
+    position: fixed;
+    top: 73%;
+    left: 27%;
+    height: 24%;
+    width: 45%;
+}
+.comecrit{
+    position: fixed;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    font-family: "p5hatty";
+    color: #ffffff;
+    width: 24%;
+    left: 38.1%;
+    top: 85.5%;
+    font-size: 155%;
+    letter-spacing: .03rem;
+}

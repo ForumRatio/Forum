@@ -1,6 +1,6 @@
 let elt = document.querySelectorAll('input');
 elt[0].maxLength = 30;
-elt[1].maxLength = 30;
+elt[1].maxLength = 50;
 let button = document.querySelector('.save')
 let select = document.getElementById("category_select")
     select.addEventListener('change',function () {
