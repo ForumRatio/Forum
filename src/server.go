@@ -26,6 +26,11 @@ func LogPage(w http.ResponseWriter, r *http.Request) {
 	template.Execute(w, r)
 }
 func ChatPage(w http.ResponseWriter, r *http.Request) {
+	session, _ := store.Get(r, "user")
+	auth := session.Values["auth"]
+	if auth == nil || auth == "" {
+		http.Redirect(w, r, "/login", http.StatusSeeOther)
+	}
 	template, err := template.ParseFiles("templates/tchat.html")
 	if err != nil {
 		log.Fatal(err)
@@ -34,6 +39,11 @@ func ChatPage(w http.ResponseWriter, r *http.Request) {
 }
 func SubjectPage(w http.ResponseWriter, r *http.Request) {
 	// fmt.Println(r.FormValue("id"))
+	session, _ := store.Get(r, "user")
+	auth := session.Values["auth"]
+	if auth == nil || auth == "" {
+		http.Redirect(w, r, "/login", http.StatusSeeOther)
+	}
 	template, err := template.ParseFiles("templates/subjectpage.html")
 	if err != nil {
 		log.Fatal(err)
@@ -41,6 +51,11 @@ func SubjectPage(w http.ResponseWriter, r *http.Request) {
 	template.Execute(w, r)
 }
 func CreateSub(w http.ResponseWriter, r *http.Request) {
+	session, _ := store.Get(r, "user")
+	auth := session.Values["auth"]
+	if auth == nil || auth == "" {
+		http.Redirect(w, r, "/login", http.StatusSeeOther)
+	}
 	template, err := template.ParseFiles("templates/createsub.html")
 	if err != nil {
 		log.Fatal(err)
@@ -69,6 +84,12 @@ func Register(w http.ResponseWriter, r *http.Request) {
 	template.Execute(w, r)
 }
 func Categories(w http.ResponseWriter, r *http.Request) {
+	// session, _ := store.Get(r, "user")
+	// auth := session.Values["auth"]
+	// if auth == nil || auth == "" {
+	// 	fmt.Println(auth)
+	// 	http.Redirect(w, r, "/login", http.StatusSeeOther)
+	// }
 	template, err := template.ParseFiles("templates/categorypage.html")
 	if err != nil {
 		log.Fatal(err)
@@ -76,6 +97,11 @@ func Categories(w http.ResponseWriter, r *http.Request) {
 	template.Execute(w, r)
 }
 func Profil(w http.ResponseWriter, r *http.Request) {
+	session, _ := store.Get(r, "user")
+	auth := session.Values["auth"]
+	if auth == nil || auth == "" {
+		http.Redirect(w, r, "/login", http.StatusSeeOther)
+	}
 	template, err := template.ParseFiles("templates/profilpage.html")
 	if err != nil {
 		log.Fatal(err)
@@ -190,11 +216,18 @@ func CheckUser(w http.ResponseWriter, r *http.Request, pp *User) {
 		b2, _ := json.Marshal(pp)
 		session.Values["auth"] = string(b2)
 		session.Save(r, w)
-		http.Redirect(w, r, "/categorypage", http.StatusSeeOther)
 		b.Check = "true"
 		b1, _ := json.Marshal(b)
+		http.Redirect(w, r, "/categorypage", http.StatusSeeOther)
 		w.Write(b1)
 	}
+}
+func CheckUser2(w http.ResponseWriter, r *http.Request, pp *User) {
+	session, _ := store.Get(r, "user")
+	b2, _ := json.Marshal(pp)
+	session.Values["auth"] = string(b2)
+	session.Save(r, w)
+	http.Redirect(w, r, "/categorypage", http.StatusSeeOther)
 }
 func Disconnect(w http.ResponseWriter, r *http.Request, pp *User) {
 	session, _ := store.Get(r, "user")
@@ -231,6 +264,7 @@ func CheckCooks(w http.ResponseWriter, r *http.Request, pp *User) {
 		http.Redirect(w, r, "/categorypage", http.StatusSeeOther)
 	}
 }
+
 func CreateUser(w http.ResponseWriter, r *http.Request, pp *User) {
 	db := InitDatabase("test")
 	var b BoolLogin

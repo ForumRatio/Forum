@@ -99,7 +99,7 @@ let resp1 = fetch('/loadPostUser').then((res) => {
       })
       edit1[d].addEventListener('click', ()=>{
         let text;
-        let content = prompt("Please enter your new sentence:", "");
+        let content = prompt("Please enter your new sentence:", message2.innerHTML);
         if (content == null || content == "") {
           // text = "User cancelled the prompt.";
         } else {
