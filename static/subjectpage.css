@@ -115,12 +115,10 @@ li a:hover:not(.active) {
 
 .categories .subtitle p {
     color: white;
-    /* position: relative; */
-    /* right: 50%; */
-    /* top: 52%; */
+    position:absolute;
+    left: 33%;
     font-family: "p5hatty";
     font-size: 50px;
-    text-align: center;
     background: transparent;
 }
 
@@ -129,7 +127,7 @@ li a:hover:not(.active) {
     color: inherit;
     background: transparent;
     margin-bottom: 5%;
-    margin-top: 5%;
+    margin-top: 3%;
     display: flex;
 }
 
