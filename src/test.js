@@ -1,16 +1,16 @@
-// Variables pour garder une trace de l'état du bouton
-var isLiked = false;
-var likeCount = 0;
+// variables pour garder une trace de l'état du bouton
+let isLiked = false;
+let likeCount = 0;
 
 // Fonction pour activer/désactiver le "J'aime"
 function toggleLike() {
   // Récupérer l'élément du compteur de likes
-  var likeCountElement = document.getElementById('poucebloClics');
+  let likeCountElement = document.getElementById('poucebloClics');
 
   // Mettre à jour l'état du bouton et le compteur de likes
   if (isLiked) {
     likeCount--;
-  } else {
+  } else { 
     likeCount++;
   }
   
@@ -21,14 +21,14 @@ function toggleLike() {
   isLiked = !isLiked;
 }
 
-// Variables pour garder une trace de l'état du bouton
-var isDisliked = false;
-var dislikeCount = 0;
+// variables pour garder une trace de l'état du bouton
+let isDisliked = false;
+let dislikeCount = 0;
 
 // Fonction pour activer/désactiver le "J'aime pas"
 function toggleDislike() {
   // Récupérer l'élément du compteur de dislikes
-  var dislikeCountElement = document.getElementById('poucerougeClics');
+  let dislikeCountElement = document.getElementById('poucerougeClics');
 
   // Mettre à jour l'état du bouton et le compteur de dislikes
   if (isDisliked) {
@@ -44,13 +44,13 @@ function toggleDislike() {
   isDisliked = !isDisliked;
 }
 
-var isFuck = false;
-var fuckCount = 0;
+let isFuck = false;
+let fuckCount = 0;
 
 // Fonction pour activer/désactiver le "fuck"
 function toggleFuck() {
   // Récupérer l'élément du compteur de fuck
-  var fuckCountElement = document.getElementById('fuckClics');
+  let fuckCountElement = document.getElementById('fuckClics');
 
   // Mettre à jour l'état du bouton et le compteur de fuck
   if (isFuck) {
