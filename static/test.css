@@ -7,6 +7,7 @@ body{
     background-image: url(/asset/background2.png);
     background-size:100%;
     overflow-y:scroll;
+    background-attachment: fixed;
 }
 /* width */
 ::-webkit-scrollbar {
@@ -130,51 +131,52 @@ li a:hover{
 }
 
 .pdp{
-    position: absolute;
-    height: 50%;
-    top: 70%;
-    left: -2%;
-
+    position: relative;
+    /* height: 50%; */
+    /* top: -16%; */
+    left: -42%;
+    max-width: 20%;
+    margin-top: -3%;
 }
 .bulletext{
-    position: absolute;
-    top: 77%;
-    left: 25%;
-    height: 20%;
-    width: 30%;
+    position: relative;
+    /* top: 77%; */
+    left: -44%;
+    margin-top: auto;
+    min-width: 60%;
 }
 .pouceblo{
-    position: absolute;
-    height: 5%;
-    top: 90%;
-    left: 38%;
+    top: -25px;
+    position: relative;
+    left: -85%;
     color: #ffffff;
-
+    max-width: 4%;
 }
 .poucerouge{
-    position: absolute;
-    height: 5%;
-    top: 90%;
-    left: 43%;
+    top: -25px;
+    position: relative;
+    left: -84%;
     color: #ffffff;
-
+    max-width: 4%;
+    margin-bottom: 0%;
 }
 .fuck{
-    position: absolute;
-    height: 5%;
-    top: 90%;
-    left: 48%;
+    position: relative;
+    left: 16%;
     color: #ffffff;
-
+    max-width: 4%;
 }
 .bulleecrit{
+    padding-top: 3%;
     position: fixed;
     top: 73%;
     left: 27%;
     height: 24%;
     width: 45%;
+    z-index: 5;
 }
 .comecrit{
+    padding-top: 3%;
     position: fixed;
     background-color: transparent;
     border: none;
@@ -186,6 +188,8 @@ li a:hover{
     top: 85.5%;
     font-size: 155%;
     letter-spacing: .03rem;
+    z-index: 5;
+
 }
 
 .container {
@@ -196,8 +200,18 @@ li a:hover{
 
 .conversation {
     color: white;
+    margin-top: 10%;
 }
-  
-  
-  
-  
+.conv{
+    margin-top: 26%;
+    margin-bottom:-27%;
+    margin-left: 40%;
+    font-size: 150%;
+    font-family: "p5hatty";
+}
+.message{
+    right: 10%;
+    top:-159px;
+    z-index: 2;
+    position: relative;
+}

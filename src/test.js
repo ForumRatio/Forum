@@ -76,24 +76,25 @@ inputElement.addEventListener('keyup', function(event) {
   // si espace alors envoie
   if (event.keyCode === 13) {
     // Récupérer le contenu du champ de saisie
-    let message = inputElement.value;
-
+    let message = document.createElement('p');
+    message.className=('message')
+    message.innerHTML = inputElement.value
     // Créer bulle envoyé avec texte dedans
     let bubbleElement = document.createElement('div');
-    bubbleElement.classList.add('conversation');
+    bubbleElement.classList.add('conv');
     bubbleElement.innerHTML = `
         <img class="pdp" src="/asset/igypdp.png">
         <img class="bulletext" src="/asset/bulles.png">
-        <span id="poucebloClics" class="pouceblo" style="left: 74vh;font-size: 200%;">0</span>
+        <span id="poucebloClics" class="pouceblo" style="left:-95vh;font-size: 200%;">0</span>
         <input type="image" id="poucehaut" class="pouceblo" src="/asset/cool.png" onclick="toggleLike()"></input>
-        <span id="poucerougeClics" class="poucerouge" style="left: 85vh;font-size: 200%;">0</span>
+        <span id="poucerougeClics" class="poucerouge" style="left: -94vh;font-size: 200%;">0</span>
         <input type="image" id="poucebas" class="poucerouge" src="/asset/ugh.png" onclick="toggleDislike()"></input>
-        <span id="fuckClics" class="fuck" style="left: 95vh;font-size: 200%;">0</span>
-        <input type="image" id="fucker" class="fuck" src="/asset/duh.png" onclick="toggleFuck()"></input>
+        <span id="fuckClics" class="fuck" style="left:-93.5vh;top:-25px;font-size: 200%;">0</span>
+        <input type="image" id="fucker" class="fuck" style="top:-72px" src="/asset/duh.png" onclick="toggleFuck()"></input>
     `;
 
     // Ajouter le message à la bulle de discussion
-    bubbleElement.appendChild(document.createTextNode(message));
+    bubbleElement.appendChild(message);
 
     // Ajouter la bulle de discussion à l'élément de la conversation
     conversationElement.appendChild(bubbleElement);
