@@ -1,16 +1,16 @@
-// Variables pour garder une trace de l'état du bouton
-var isLiked = false;
-var likeCount = 0;
+// variables pour garder une trace de l'état du bouton
+let isLiked = false;
+let likeCount = 0;
 
 // Fonction pour activer/désactiver le "J'aime"
 function toggleLike() {
   // Récupérer l'élément du compteur de likes
-  var likeCountElement = document.getElementById('poucebloClics');
+  let likeCountElement = document.getElementById('poucebloClics');
 
   // Mettre à jour l'état du bouton et le compteur de likes
   if (isLiked) {
     likeCount--;
-  } else {
+  } else { 
     likeCount++;
   }
   
@@ -21,16 +21,14 @@ function toggleLike() {
   isLiked = !isLiked;
 }
 
-
-
-// Variables pour garder une trace de l'état du bouton
-var isDisliked = false;
-var dislikeCount = 0;
+// variables pour garder une trace de l'état du bouton
+let isDisliked = false;
+let dislikeCount = 0;
 
 // Fonction pour activer/désactiver le "J'aime pas"
 function toggleDislike() {
   // Récupérer l'élément du compteur de dislikes
-  var dislikeCountElement = document.getElementById('poucerougeClics');
+  let dislikeCountElement = document.getElementById('poucerougeClics');
 
   // Mettre à jour l'état du bouton et le compteur de dislikes
   if (isDisliked) {
@@ -42,18 +40,17 @@ function toggleDislike() {
   // Mettre à jour l'affichage du compteur de dislikes
   dislikeCountElement.innerHTML = dislikeCount.toString();
 
-    // Inverser l'état du bouton
-    isDisliked = !isDisliked;
+  // Inverser l'état du bouton
+  isDisliked = !isDisliked;
 }
-  
 
-var isFuck = false;
-var fuckCount = 0;
+let isFuck = false;
+let fuckCount = 0;
 
 // Fonction pour activer/désactiver le "fuck"
 function toggleFuck() {
   // Récupérer l'élément du compteur de fuck
-  var fuckCountElement = document.getElementById('fuckClics');
+  let fuckCountElement = document.getElementById('fuckClics');
 
   // Mettre à jour l'état du bouton et le compteur de fuck
   if (isFuck) {
@@ -68,3 +65,41 @@ function toggleFuck() {
   // Inverser l'état du bouton
   isFuck = !isFuck;
 }
+
+
+
+let inputElement = document.querySelector('.comecrit');
+let conversationElement = document.querySelector('.conversation');
+
+// clic
+inputElement.addEventListener('keyup', function(event) {
+  // si espace alors envoie
+  if (event.keyCode === 13) {
+    // Récupérer le contenu du champ de saisie
+    let message = document.createElement('p');
+    message.className=('message')
+    message.innerHTML = inputElement.value
+    // Créer bulle envoyé avec texte dedans
+    let bubbleElement = document.createElement('div');
+    bubbleElement.classList.add('conv');
+    bubbleElement.innerHTML = `
+        <img class="pdp" src="/asset/igypdp1.png">
+        <img class="bulletext" src="/asset/bulles.png">
+        <span id="poucebloClics" class="pouceblo" style="left:-95vh;font-size: 200%;">0</span>
+        <input type="image" id="poucehaut" class="pouceblo" src="/asset/cool.png" onclick="toggleLike()"></input>
+        <span id="poucerougeClics" class="poucerouge" style="left: -94vh;font-size: 200%;">0</span>
+        <input type="image" id="poucebas" class="poucerouge" src="/asset/ugh.png" onclick="toggleDislike()"></input>
+        <span id="fuckClics" class="fuck" style="left:-93.5vh;top:-25px;font-size: 200%;">0</span>
+        <input type="image" id="fucker" class="fuck" style="top:-72px" src="/asset/duh.png" onclick="toggleFuck()"></input>
+    `;
+
+    // Ajouter le message à la bulle de discussion
+    bubbleElement.appendChild(message);
+
+    // Ajouter la bulle de discussion à l'élément de la conversation
+    conversationElement.appendChild(bubbleElement);
+
+    //reinitialisation zone texte
+    inputElement.value = '';
+  }
+});

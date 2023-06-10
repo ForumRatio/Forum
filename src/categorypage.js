@@ -1,44 +1,46 @@
-$(document).ready(function() {
-    let cat = $('.subtitle');
-    let vol = $('#vol');
-    let closet = $('#fishing');
-    let playing = false;
-  
-    function Sub(i) {
-      loadContent(window.location.hash);
-  
-      $(document).on('click', 'a', function(event) {
-        event.preventDefault();
-        var target = $(this).attr('href');
-        console.log(target)
-        loadContent(target);
-        history.pushState(null, null, target);
-      });
-  
-      $(window).on('popstate', function() {
-        loadContent(window.location.hash);
-      });
-  
-      function loadContent(target) {
-        var url = target;
-  
-        $.ajax({
-          url: url,
-          success: function(data) {
-            
-          }
-        });
-      }
+document.addEventListener('DOMContentLoaded', function() {
+  var vol = document.getElementById('vol');
+  var closet = document.getElementById('fishing');
+  var playing = false;
+  var select = document.getElementById('Element');
+  // sortSelect(select);
+  select.addEventListener('change', function() {
+    console.log(select.options)
+    if (!playing){
+      closet.setAttribute('src',`./asset/${this.value}`)
+    } else {
+      closet.pause();
+      closet.setAttribute('src',`./asset/${this.value}`)
+      closet.load();
+      closet.play();
     }
-  
-    vol.click(function() {
-      if (playing) {
-        closet[0].pause();
-        playing = false;
-      } else {
-        closet[0].play();
-        playing = true;
-      }
-    });
+    
+  })
+
+  vol.addEventListener('click', function() {
+    if (playing) {
+      closet.pause();
+      playing = false;
+    } else {
+      closet.play();
+      playing = true;
+    }
   });
-  
+});
+function sortSelect(selElem) {
+  var tmpAry = new Array();
+  for (var i=0;i<selElem.options.length;i++) {
+      tmpAry[i] = new Array();
+      tmpAry[i][0] = selElem.options[i].text;
+      tmpAry[i][1] = selElem.options[i].value;
+  }
+  tmpAry.sort();
+  while (selElem.options.length > 0) {
+      selElem.options[0] = null;
+  }
+  for (var i=0;i<tmpAry.length;i++) {
+      var op = new Option(tmpAry[i][0], tmpAry[i][1]);
+      selElem.options[i] = op;
+  }
+  return;
+}

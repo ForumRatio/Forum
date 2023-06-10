@@ -133,3 +133,9 @@ li a:hover:not(.active) {
     max-width: 128px;
     max-height: 128px;
   }
+select{
+    color: white;
+    font-family: "p5hatty";
+    position: absolute;
+    right:0%;
+}
