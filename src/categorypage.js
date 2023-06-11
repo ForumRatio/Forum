@@ -7,10 +7,10 @@ document.addEventListener('DOMContentLoaded', function() {
   select.addEventListener('change', function() {
     console.log(select.options)
     if (!playing){
-      closet.setAttribute('src',`./asset/${this.value}`)
+      closet.setAttribute('src',`./asset/music/${this.value}`)
     } else {
       closet.pause();
-      closet.setAttribute('src',`./asset/${this.value}`)
+      closet.setAttribute('src',`./asset/music/${this.value}`)
       closet.load();
       closet.play();
     }
