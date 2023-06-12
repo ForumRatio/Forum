@@ -42,7 +42,6 @@ body{
 }
 
 
-/*header*/
 ul {
     list-style-type: none;
     margin: 0;
@@ -65,7 +64,7 @@ li a {
     text-decoration: none;
 }
 
-li a:hover{
+li a:hover:not(.active) {
     background-color: #111;
 }
 
@@ -74,10 +73,19 @@ li a:hover{
 }
 
 .home img {
-    width : 7.5%;
+    width : 10%;
     height : auto;
+    background-color: transparent;
+}
+.home{
+    color: transparent;
+    max-width: 700px;
+    display: flex;
 }
 
+.home:hover{
+    color: white;
+}
 .map img {
     width: 75%;
     height: auto;
@@ -92,6 +100,39 @@ li a:hover{
     width: 80%;
     height: auto;
 }
+
+#vol{
+    position: absolute;
+    right:0%;
+    max-width: 128px;
+    max-height: 128px;
+  }
+
+select{
+    color: black;
+    font-family: "p5hatty";
+    position: absolute;
+}
+.dropdown{
+    display: inline-block;
+}
+#Element{
+    display: none;
+    z-index: 2;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    min-width: 200px;
+}
+.dropdown:hover #Element{
+    display: block;
+}
+.home text{
+    display: flex;
+    font-family: "p5hatty";
+    align-items: center;
+    margin-left: 10%;
+    background-color: transparent;
+}
+/*header*/
 
 .games{
     /* position: absolute; */
