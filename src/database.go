@@ -226,6 +226,7 @@ func SelectPostrByUser(db *sql.DB, id int) []Posts {
 	}
 	return got
 }
+
 func SelectPostWithPattern(db *sql.DB, pattern string) []Posts {
 	montre := `SELECT * FROM posts WHERE content LIKE '%` + pattern + `%'`
 	result, err := db.Query(montre)

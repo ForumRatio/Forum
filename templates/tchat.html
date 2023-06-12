@@ -91,7 +91,10 @@
 </head>
 
 <body> 
-    <img class="bullequestion" src="/asset/bulle.png">
+    <div>
+        <img class="bullequestion" src="/asset/bulle.png">
+        <input class="sujet2" type="text" placeholder="Sujet" disabled>
+    </div>
     <!-- personne qui repond -->
     <div class="conversation">
     </div>
@@ -100,6 +103,9 @@
     <!-- place pour personne qui repond -->
     <img class="bulleecrit" src="/asset/bulle.png">
     <input class="comecrit" type="text" placeholder="Ajouter un commentaire" maxlength="75"> <!-- commentaire -->
+    <audio id="fishing" loop>
+        <source src="../asset/music/Destruction.mp3" type="audio/mpeg">
+    </audio>
 </body>
 <script src="../src/tchat.js"></script>
 </html>

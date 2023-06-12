@@ -25,11 +25,20 @@ func LogPage(w http.ResponseWriter, r *http.Request) {
 	}
 	template.Execute(w, r)
 }
-func ChatPage(w http.ResponseWriter, r *http.Request) {
+func ChatPage(w http.ResponseWriter, r *http.Request, pp *User) {
 	session, _ := store.Get(r, "user")
 	auth := session.Values["auth"]
 	if auth == nil || auth == "" {
 		http.Redirect(w, r, "/login", http.StatusSeeOther)
+	} else {
+		var user User
+		json.Unmarshal([]byte(auth.(string)), &user)
+		pp.Id = user.Id
+		pp.Cellphone = user.Cellphone
+		pp.Name = user.Name
+		pp.Email = user.Email
+		pp.Password = user.Password
+		pp.Picture = user.Picture
 	}
 	template, err := template.ParseFiles("templates/tchat.html")
 	if err != nil {
@@ -37,12 +46,20 @@ func ChatPage(w http.ResponseWriter, r *http.Request) {
 	}
 	template.Execute(w, r)
 }
-func SubjectPage(w http.ResponseWriter, r *http.Request) {
-	// fmt.Println(r.FormValue("id"))
+func SubjectPage(w http.ResponseWriter, r *http.Request, pp *User) {
 	session, _ := store.Get(r, "user")
 	auth := session.Values["auth"]
 	if auth == nil || auth == "" {
 		http.Redirect(w, r, "/login", http.StatusSeeOther)
+	} else {
+		var user User
+		json.Unmarshal([]byte(auth.(string)), &user)
+		pp.Id = user.Id
+		pp.Cellphone = user.Cellphone
+		pp.Name = user.Name
+		pp.Email = user.Email
+		pp.Password = user.Password
+		pp.Picture = user.Picture
 	}
 	template, err := template.ParseFiles("templates/subjectpage.html")
 	if err != nil {
@@ -50,11 +67,20 @@ func SubjectPage(w http.ResponseWriter, r *http.Request) {
 	}
 	template.Execute(w, r)
 }
-func CreateSub(w http.ResponseWriter, r *http.Request) {
+func CreateSub(w http.ResponseWriter, r *http.Request, pp *User) {
 	session, _ := store.Get(r, "user")
 	auth := session.Values["auth"]
 	if auth == nil || auth == "" {
 		http.Redirect(w, r, "/login", http.StatusSeeOther)
+	} else {
+		var user User
+		json.Unmarshal([]byte(auth.(string)), &user)
+		pp.Id = user.Id
+		pp.Cellphone = user.Cellphone
+		pp.Name = user.Name
+		pp.Email = user.Email
+		pp.Password = user.Password
+		pp.Picture = user.Picture
 	}
 	template, err := template.ParseFiles("templates/createsub.html")
 	if err != nil {
@@ -84,23 +110,26 @@ func Register(w http.ResponseWriter, r *http.Request) {
 	template.Execute(w, r)
 }
 func Categories(w http.ResponseWriter, r *http.Request) {
-	// session, _ := store.Get(r, "user")
-	// auth := session.Values["auth"]
-	// if auth == nil || auth == "" {
-	// 	fmt.Println(auth)
-	// 	http.Redirect(w, r, "/login", http.StatusSeeOther)
-	// }
 	template, err := template.ParseFiles("templates/categorypage.html")
 	if err != nil {
 		log.Fatal(err)
 	}
 	template.Execute(w, r)
 }
-func Profil(w http.ResponseWriter, r *http.Request) {
+func Profil(w http.ResponseWriter, r *http.Request, pp *User) {
 	session, _ := store.Get(r, "user")
 	auth := session.Values["auth"]
 	if auth == nil || auth == "" {
 		http.Redirect(w, r, "/login", http.StatusSeeOther)
+	} else {
+		var user User
+		json.Unmarshal([]byte(auth.(string)), &user)
+		pp.Id = user.Id
+		pp.Cellphone = user.Cellphone
+		pp.Name = user.Name
+		pp.Email = user.Email
+		pp.Password = user.Password
+		pp.Picture = user.Picture
 	}
 	template, err := template.ParseFiles("templates/profilpage.html")
 	if err != nil {
@@ -247,6 +276,13 @@ func LoadPostProfile(w http.ResponseWriter, r *http.Request, pp *User) {
 	userf, _ := json.Marshal(user)
 	w.Write(userf)
 }
+func LoadPost(w http.ResponseWriter, r *http.Request) {
+	id, _ := strconv.Atoi(r.FormValue("id"))
+	db := InitDatabase("test")
+	user := SelectAllFromPosts(db, id)
+	userf, _ := json.Marshal(user)
+	w.Write(userf)
+}
 func CheckCooks(w http.ResponseWriter, r *http.Request, pp *User) {
 	session, _ := store.Get(r, "user")
 	auth := session.Values["auth"]
@@ -313,19 +349,19 @@ func LoadSubjects(w http.ResponseWriter, r *http.Request) {
 	userf, _ := json.Marshal(user)
 	w.Write(userf)
 }
+func LoadSubjectsTitle(w http.ResponseWriter, r *http.Request) {
+	db := InitDatabase("test")
+	cat, _ := strconv.Atoi(r.FormValue("id"))
+	user := SelectSubjectById(db, cat)
+	userf, _ := json.Marshal(user)
+	w.Write(userf)
+}
 
 //
 
 func Execute() {
-	// db := InitDatabase("test")
-	// InsertIntoUsers(db, "moi", "lm", "lm", "lm", 0)
-	// InsertIntoSubject(db, "name", 1)
-	// InsertIntoSubject(db, "lmlm", 2)
-	// InsertIntoSubject(db, "jkl", 3)
-	// InsertIntoSubject(db, "njk", 2)
-	// InsertIntoContent(db, "pas cool", 1, 1, 1)
-	// fmt.Println(SelectAllFromSubject(db, 2))
-
+	db := InitDatabase("EXPLOSION")
+	fmt.Println(db)
 	fmt.Println("http://localhost:8080/")
 	dataU := User{0, "", "", "", "", 0}
 	PtsU := &dataU
@@ -336,16 +372,16 @@ func Execute() {
 		LogPage(rw, r)
 	})
 	http.HandleFunc("/createsub", func(rw http.ResponseWriter, r *http.Request) {
-		CreateSub(rw, r)
+		CreateSub(rw, r, PtsU)
 	})
 	http.HandleFunc("/profil", func(rw http.ResponseWriter, r *http.Request) {
-		Profil(rw, r)
+		Profil(rw, r, PtsU)
 	})
 	http.HandleFunc("/login", func(rw http.ResponseWriter, r *http.Request) {
 		Login(rw, r)
 	})
 	http.HandleFunc("/tchat", func(rw http.ResponseWriter, r *http.Request) {
-		ChatPage(rw, r)
+		ChatPage(rw, r, PtsU)
 	})
 	http.HandleFunc("/register", func(rw http.ResponseWriter, r *http.Request) {
 		Register(rw, r)
@@ -354,13 +390,19 @@ func Execute() {
 		Categories(rw, r)
 	})
 	http.HandleFunc("/subjects", func(rw http.ResponseWriter, r *http.Request) {
-		SubjectPage(rw, r)
+		SubjectPage(rw, r, PtsU)
 	})
 	http.HandleFunc("/loadSubjects", func(rw http.ResponseWriter, r *http.Request) {
 		LoadSubjects(rw, r)
 	})
+	http.HandleFunc("/loadSubjects2", func(rw http.ResponseWriter, r *http.Request) {
+		LoadSubjectsTitle(rw, r)
+	})
 	http.HandleFunc("/loadUser", func(rw http.ResponseWriter, r *http.Request) {
 		LoadUser(rw, r, PtsU)
+	})
+	http.HandleFunc("/loadPost", func(rw http.ResponseWriter, r *http.Request) {
+		LoadPost(rw, r)
 	})
 	http.HandleFunc("/createUser", func(rw http.ResponseWriter, r *http.Request) {
 		CreateUser(rw, r, PtsU)
@@ -389,6 +431,7 @@ func Execute() {
 	http.HandleFunc("/disconnect", func(rw http.ResponseWriter, r *http.Request) {
 		Disconnect(rw, r, PtsU)
 	})
+
 	fs := http.FileServer(http.Dir("./static/"))
 	http.Handle("/static/", http.StripPrefix("/static/", fs))
 	fi := http.FileServer(http.Dir("./asset/"))

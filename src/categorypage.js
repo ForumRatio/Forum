@@ -1,8 +1,8 @@
 document.addEventListener('DOMContentLoaded', function() {
-  var vol = document.getElementById('vol');
-  var closet = document.getElementById('fishing');
-  var playing = false;
-  var select = document.getElementById('Element');
+  let vol = document.getElementById('vol');
+  let closet = document.getElementById('fishing');
+  let playing = false;
+  let select = document.getElementById('Element');
   // sortSelect(select);
   select.addEventListener('change', function() {
     console.log(select.options)
@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 });
 function sortSelect(selElem) {
-  var tmpAry = new Array();
+  let tmpAry = new Array();
   for (var i=0;i<selElem.options.length;i++) {
       tmpAry[i] = new Array();
       tmpAry[i][0] = selElem.options[i].text;

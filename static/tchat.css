@@ -7,6 +7,7 @@ body{
     background-image: url(/asset/background2.png);
     background-size:100%;
     overflow-y:scroll;
+    overflow-x: hidden;
     background-attachment: fixed;
 }
 /* width */
@@ -42,6 +43,7 @@ body{
 }
 
 
+/*header*/
 ul {
     list-style-type: none;
     margin: 0;
@@ -64,7 +66,7 @@ li a {
     text-decoration: none;
 }
 
-li a:hover:not(.active) {
+li a:hover{
     background-color: #111;
 }
 
@@ -73,9 +75,8 @@ li a:hover:not(.active) {
 }
 
 .home img {
-    width : 10%;
+    width : 7.5%;
     height : auto;
-    background-color: transparent;
 }
 .home{
     color: transparent;
@@ -100,14 +101,12 @@ li a:hover:not(.active) {
     width: 80%;
     height: auto;
 }
-
 #vol{
     position: absolute;
     right:0%;
     max-width: 128px;
     max-height: 128px;
-  }
-
+}
 select{
     color: black;
     font-family: "p5hatty";
@@ -132,7 +131,8 @@ select{
     margin-left: 10%;
     background-color: transparent;
 }
-/*header*/
+
+/* header */
 
 .games{
     /* position: absolute; */
@@ -161,6 +161,28 @@ select{
     font-size: 300%;
     letter-spacing: .3rem;
 }
+.sujet2{
+    position: absolute;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    font-family: "p5hatty";
+    color: #ffffff;
+    width: 32%;
+    left: 52%;
+    top: 62%;
+    font-size: 120%;
+    letter-spacing: .3rem;
+}
+.bullequestion{
+    position: absolute;
+    top: 52%;
+    left: 45%;
+    transform: rotateY(180deg);
+    height: 23%;
+    width: 35%;
+
+}
 .bullequestion{
     position: absolute;
     top: 52%;
@@ -186,26 +208,26 @@ select{
     margin-top: auto;
     min-width: 60%;
 }
+.blo{
+    width: 9%;
+    flex-grow: 1;
+}
 .pouceblo{
-    top: -25px;
-    position: relative;
-    left: -85%;
-    color: #ffffff;
-    max-width: 4%;
+    max-width: 19%;
+}
+.rouge{
+    width: 0%;
+    flex-grow: 2;
 }
 .poucerouge{
-    top: -25px;
-    position: relative;
-    left: -84%;
-    color: #ffffff;
-    max-width: 4%;
-    margin-bottom: 0%;
+    max-width: 20%;
+}
+.fucks{
+    width: 63%;
+    flex-grow: 3;
 }
 .fuck{
-    position: relative;
-    left: 16%;
-    color: #ffffff;
-    max-width: 4%;
+    max-width: 4.3%;
 }
 .bulleecrit{
     padding-top: 3%;
@@ -234,25 +256,31 @@ select{
 }
 
 .container {
-    transform: scaleX(-1);
+    position: relative;
     display: flex;
-    flex-direction: row-reverse;
+    left: 0%;
+    margin-top:-7%;
+  }
+  
+.container div {
+    margin-right: -100px;
 }
 
 .conversation {
     color: white;
-    margin-top: 10%;
+    margin-bottom: 30%;
 }
 .conv{
-    margin-top: 26%;
+    margin-top: 27.5%;
     margin-bottom:-27%;
     margin-left: 40%;
     font-size: 150%;
     font-family: "p5hatty";
 }
 .message{
-    right: 10%;
-    top:-159px;
+    right: 11%;
+    top: -148px;
+    margin-top: 5%;
     z-index: 2;
     position: relative;
 }

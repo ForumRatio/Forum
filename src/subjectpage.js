@@ -19,8 +19,33 @@ title.innerHTML = `<img src="../asset/random.png" alt="Image">
     <img src="../asset/vol.png" id="vol">`
 }
 // let vol = document.querySelector('#vol');
+let vol = document.getElementById('vol');
+let closet = document.getElementById('fishing');
 let playing = false;
-let closet = document.querySelector('#fishing');
+let select = document.getElementById('Element');
+  // sortSelect(select);
+  select.addEventListener('change', function() {
+    console.log(select.options)
+    if (!playing){
+      closet.setAttribute('src',`./asset/music/${this.value}`)
+    } else {
+      closet.pause();
+      closet.setAttribute('src',`./asset/music/${this.value}`)
+      closet.load();
+      closet.play();
+    }
+  });
+
+  vol.addEventListener('click', function() {
+    if (playing) {
+      closet.pause();
+      playing = false;
+    } else {
+      closet.play();
+      playing = true;
+    }
+  });
+
 window.addEventListener('DOMContentLoaded', function() {
     resp()
     document.querySelector('.tobecontinued img.normal').addEventListener('click', function() {
@@ -32,15 +57,7 @@ window.addEventListener('DOMContentLoaded', function() {
         // window.history.back();
         previousPage()
     });
-    document.querySelector('#vol').addEventListener('click', function() {
-        if (playing) {
-            closet.pause();
-            playing = false;
-          } else {
-            closet.play();
-            playing = true;
-          }
-    });
+    
 });
 
 function resp(){

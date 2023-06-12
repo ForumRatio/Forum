@@ -8,7 +8,6 @@ let save = document.getElementsByClassName('save')
 let cat = document.getElementsByClassName('cat')
 let table = document.querySelector('tbody')
 let vol = document.getElementById('vol')
-let sunset = document.getElementById('sunset')
 let closet = document.getElementById('closet')
 let image = ["morganapdp.png","igypdp.png"]
 let playing = false;
@@ -18,6 +17,20 @@ let edit1;
 let imageChanged = 0;
 let c = 0;
 let d = 0;
+let select = document.getElementById('Element');
+  // sortSelect(select);
+  select.addEventListener('change', function() {
+    console.log(select.options)
+    if (!playing){
+      closet.setAttribute('src',`./asset/music/${this.value}`)
+    } else {
+      closet.pause();
+      closet.setAttribute('src',`./asset/music/${this.value}`)
+      closet.load();
+      closet.play();
+    }
+    
+  })
 
 function Saved(){
     fetch('/savedProfil',{
