@@ -19,9 +19,8 @@ let vol = document.getElementById('vol');
       closet.setAttribute('src',`./asset/music/${this.value}`)
       closet.load();
       closet.play();
-    }
-    
-  })
+    } 
+  });
 
   vol.addEventListener('click', function() {
     if (playing) {
@@ -126,18 +125,22 @@ let conversationElement = document.querySelector('.conversation');
 inputElement.addEventListener('keyup', function(event) {
   // si espace alors envoie
   if (event.keyCode === 13) {
-    // Récupérer le contenu du champ de saisie
-    let message = document.createElement('p');
-    message.className=('message')
-    if (inputElement.value.length >= 34){
-      let first = inputElement.value.substring(0, inputElement.value.length /2);
-      let last = inputElement.value.substr(inputElement.value.length /2)
-      console.log(first,last)
-      message.innerHTML = `${first} <br> ${last}`
-    } else {
-      message.innerHTML = inputElement.value
-    }
-    if (message.innerHTML != ""){
+  sendMessage();
+  }
+});
+
+function sendMessage(){
+  // Récupérer le contenu du champ de saisie
+  let message = document.createElement('p');
+  message.className=('message')
+  if (inputElement.value.length >= 34){
+    let first = inputElement.value.substring(0, inputElement.value.length /2);
+    let last = inputElement.value.substr(inputElement.value.length /2)
+    message.innerHTML = `${first} <br> ${last}`
+  } else {
+    message.innerHTML = inputElement.value
+  }
+  if (message.innerHTML != ""){
 // Créer bulle envoyé avec texte dedans
 let bubbleElement = document.createElement('div');
 bubbleElement.classList.add('conv');
@@ -145,18 +148,18 @@ bubbleElement.innerHTML = `
 <img class="pdp" src="/asset/igypdp1.png">
 <img class="bulletext" src="/asset/bulles.png">
 <div class="container">
-  <div class="blo">
-    <span id="poucebloClics" class="pouceblo" style="font-size: 200%;">0</span>
-    <input type="image" id="poucehaut" class="pouceblo" src="/asset/cool.png" onclick="toggleLike()"></input>
-  </div>
-  <div class="rouge">
-    <span id="poucerougeClics" class="poucerouge" style="font-size: 200%;">0</span>
-    <input type="image" id="poucebas" class="poucerouge" src="/asset/ugh.png" onclick="toggleDislike()"></input>
-  </div>
-  <div class="fucks">
-    <span id="fuckClics" class="fuck" style="font-size: 200%;">0</span>
-    <input type="image" id="fucker" class="fuck" src="/asset/duh.png" onclick="toggleFuck()"></input>
-  </div>
+<div class="blo">
+  <span id="poucebloClics" class="pouceblo" style="font-size: 200%;">0</span>
+  <input type="image" id="poucehaut" class="pouceblo" src="/asset/cool.png" onclick="toggleLike()"></input>
+</div>
+<div class="rouge">
+  <span id="poucerougeClics" class="poucerouge" style="font-size: 200%;">0</span>
+  <input type="image" id="poucebas" class="poucerouge" src="/asset/ugh.png" onclick="toggleDislike()"></input>
+</div>
+<div class="fucks">
+  <span id="fuckClics" class="fuck" style="font-size: 200%;">0</span>
+  <input type="image" id="fucker" class="fuck" src="/asset/duh.png" onclick="toggleFuck()"></input>
+</div>
 </div>
 `;
 
@@ -168,6 +171,5 @@ conversationElement.appendChild(bubbleElement);
 
 //reinitialisation zone texte
 inputElement.value = '';
-    }
   }
-});
+}

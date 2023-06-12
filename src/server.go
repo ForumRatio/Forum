@@ -360,8 +360,8 @@ func LoadSubjectsTitle(w http.ResponseWriter, r *http.Request) {
 //
 
 func Execute() {
-	db := InitDatabase("EXPLOSION")
-	fmt.Println(db)
+	// db := InitDatabase("EXPLOSION")
+	// fmt.Println(db)
 	fmt.Println("http://localhost:8080/")
 	dataU := User{0, "", "", "", "", 0}
 	PtsU := &dataU
@@ -431,7 +431,6 @@ func Execute() {
 	http.HandleFunc("/disconnect", func(rw http.ResponseWriter, r *http.Request) {
 		Disconnect(rw, r, PtsU)
 	})
-
 	fs := http.FileServer(http.Dir("./static/"))
 	http.Handle("/static/", http.StripPrefix("/static/", fs))
 	fi := http.FileServer(http.Dir("./asset/"))
