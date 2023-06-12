@@ -85,12 +85,20 @@ inputElement.addEventListener('keyup', function(event) {
     bubbleElement.innerHTML = `
         <img class="pdp" src="/asset/igypdp.png">
         <img class="bulletext" src="/asset/bulles.png">
-        <span id="poucebloClics" class="pouceblo" style="left:-95vh;font-size: 200%;">0</span>
-        <input type="image" id="poucehaut" class="pouceblo" src="/asset/cool.png" onclick="toggleLike()"></input>
-        <span id="poucerougeClics" class="poucerouge" style="left: -94vh;font-size: 200%;">0</span>
-        <input type="image" id="poucebas" class="poucerouge" src="/asset/ugh.png" onclick="toggleDislike()"></input>
-        <span id="fuckClics" class="fuck" style="left:-93.5vh;top:-25px;font-size: 200%;">0</span>
-        <input type="image" id="fucker" class="fuck" style="top:-72px" src="/asset/duh.png" onclick="toggleFuck()"></input>
+        <div class="container">
+          <div class="blo">
+            <span id="poucebloClics" class="pouceblo" style="font-size: 200%;">0</span>
+            <input type="image" id="poucehaut" class="pouceblo" src="/asset/cool.png" onclick="toggleLike()"></input>
+          </div>
+          <div class="rouge">
+            <span id="poucerougeClics" class="poucerouge" style="font-size: 200%;">0</span>
+            <input type="image" id="poucebas" class="poucerouge" src="/asset/ugh.png" onclick="toggleDislike()"></input>
+          </div>
+          <div class="fucks">
+            <span id="fuckClics" class="fuck" style="font-size: 200%;">0</span>
+            <input type="image" id="fucker" class="fuck" src="/asset/duh.png" onclick="toggleFuck()"></input>
+          </div>
+        </div>
     `;
 
     // Ajouter le message à la bulle de discussion
