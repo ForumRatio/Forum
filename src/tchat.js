@@ -31,73 +31,71 @@ let vol = document.getElementById('vol');
       playing = true;
     }
   });
-// variables pour garder une trace de l'état du bouton
-let isLiked = false;
-let likeCount = 0;
+
+let inputElement = document.querySelector('.comecrit');
+let conversationElement = document.querySelector('.conversation');
+let bubbleIdCounter = 1;
 
 // Fonction pour activer/désactiver le "J'aime"
-function toggleLike() {
-  // Récupérer l'élément du compteur de likes
-  let likeCountElement = document.getElementById('poucebloClics');
+function toggleLike(element) {
+  let bubbleElement = element.closest('.conv');
+  let likeCountElement = bubbleElement.querySelector('.poucebloClics');
+  let likeCount = parseInt(likeCountElement.getAttribute('data-count'));
 
-  // Mettre à jour l'état du bouton et le compteur de likes
-  if (isLiked) {
+  if (element.classList.contains('active')) {
+    // Annuler le like
     likeCount--;
-  } else { 
+    element.classList.remove('active');
+  } else {
+    // Ajouter le like
     likeCount++;
+    element.classList.add('active');
   }
-  
-  // Mettre à jour l'affichage du compteur de likes
-  likeCountElement.innerHTML = likeCount.toString();
 
-  // Inverser l'état du bouton
-  isLiked = !isLiked;
+  likeCountElement.setAttribute('data-count', likeCount);
+  likeCountElement.textContent = likeCount;
 }
-
-// variables pour garder une trace de l'état du bouton
-let isDisliked = false;
-let dislikeCount = 0;
 
 // Fonction pour activer/désactiver le "J'aime pas"
-function toggleDislike() {
-  // Récupérer l'élément du compteur de dislikes
-  let dislikeCountElement = document.getElementById('poucerougeClics');
+function toggleDislike(element) {
+  let bubbleElement = element.closest('.conv');
+  let dislikeCountElement = bubbleElement.querySelector('.poucerougeClics');
+  let dislikeCount = parseInt(dislikeCountElement.getAttribute('data-count'));
 
-  // Mettre à jour l'état du bouton et le compteur de dislikes
-  if (isDisliked) {
+  if (element.classList.contains('active')) {
+    // Annuler le dislike
     dislikeCount--;
+    element.classList.remove('active');
   } else {
+    // Ajouter le dislike
     dislikeCount++;
+    element.classList.add('active');
   }
 
-  // Mettre à jour l'affichage du compteur de dislikes
-  dislikeCountElement.innerHTML = dislikeCount.toString();
-
-  // Inverser l'état du bouton
-  isDisliked = !isDisliked;
+  dislikeCountElement.setAttribute('data-count', dislikeCount);
+  dislikeCountElement.textContent = dislikeCount;
 }
-
-let isFuck = false;
-let fuckCount = 0;
 
 // Fonction pour activer/désactiver le "fuck"
-function toggleFuck() {
-  // Récupérer l'élément du compteur de fuck
-let fuckCountElement = document.getElementById('fuckClics');
+function toggleFuck(element) {
+  let bubbleElement = element.closest('.conv');
+  let fuckCountElement = bubbleElement.querySelector('.fuckClics');
+  let fuckCount = parseInt(fuckCountElement.getAttribute('data-count'));
 
-  // Mettre à jour l'état du bouton et le compteur de fuck
-  if (isFuck) {
+  if (element.classList.contains('active')) {
+    // Annuler le fuck
     fuckCount--;
+    element.classList.remove('active');
   } else {
+    // Ajouter le fuck
     fuckCount++;
+    element.classList.add('active');
   }
 
-  // Mettre à jour l'affichage du compteur de fuck
-  fuckCountElement.innerHTML = fuckCount.toString();
-
-  // Inverser l'état du bouton
-  isFuck = !isFuck;
+  fuckCountElement.setAttribute('data-count', fuckCount);
+  fuckCountElement.textContent = fuckCount;
 }
+
 let resp2 = fetch('/loadSubjects2?id=' + id_sub).then((res) => {
   return res.json()
 }).then((d) => {
@@ -124,9 +122,6 @@ let resp = fetch('/loadPost?id=' + id_sub).then((res) => {
   console.log(d)
 });
 
-let inputElement = document.querySelector('.comecrit');
-let conversationElement = document.querySelector('.conversation');
-
 // clic
 inputElement.addEventListener('keyup', function(event) {
   // si espace alors envoie
@@ -149,27 +144,29 @@ function sendMessage(){
   if (message.innerHTML != ""){
 // Créer bulle envoyé avec texte dedans
 let bubbleElement = document.createElement('div');
+let bubbleId = `bubble-${bubbleIdCounter}`;
+bubbleElement.id = bubbleId;
 bubbleElement.classList.add('conv');
 bubbleElement.innerHTML = `
 <img class="pdp" src="/asset/igypdp1.png">
         <img class="bulletext" src="/asset/bulles.png">
         <div class="container">
           <div class="blo">
-            <span id="poucebloClics" class="pouceblo" style="font-size: 200%;">0</span>
-            <input type="image" id="poucehaut" class="pouceblo" src="/asset/cool.png" onclick="toggleLike()"></input>
+          <span id="poucebloClics-${bubbleIdCounter}" class="poucebloClics" data-count="0" style="font-size: 200%;">0</span>
+          <input type="image" class="pouceblo" src="/asset/cool.png" onclick="toggleLike(this)"></input>
           </div>
           <div class="rouge">
-            <span id="poucerougeClics" class="poucerouge" style="font-size: 200%;">0</span>
-            <input type="image" id="poucebas" class="poucerouge" src="/asset/ugh.png" onclick="toggleDislike()"></input>
+          <span id="poucerougeClics-${bubbleIdCounter}" class="poucerougeClics" data-count="0" style="font-size: 200%;">0</span>
+          <input type="image" class="poucerouge" src="/asset/ugh.png" onclick="toggleDislike(this)"></input>
           </div>
           <div class="fucks">
-            <span id="fuckClics" class="fuck" style="font-size: 200%;">0</span>
-            <input type="image" id="fucker" class="fuck" src="/asset/duh.png" onclick="toggleFuck()"></input>
+          <span id="fuckClics-${bubbleIdCounter}" class="fuckClics" data-count="0" style="font-size: 200%;">0</span>
+          <input type="image" class="fuck" src="/asset/duh.png" onclick="toggleFuck(this)"></input>
           </div>
         </div>
         <input class="nomutilisateur" type="text" placeholder="Nom">
 `;
-
+bubbleIdCounter++;
 // Ajouter le message à la bulle de discussion
 bubbleElement.appendChild(message);
 
