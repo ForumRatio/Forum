@@ -17,6 +17,11 @@ type User2 struct {
 type BoolLogin struct {
 	Check string
 }
+type Post2 struct {
+	Check       string
+	Subject_id  int
+	Category_id int
+}
 type BoolLogin2 struct {
 	Check string
 	NS    string
@@ -49,7 +54,10 @@ type Like struct {
 	Post_id int
 	User_id int
 }
-
+type Like2 struct {
+	Post_id int
+	User_id int
+}
 type Posts struct {
 	Id          int
 	Content     string

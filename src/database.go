@@ -137,6 +137,36 @@ func SelectUserNameWithPattern(db *sql.DB, pattern string) []User {
 	}
 	return got
 }
+func SelectLikeById(db *sql.DB, table string, id int) []Like {
+	montre := `SELECT * FROM ` + table + ` WHERE Post_id = ` + strconv.Itoa(id)
+	result, err := db.Query(montre)
+	if err != nil {
+		log.Printf("%q: %s\n", err, montre)
+		return nil
+	}
+	got := []Like{}
+	for result.Next() {
+		var r Like
+		err = result.Scan(&r.Id, &r.Post_id, &r.User_id)
+		if err != nil {
+			log.Fatalf("Scan: %v", err)
+		}
+		got = append(got, r)
+	}
+	return got
+}
+func SelectLikeById2(db *sql.DB, table string, id int, id2 int) Like {
+	montre := `SELECT * FROM ` + table + ` WHERE Post_id = ` + strconv.Itoa(id) + ` AND User_id = ` + strconv.Itoa(id2)
+	result := db.QueryRow(montre)
+	var result2 Like
+	var result3 Like
+	err := result.Scan(&result2.Id, &result2.Post_id, &result2.User_id)
+	if err != nil {
+		// log.Fatalf("Scan: %v", err)
+		return result3
+	}
+	return result2
+}
 func SelectAllFromSubject(db *sql.DB, cat int) []Subject {
 	montre := `SELECT subject.id, subject.subject, subject.category_id FROM subject WHERE subject.category_id = ` + strconv.Itoa(cat)
 	result, err := db.Query(montre)
@@ -309,6 +339,15 @@ func DeletePostFromId(db *sql.DB, id int) (int64, error) {
 }
 func DeleteLikeFromId(db *sql.DB, table string, id int) (int64, error) {
 	query1 := `DELETE FROM ` + table + ` WHERE id = ` + strconv.Itoa(id)
+	result, err := db.Exec(query1)
+	if err != nil {
+		log.Printf("%q: %s\n", err, query1)
+		return 0, nil
+	}
+	return result.LastInsertId()
+}
+func DeleteLikeFromId2(db *sql.DB, table string, id int) (int64, error) {
+	query1 := `DELETE FROM ` + table + ` WHERE post_id = ` + strconv.Itoa(id)
 	result, err := db.Exec(query1)
 	if err != nil {
 		log.Printf("%q: %s\n", err, query1)

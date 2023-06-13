@@ -147,6 +147,49 @@ func SavedProfil(w http.ResponseWriter, r *http.Request, pp *User) {
 	json.Unmarshal(body, &user)
 	UpdateUser(db, pp.Id, user.Name, user.Pictures)
 }
+func SavedPost(w http.ResponseWriter, r *http.Request, pp *User) {
+	var user Post2
+	db := InitDatabase("test")
+	body, _ := ioutil.ReadAll(r.Body)
+	json.Unmarshal(body, &user)
+	InsertIntoContent(db, user.Check, user.Subject_id, user.Category_id, pp.Id)
+}
+func Savedlike(w http.ResponseWriter, r *http.Request, pp *User) {
+	var user Like2
+	db := InitDatabase("test")
+	body, _ := ioutil.ReadAll(r.Body)
+	json.Unmarshal(body, &user)
+	like := SelectLikeById2(db, "like", user.Post_id, user.User_id)
+	if like.Id == 0 {
+		InsertIntoLike(db, "like", user.Post_id, user.User_id)
+	} else {
+		DeleteLikeFromId(db, "like", like.Id)
+	}
+}
+func Savedislike(w http.ResponseWriter, r *http.Request, pp *User) {
+	var user Like2
+	db := InitDatabase("test")
+	body, _ := ioutil.ReadAll(r.Body)
+	json.Unmarshal(body, &user)
+	like := SelectLikeById2(db, "dislike", user.Post_id, user.User_id)
+	if like.Id == 0 {
+		InsertIntoLike(db, "dislike", user.Post_id, user.User_id)
+	} else {
+		DeleteLikeFromId(db, "dislike", like.Id)
+	}
+}
+func Savedfuck(w http.ResponseWriter, r *http.Request, pp *User) {
+	var user Like2
+	db := InitDatabase("test")
+	body, _ := ioutil.ReadAll(r.Body)
+	json.Unmarshal(body, &user)
+	like := SelectLikeById2(db, "fuck", user.Post_id, user.User_id)
+	if like.Id == 0 {
+		InsertIntoLike(db, "fuck", user.Post_id, user.User_id)
+	} else {
+		DeleteLikeFromId(db, "fuck", like.Id)
+	}
+}
 func DeletePost(w http.ResponseWriter, r *http.Request, pp *User) {
 	var user BoolLogin
 	var b BoolLogin
@@ -159,6 +202,9 @@ func DeletePost(w http.ResponseWriter, r *http.Request, pp *User) {
 	for i := 0; i < len(user2); i++ {
 		if user.Check == user2[i].Content {
 			checklog = true
+			DeleteLikeFromId2(db, "like", user2[i].Id)
+			DeleteLikeFromId2(db, "dislike", user2[i].Id)
+			DeleteLikeFromId2(db, "fuck", user2[i].Id)
 			DeletePostFromId(db, user2[i].Id)
 		}
 	}
@@ -283,6 +329,27 @@ func LoadPost(w http.ResponseWriter, r *http.Request) {
 	userf, _ := json.Marshal(user)
 	w.Write(userf)
 }
+func LoadLike(w http.ResponseWriter, r *http.Request) {
+	id, _ := strconv.Atoi(r.FormValue("id"))
+	db := InitDatabase("test")
+	user := SelectLikeById(db, "like", id)
+	userf, _ := json.Marshal(user)
+	w.Write(userf)
+}
+func LoadDislike(w http.ResponseWriter, r *http.Request) {
+	id, _ := strconv.Atoi(r.FormValue("id"))
+	db := InitDatabase("test")
+	user := SelectLikeById(db, "dislike", id)
+	userf, _ := json.Marshal(user)
+	w.Write(userf)
+}
+func LoadFuck(w http.ResponseWriter, r *http.Request) {
+	id, _ := strconv.Atoi(r.FormValue("id"))
+	db := InitDatabase("test")
+	user := SelectLikeById(db, "fuck", id)
+	userf, _ := json.Marshal(user)
+	w.Write(userf)
+}
 func CheckCooks(w http.ResponseWriter, r *http.Request, pp *User) {
 	session, _ := store.Get(r, "user")
 	auth := session.Values["auth"]
@@ -339,6 +406,13 @@ func CreateUser(w http.ResponseWriter, r *http.Request, pp *User) {
 func LoadUser(w http.ResponseWriter, r *http.Request, pp *User) {
 	db := InitDatabase("test")
 	user := SelectUserById(db, pp.Id)
+	userf, _ := json.Marshal(user)
+	w.Write(userf)
+}
+func LoadAllUser(w http.ResponseWriter, r *http.Request, pp *User) {
+	db := InitDatabase("test")
+	user := SelectAllFromUsers(db, "users")
+	// user := SelectUserById(db, pp.Id)
 	userf, _ := json.Marshal(user)
 	w.Write(userf)
 }
@@ -401,8 +475,20 @@ func Execute() {
 	http.HandleFunc("/loadUser", func(rw http.ResponseWriter, r *http.Request) {
 		LoadUser(rw, r, PtsU)
 	})
+	http.HandleFunc("/loadAllUser", func(rw http.ResponseWriter, r *http.Request) {
+		LoadAllUser(rw, r, PtsU)
+	})
 	http.HandleFunc("/loadPost", func(rw http.ResponseWriter, r *http.Request) {
 		LoadPost(rw, r)
+	})
+	http.HandleFunc("/loadLike", func(rw http.ResponseWriter, r *http.Request) {
+		LoadLike(rw, r)
+	})
+	http.HandleFunc("/loadDislike", func(rw http.ResponseWriter, r *http.Request) {
+		LoadDislike(rw, r)
+	})
+	http.HandleFunc("/loadFuck", func(rw http.ResponseWriter, r *http.Request) {
+		LoadFuck(rw, r)
 	})
 	http.HandleFunc("/createUser", func(rw http.ResponseWriter, r *http.Request) {
 		CreateUser(rw, r, PtsU)
@@ -415,6 +501,18 @@ func Execute() {
 	})
 	http.HandleFunc("/savedProfil", func(rw http.ResponseWriter, r *http.Request) {
 		SavedProfil(rw, r, PtsU)
+	})
+	http.HandleFunc("/savedPost", func(rw http.ResponseWriter, r *http.Request) {
+		SavedPost(rw, r, PtsU)
+	})
+	http.HandleFunc("/savedLike", func(rw http.ResponseWriter, r *http.Request) {
+		Savedlike(rw, r, PtsU)
+	})
+	http.HandleFunc("/savedDislike", func(rw http.ResponseWriter, r *http.Request) {
+		Savedislike(rw, r, PtsU)
+	})
+	http.HandleFunc("/savedFuck", func(rw http.ResponseWriter, r *http.Request) {
+		Savedfuck(rw, r, PtsU)
 	})
 	http.HandleFunc("/deletePost", func(rw http.ResponseWriter, r *http.Request) {
 		DeletePost(rw, r, PtsU)

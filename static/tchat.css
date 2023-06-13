@@ -206,6 +206,9 @@ select{
 .pouceblo{
     max-width: 19%;
 }
+.pouceblo:hover{
+    pointer-events: click;
+}
 .rouge{
     width: 0%;
     flex-grow: 2;
