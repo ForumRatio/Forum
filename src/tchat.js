@@ -114,7 +114,13 @@ title.value = d.Subject
 let resp = fetch('/loadPost?id=' + id_sub).then((res) => {
   return res.json()
 }).then((d) => {
-  title2.value = d[0].Content
+  if (d[0].Content.length >= 30){
+    let first = d[0].Content.substring(0, d[0].Content.length /2);
+    let last = d[0].Content.substr(d[0].Content.length /2)
+    title2.value = `${first} ${last}`
+  } else {
+    title2.value = d[0].Content
+  }
   console.log(d)
 });
 
@@ -146,21 +152,22 @@ let bubbleElement = document.createElement('div');
 bubbleElement.classList.add('conv');
 bubbleElement.innerHTML = `
 <img class="pdp" src="/asset/igypdp1.png">
-<img class="bulletext" src="/asset/bulles.png">
-<div class="container">
-<div class="blo">
-  <span id="poucebloClics" class="pouceblo" style="font-size: 200%;">0</span>
-  <input type="image" id="poucehaut" class="pouceblo" src="/asset/cool.png" onclick="toggleLike()"></input>
-</div>
-<div class="rouge">
-  <span id="poucerougeClics" class="poucerouge" style="font-size: 200%;">0</span>
-  <input type="image" id="poucebas" class="poucerouge" src="/asset/ugh.png" onclick="toggleDislike()"></input>
-</div>
-<div class="fucks">
-  <span id="fuckClics" class="fuck" style="font-size: 200%;">0</span>
-  <input type="image" id="fucker" class="fuck" src="/asset/duh.png" onclick="toggleFuck()"></input>
-</div>
-</div>
+        <img class="bulletext" src="/asset/bulles.png">
+        <div class="container">
+          <div class="blo">
+            <span id="poucebloClics" class="pouceblo" style="font-size: 200%;">0</span>
+            <input type="image" id="poucehaut" class="pouceblo" src="/asset/cool.png" onclick="toggleLike()"></input>
+          </div>
+          <div class="rouge">
+            <span id="poucerougeClics" class="poucerouge" style="font-size: 200%;">0</span>
+            <input type="image" id="poucebas" class="poucerouge" src="/asset/ugh.png" onclick="toggleDislike()"></input>
+          </div>
+          <div class="fucks">
+            <span id="fuckClics" class="fuck" style="font-size: 200%;">0</span>
+            <input type="image" id="fucker" class="fuck" src="/asset/duh.png" onclick="toggleFuck()"></input>
+          </div>
+        </div>
+        <input class="nomutilisateur" type="text" placeholder="Nom">
 `;
 
 // Ajouter le message à la bulle de discussion
@@ -172,4 +179,5 @@ conversationElement.appendChild(bubbleElement);
 //reinitialisation zone texte
 inputElement.value = '';
   }
+  console.log(document.querySelectorAll('.pouceblo'))
 }
