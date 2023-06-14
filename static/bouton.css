@@ -8,7 +8,7 @@ body{
     overflow: hidden;
   }
   
-  .test:before {
+  .bouton:before {
     content: "";
     position: absolute;
     top: 50%;
@@ -23,25 +23,25 @@ body{
     box-sizing: border-box;
   }
   
-  .test:hover:before {
+  .bouton:hover:before {
     width: 50%;
     height: 100%;
     opacity: 1;
   }
   
-  .test:after:nth-child(1) {
+  .bouton:after:nth-child(1) {
     transform: translate(-50%, -50%) rotate(90deg) translateX(50px) rotate(-45deg);
   }
   
-  .test:after:nth-child(2) {
+  .bouton:after:nth-child(2) {
     transform: translate(-50%, -50%) rotate(90deg) translateX(50px) rotate(-90deg);
   }
   
-  .test:after:nth-child(3) {
+  .bouton:after:nth-child(3) {
     transform: translate(-50%, -50%) rotate(90deg) translateX(50px) rotate(-135deg);
   }
   
-  .test:after:nth-child(4) {
+  .bouton:after:nth-child(4) {
     transform: translate(-50%, -50%) rotate(180deg) translateX(50px) rotate(-180deg);
   }
   

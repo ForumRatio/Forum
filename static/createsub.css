@@ -165,7 +165,6 @@ select{
     font-size: 50px;
     border: none;
 }
-
 .container {
     width: 500px;
     height: 50px;
@@ -176,39 +175,38 @@ select{
     border: 2px solid white;
     padding: 10px;
     border: none;
-}
-
-.button-container {
+  }
+  
+  .button-container {
     display: flex;
     justify-content: center;
     align-items: center;
     margin-top: 19%;
     padding-bottom: 20%;
-}
-
-.save {
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+  }
+  
+  .save {
+    background-image: url("../asset/tchat_right1.png");
     width: 100px;
     height: 100px;
-    /* max-width: 200px;
-    max-height: 200px; */
     background-size: cover;
     background-position: center;
     border: none;
     transform: scale(3);
     margin-top: -5%;
-}
-
-.save {
-    background-image: url("../asset/tchat_right1.png");
-}
-
-.category {
+    position: relative;
+  }
+  
+  .category {
     color: white;
     font-family: p5hatty;
     font-size: 30px;
-}
+  }
   
-.category select {
+  .category select {
     color: white;
     font-family: p5hatty;
     background-color: transparent;
@@ -218,3 +216,56 @@ select{
     height: 75px;
     width: 500px;
   }
+  
+  .save::before,
+  .save::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    border: 4px solid white;
+    opacity: 0;
+    transition: all 0.3s ease-in-out;
+    box-sizing: border-box;
+  }
+  
+  .save::before {
+    width: 30%;
+    height: 30%;
+  }
+  
+  .save::after:nth-child(1) {
+    transform: translate(-50%, -50%) rotate(90deg) translateX(25px) rotate(-45deg);
+    width: 40%;
+    height: 40%;
+  }
+  
+  .save::after:nth-child(2) {
+    transform: translate(-50%, -50%) rotate(90deg) translateX(25px) rotate(-90deg);
+    width: 50%;
+    height: 50%;
+  }
+  
+  .save::after:nth-child(3) {
+    transform: translate(-50%, -50%) rotate(90deg) translateX(25px) rotate(-135deg);
+    width: 60%;
+    height: 60%;
+  }
+  
+  .save::after:nth-child(4) {
+    transform: translate(-50%, -50%) rotate(180deg) translateX(25px) rotate(-180deg);
+    width: 70%;
+    height: 70%;
+  }
+  
+  .save:hover::before,
+  .save:hover::after {
+    width: 100%;
+    height: 100%;
+    opacity: 1;
+  }
+  
