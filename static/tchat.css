@@ -183,15 +183,6 @@ select{
     width: 35%;
 
 }
-.bullequestion{
-    position: absolute;
-    top: 52%;
-    left: 45%;
-    transform: rotateY(180deg);
-    height: 23%;
-    width: 35%;
-
-}
 
 .pdp{
     position: relative;
@@ -215,6 +206,9 @@ select{
 .pouceblo{
     max-width: 19%;
 }
+.pouceblo:hover{
+    pointer-events: click;
+}
 .rouge{
     width: 0%;
     flex-grow: 2;
@@ -230,14 +224,12 @@ select{
     max-width: 4.3%;
 }
 .bulleecrit{
-    padding-top: 3%;
     position: fixed;
-    top: 73%;
+    top: 82.5%;
     left: 27%;
-    height: 24%;
+    height: 19%;
     width: 45%;
     z-index: 5;
-    /* max-height: 200px; */
 }
 .comecrit{
     padding-top: 3%;
@@ -269,7 +261,7 @@ select{
 
 .conversation {
     color: white;
-    margin-bottom: 30%;
+    margin-bottom: 35%;
 }
 .conv{
     margin-top: 27.5%;
@@ -281,7 +273,21 @@ select{
 .message{
     right: 11%;
     top: -148px;
-    margin-top: 5%;
+    margin-top: 0%;
     z-index: 2;
     position: relative;
+}
+.nomutilisateur{
+    position: relative;
+    text-align: center;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    font-family: "p5hatty";
+    color: #ffffff;
+    width: 12%;
+    left: -37%;
+    top: -48px;
+    font-size: 125%;
+    letter-spacing: .3rem;
 }

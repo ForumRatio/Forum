@@ -78,7 +78,7 @@ function resp(){
         for (c = (start - 1) *3; c < d.length; c++){
             let sub = document.createElement('div')
             sub.className = 'subtitle'
-            sub.innerHTML = `<a href="/tchat?id=${d[c].Id}&cat=${d[c].category_id}"><p class="subName">${d[c].Subject}</p></a>`
+            sub.innerHTML = `<a href="/tchat?id=${d[c].Id}&cat=${d[c].Category_id}"><p class="subName">${d[c].Subject}</p></a>`
             cat.appendChild(sub)
            }
        }

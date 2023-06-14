@@ -4,7 +4,8 @@ let id_cat = url[1].substr(url[1].length -1)
 let icon = document.querySelector('.games')
 let title = document.querySelector('.sujet')
 let title2 = document.querySelector('.sujet2')
-console.log(id_sub,id_cat)
+let e = 1;
+let z = 0;
 let vol = document.getElementById('vol');
   let closet = document.getElementById('fishing');
   let playing = false;
@@ -31,73 +32,73 @@ let vol = document.getElementById('vol');
       playing = true;
     }
   });
-// variables pour garder une trace de l'état du bouton
-let isLiked = false;
-let likeCount = 0;
+
+let inputElement = document.querySelector('.comecrit');
+let conversationElement = document.querySelector('.conversation');
+let bubbleIdCounter = 1;
 
 // Fonction pour activer/désactiver le "J'aime"
-function toggleLike() {
-  // Récupérer l'élément du compteur de likes
-  let likeCountElement = document.getElementById('poucebloClics');
-
-  // Mettre à jour l'état du bouton et le compteur de likes
-  if (isLiked) {
-    likeCount--;
-  } else { 
-    likeCount++;
-  }
-  
-  // Mettre à jour l'affichage du compteur de likes
-  likeCountElement.innerHTML = likeCount.toString();
-
-  // Inverser l'état du bouton
-  isLiked = !isLiked;
+function toggleLike(element,Pid,Uid) {
+  let bubbleElement = document.querySelectorAll('.conv');
+  let likeCountElement = bubbleElement[element].querySelector('.poucebloClics');
+  fetch('/savedLike',{
+    method: "POST",
+    headers: {"content-type":"application/json"},
+    body: JSON.stringify({
+        Post_id : Pid,
+        User_id : Uid
+    }) 
+}).then(e=>{
+  fetch('/loadLike?id=' + Pid).then((res3) => {
+    return res3.json()
+  }).then((i)=>{
+    // console.log(i.length)
+    likeCountElement.textContent = i.length;
+  })
+})
 }
-
-// variables pour garder une trace de l'état du bouton
-let isDisliked = false;
-let dislikeCount = 0;
-
 // Fonction pour activer/désactiver le "J'aime pas"
-function toggleDislike() {
-  // Récupérer l'élément du compteur de dislikes
-  let dislikeCountElement = document.getElementById('poucerougeClics');
-
-  // Mettre à jour l'état du bouton et le compteur de dislikes
-  if (isDisliked) {
-    dislikeCount--;
-  } else {
-    dislikeCount++;
-  }
-
-  // Mettre à jour l'affichage du compteur de dislikes
-  dislikeCountElement.innerHTML = dislikeCount.toString();
-
-  // Inverser l'état du bouton
-  isDisliked = !isDisliked;
+function toggleDislike(element,Pid,Uid) {
+  let bubbleElement = document.querySelectorAll('.conv');
+  let likeCountElement = bubbleElement[element].querySelector('.poucerougeClics');
+  fetch('/savedDislike',{
+    method: "POST",
+    headers: {"content-type":"application/json"},
+    body: JSON.stringify({
+        Post_id : Pid,
+        User_id : Uid
+    }) 
+}).then(e=>{
+  fetch('/loadDislike?id=' + Pid).then((res3) => {
+    return res3.json()
+  }).then((i)=>{
+    // console.log(i.length)
+    likeCountElement.textContent = i.length;
+  })
+})
 }
-
-let isFuck = false;
-let fuckCount = 0;
 
 // Fonction pour activer/désactiver le "fuck"
-function toggleFuck() {
-  // Récupérer l'élément du compteur de fuck
-let fuckCountElement = document.getElementById('fuckClics');
-
-  // Mettre à jour l'état du bouton et le compteur de fuck
-  if (isFuck) {
-    fuckCount--;
-  } else {
-    fuckCount++;
-  }
-
-  // Mettre à jour l'affichage du compteur de fuck
-  fuckCountElement.innerHTML = fuckCount.toString();
-
-  // Inverser l'état du bouton
-  isFuck = !isFuck;
+function toggleFuck(element,Pid,Uid) {
+  let bubbleElement = document.querySelectorAll('.conv');
+  let likeCountElement = bubbleElement[element].querySelector('.fuckClics');
+  fetch('/savedFuck',{
+    method: "POST",
+    headers: {"content-type":"application/json"},
+    body: JSON.stringify({
+        Post_id : Pid,
+        User_id : Uid
+    }) 
+}).then(e=>{
+  fetch('/loadFuck?id=' + Pid).then((res3) => {
+    return res3.json()
+  }).then((i)=>{
+    // console.log(i.length)
+    likeCountElement.textContent = i.length;
+  })
+})
 }
+
 let resp2 = fetch('/loadSubjects2?id=' + id_sub).then((res) => {
   return res.json()
 }).then((d) => {
@@ -114,55 +115,149 @@ title.value = d.Subject
 let resp = fetch('/loadPost?id=' + id_sub).then((res) => {
   return res.json()
 }).then((d) => {
-  title2.value = d[0].Content
-  console.log(d)
+  if (d[0].Content.length >= 30){
+    let first = d[0].Content.substring(0, d[0].Content.length /2);
+    let last = d[0].Content.substr(d[0].Content.length /2)
+    title2.value = `${first} ${last}`
+  } else {
+    title2.value = d[0].Content
+  }
+  fetch('/loadAllUser').then((res2) => {
+    return res2.json()
+  }).then((r)=>{
+    console.log(d)
+    console.log(r)
+    for (e = 1; e < d.length; e++){
+      let user = ""
+      let picture = 0;
+      for (z = 0; z < r.length; z++){
+        if (d[e].User_id == r[z].Id){
+          user = r[z].Name
+          picture = r[z].Picture
+          break;
+        }
+      }
+      z = 0
+      let picture2 = ``;
+      if(picture == 0){
+        picture2 = `<img class="pdp" src="/asset/morganapdp1.png">`
+      } else if(picture == 1){
+        picture2 = `<img class="pdp" src="/asset/igypdp1.png">`
+      }
+      sendMessage2(d[e].Content,user,picture2)
+    }
+// console.log(document.querySelectorAll('.conv'))
+    let pouceblo = document.querySelectorAll('.pouceblo')
+    let poucebloClics = document.querySelectorAll('.poucebloClics');
+    let poucerouge = document.querySelectorAll('.poucerouge')
+    let poucerougeClics = document.querySelectorAll('.poucerougeClics');
+    let fuck = document.querySelectorAll('.fuck')
+    let fuckClics = document.querySelectorAll('.fuckClics');
+    for (z = 0; z < pouceblo.length; z++){
+      let c = z
+      let Pid = d[z+1].Id
+      
+  fetch('/loadLike?id=' + Pid).then((res2) => {
+        return res2.json()
+      }).then((w)=>{
+      poucebloClics[c].textContent = w.length 
+  });
+  fetch('/loadDislike?id=' + Pid).then((res2) => {
+    return res2.json()
+  }).then((w)=>{
+  poucerougeClics[c].textContent = w.length 
+  });
+  fetch('/loadFuck?id=' + Pid).then((res2) => {
+    return res2.json()
+  }).then((w)=>{
+  fuckClics[c].textContent = w.length 
 });
+  pouceblo[z].addEventListener('click', ()=>{
+    fetch('/loadUser').then((res) => {
+      return res.json()
+  }).then((d) => {
+    toggleLike(c, Pid, d.Id)
+  });
+  })
+  poucerouge[z].addEventListener('click', ()=>{
+    fetch('/loadUser').then((res) => {
+      return res.json()
+  }).then((d) => {
+    toggleDislike(c, Pid, d.Id)
+  });
+  })
+  fuck[z].addEventListener('click', ()=>{
+    fetch('/loadUser').then((res) => {
+      return res.json()
+  }).then((d) => {
+    toggleFuck(c, Pid, d.Id)
+  });
+  })
+}
 
-let inputElement = document.querySelector('.comecrit');
-let conversationElement = document.querySelector('.conversation');
-
+});
 // clic
 inputElement.addEventListener('keyup', function(event) {
-  // si espace alors envoie
+  // si entrée alors envoie
   if (event.keyCode === 13) {
-  sendMessage();
+  fetch('/loadUser').then((res) => {
+      return res.json()
+  }).then((d) => {
+    let Picture3 = ``;
+      if(d.Picture == 0){
+        Picture3 = `<img class="pdp" src="/asset/morganapdp1.png">`
+      } else if(d.Picture == 1){
+        Picture3 = `<img class="pdp" src="/asset/igypdp1.png">`
+      }
+    sendMessage(inputElement.value,d.Name,Picture3);
+  });
   }
+})
 });
 
-function sendMessage(){
+function sendMessage(Content,User,Picture){
+sendMessage2(Content,User,Picture)
+console.log(document.querySelectorAll('.conv'))
+SavedPost(Content, id_sub, id_cat)
+  }
+
+function sendMessage2(Content,User,Picture){
   // Récupérer le contenu du champ de saisie
   let message = document.createElement('p');
   message.className=('message')
-  if (inputElement.value.length >= 34){
-    let first = inputElement.value.substring(0, inputElement.value.length /2);
-    let last = inputElement.value.substr(inputElement.value.length /2)
+  if (Content >= 34){
+    let first = Content.substring(0, Content.length /2);
+    let last = Content.substr(Content.length /2)
     message.innerHTML = `${first} <br> ${last}`
   } else {
-    message.innerHTML = inputElement.value
+    message.innerHTML = Content
   }
   if (message.innerHTML != ""){
 // Créer bulle envoyé avec texte dedans
 let bubbleElement = document.createElement('div');
+let bubbleId = `bubble-${bubbleIdCounter}`;
+bubbleElement.id = bubbleId;
 bubbleElement.classList.add('conv');
 bubbleElement.innerHTML = `
-<img class="pdp" src="/asset/igypdp1.png">
-<img class="bulletext" src="/asset/bulles.png">
-<div class="container">
-<div class="blo">
-  <span id="poucebloClics" class="pouceblo" style="font-size: 200%;">0</span>
-  <input type="image" id="poucehaut" class="pouceblo" src="/asset/cool.png" onclick="toggleLike()"></input>
-</div>
-<div class="rouge">
-  <span id="poucerougeClics" class="poucerouge" style="font-size: 200%;">0</span>
-  <input type="image" id="poucebas" class="poucerouge" src="/asset/ugh.png" onclick="toggleDislike()"></input>
-</div>
-<div class="fucks">
-  <span id="fuckClics" class="fuck" style="font-size: 200%;">0</span>
-  <input type="image" id="fucker" class="fuck" src="/asset/duh.png" onclick="toggleFuck()"></input>
-</div>
-</div>
+${Picture}
+        <img class="bulletext" src="/asset/bulles.png">
+        <div class="container">
+          <div class="blo">
+          <span id="poucebloClics-${bubbleIdCounter}" class="poucebloClics" data-count="0" style="font-size: 200%;">0</span>
+          <input type="image" class="pouceblo" src="/asset/cool.png"></input>
+          </div>
+          <div class="rouge">
+          <span id="poucerougeClics-${bubbleIdCounter}" class="poucerougeClics" data-count="0" style="font-size: 200%;">0</span>
+          <input type="image" class="poucerouge" src="/asset/ugh.png"></input>
+          </div>
+          <div class="fucks">
+          <span id="fuckClics-${bubbleIdCounter}" class="fuckClics" data-count="0" style="font-size: 200%;">0</span>
+          <input type="image" class="fuck" src="/asset/duh.png"></input>
+          </div>
+        </div>
+        <input class="nomutilisateur" type="text" placeholder="Nom" value="${User}" disabled>
 `;
-
+bubbleIdCounter++;
 // Ajouter le message à la bulle de discussion
 bubbleElement.appendChild(message);
 
@@ -172,4 +267,16 @@ conversationElement.appendChild(bubbleElement);
 //reinitialisation zone texte
 inputElement.value = '';
   }
+}
+
+function SavedPost(a,b,c){
+  fetch('/savedPost',{
+      method: "POST",
+      headers: {"content-type":"application/json"},
+      body: JSON.stringify({
+          Check : a,
+          Subject_id : parseInt(b,10),
+          Category_id : parseInt(c,10)
+      }) 
+  })
 }
