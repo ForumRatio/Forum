@@ -79,11 +79,23 @@ let resp1 = fetch('/loadPostUser').then((res) => {
       <td>
         <div class="category">
           <img src="../asset/settings.png" alt="Category 3" a href="#" class="edit">
+          <text style ="
+            color: white;
+            font-family: p5hatty;
+            display: flex;
+            justify-content: center;
+          ">Modifier</text>
         </div>
       </td>
       <td>
         <div class="category">
           <img src="../asset/delete.png" alt="Category 4" a href="#" class="delete">
+          <text style ="
+            color: white;
+            font-family: p5hatty;
+            display: flex;
+            justify-content: center;
+          ">Supprimer</text>
         </div>
       </td>`
       table.appendChild(cat1)

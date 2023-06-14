@@ -169,6 +169,7 @@ select{
 
 .triangle-code{
     display : inline-block;
+    position: relative;
     height : 0;
     width : 0;
     border-top : 50px solid transparent;
@@ -176,6 +177,22 @@ select{
     border-left : 50px solid white;
 }
 
+.triangle-code:hover{
+    animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+  
 .contain {
     width: 500px;
     height: 50px;
@@ -205,6 +222,22 @@ select{
     margin-bottom: -2.5%;
     font-family: "p5hatty";
     font-size: 50px;
+}
+
+.pseudo input:hover{
+    animation: blink 1s infinite;
+}
+
+@keyframes blink {
+    0% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
 }
 
 .container {
@@ -240,23 +273,31 @@ select{
     padding-bottom: 20%;
 }
 
-.save, .logout {
-    width: 100px;
-    height: 100px;
-    background-size: cover;
-    background-position: center;
-    border: none;
-    transform: scale(5);
-    margin-top: -5%;
+.save,
+.logout {
+  background-size: cover;
+  background-position: center;
+  background-color: transparent;
+  border: none;
+  margin-top: -5%;
+  transition: transform 0.5s;
+  transform-origin: center;
 }
+
+.save:hover,
+.logout:hover {
+  transform:scale(1.5);
+}
+
+
+
 
 .save {
     height: 500px;
     width: 500px;
     transform: scale(1);
     background-image: url("../asset/save_left.png");
-    margin-right: 30%;
-    
+    margin-right: 30%;   
 }
 
 .logout {
@@ -265,6 +306,7 @@ select{
     height: 500px;
     width: 500px;
 }
+
 
 .frame {
     width: 90%;
@@ -297,6 +339,7 @@ select{
     text-align: center;
     position:relative;
     z-index: 2;
+    margin-bottom: 5%;
   }
   .message {
     background-image: url("../asset/bulle.png");
@@ -323,3 +366,4 @@ select{
     max-width: 128px;
     max-height: 128px;
   }
+
