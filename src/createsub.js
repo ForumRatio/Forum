@@ -35,14 +35,14 @@ vol.addEventListener('click', function() {
 });
 
 function Saved1(){
-    console.log(elt[0].value,select.value)
+    console.log(elt[0].value,select2.value)
     fetch('/savedSub',{
         method: "POST",
         headers: {"content-type":"application/json"},
         body: JSON.stringify({
             Subject : elt[0].value,
             Question : elt[1].value,
-            Category_id : parseInt(select.value,10)
+            Category_id : parseInt(select2.value,10)
         }) 
     }).then((res) => {
         if (res.redirected){

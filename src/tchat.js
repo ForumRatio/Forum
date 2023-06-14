@@ -222,40 +222,45 @@ SavedPost(Content, id_sub, id_cat)
   }
 
 function sendMessage2(Content,User,Picture){
+  fetch('/loadUser').then((res) => {
+    return res.json()
+}).then((d) => {
+  if (User == d.Name){
+  console.log(d)
   // Récupérer le contenu du champ de saisie
-  let message = document.createElement('p');
-  message.className=('message')
-  if (Content >= 34){
-    let first = Content.substring(0, Content.length /2);
-    let last = Content.substr(Content.length /2)
-    message.innerHTML = `${first} <br> ${last}`
-  } else {
-    message.innerHTML = Content
-  }
-  if (message.innerHTML != ""){
+ let message = document.createElement('p');
+ message.className=('message1')
+ if (Content >= 34){
+   let first = Content.substring(0, Content.length /2);
+   let last = Content.substr(Content.length /2)
+   message.innerHTML = `${first} <br> ${last}`
+ } else {
+   message.innerHTML = Content
+ }
+ if (message.innerHTML != ""){
 // Créer bulle envoyé avec texte dedans
 let bubbleElement = document.createElement('div');
 let bubbleId = `bubble-${bubbleIdCounter}`;
 bubbleElement.id = bubbleId;
-bubbleElement.classList.add('conv');
+bubbleElement.classList.add('conv1');
 bubbleElement.innerHTML = `
 ${Picture}
-        <img class="bulletext" src="/asset/bulles.png">
-        <div class="container">
-          <div class="blo">
-          <span id="poucebloClics-${bubbleIdCounter}" class="poucebloClics" data-count="0" style="font-size: 200%;">0</span>
-          <input type="image" class="pouceblo" src="/asset/cool.png"></input>
-          </div>
-          <div class="rouge">
-          <span id="poucerougeClics-${bubbleIdCounter}" class="poucerougeClics" data-count="0" style="font-size: 200%;">0</span>
-          <input type="image" class="poucerouge" src="/asset/ugh.png"></input>
-          </div>
-          <div class="fucks">
-          <span id="fuckClics-${bubbleIdCounter}" class="fuckClics" data-count="0" style="font-size: 200%;">0</span>
-          <input type="image" class="fuck" src="/asset/duh.png"></input>
-          </div>
-        </div>
-        <input class="nomutilisateur" type="text" placeholder="Nom" value="${User}" disabled>
+       <img class="bulletext" src="/asset/bulles.png">
+       <div class="container">
+         <div class="blo1">
+         <span id="poucebloClics-${bubbleIdCounter}" class="poucebloClics" data-count="0" style="font-size: 250%;">0</span>
+         <input type="image" class="pouceblo" src="/asset/cool.png"></input>
+         </div>
+         <div class="rouge1">
+         <span id="poucerougeClics-${bubbleIdCounter}" class="poucerougeClics" data-count="0" style="font-size: 250%;">0</span>
+         <input type="image" class="poucerouge" src="/asset/ugh.png"></input>
+         </div>
+         <div class="fucks1">
+         <span id="fuckClics-${bubbleIdCounter}" class="fuckClics" data-count="0" style="font-size: 250%;">0</span>
+         <input type="image" class="fuck" src="/asset/duh.png"></input>
+         </div>
+       </div>
+       <input class="nomutilisateur1" type="text" placeholder="Nom" value="${User}" disabled>
 `;
 bubbleIdCounter++;
 // Ajouter le message à la bulle de discussion
@@ -266,7 +271,57 @@ conversationElement.appendChild(bubbleElement);
 
 //reinitialisation zone texte
 inputElement.value = '';
+ }
+  } else {
+ // Récupérer le contenu du champ de saisie
+ let message = document.createElement('p');
+ message.className=('message')
+ if (Content >= 34){
+   let first = Content.substring(0, Content.length /2);
+   let last = Content.substr(Content.length /2)
+   message.innerHTML = `${first} <br> ${last}`
+ } else {
+   message.innerHTML = Content
+ }
+ if (message.innerHTML != ""){
+// Créer bulle envoyé avec texte dedans
+let bubbleElement = document.createElement('div');
+let bubbleId = `bubble-${bubbleIdCounter}`;
+bubbleElement.id = bubbleId;
+bubbleElement.classList.add('conv');
+bubbleElement.innerHTML = `
+${Picture}
+       <img class="bulletext" src="/asset/bulles.png">
+       <div class="container">
+         <div class="blo">
+         <span id="poucebloClics-${bubbleIdCounter}" class="poucebloClics" data-count="0" style="font-size: 200%;">0</span>
+         <input type="image" class="pouceblo" src="/asset/cool.png"></input>
+         </div>
+         <div class="rouge">
+         <span id="poucerougeClics-${bubbleIdCounter}" class="poucerougeClics" data-count="0" style="font-size: 200%;">0</span>
+         <input type="image" class="poucerouge" src="/asset/ugh.png"></input>
+         </div>
+         <div class="fucks">
+         <span id="fuckClics-${bubbleIdCounter}" class="fuckClics" data-count="0" style="font-size: 200%;">0</span>
+         <input type="image" class="fuck" src="/asset/duh.png"></input>
+         </div>
+       </div>
+       <input class="nomutilisateur" type="text" placeholder="Nom" value="${User}" disabled>
+`;
+bubbleIdCounter++;
+// Ajouter le message à la bulle de discussion
+bubbleElement.appendChild(message);
+
+// Ajouter la bulle de discussion à l'élément de la conversation
+conversationElement.appendChild(bubbleElement);
+
+//reinitialisation zone texte
+inputElement.value = '';
+ }
   }
+ 
+});
+ 
 }
 
 function SavedPost(a,b,c){

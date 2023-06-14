@@ -186,16 +186,12 @@ select{
 
 .pdp{
     position: relative;
-    /* height: 50%; */
-    /* top: -16%; */
-    left: -42%;
+    left: 0%;
     max-width: 20%;
     margin-top: -3%;
 }
 .bulletext{
     position: relative;
-    /* top: 77%; */
-    left: -44%;
     margin-top: auto;
     min-width: 60%;
 }
@@ -251,7 +247,7 @@ select{
 .container {
     position: relative;
     display: flex;
-    left: 0%;
+    left: 42%;
     margin-top:-7%;
   }
   
@@ -261,22 +257,25 @@ select{
 
 .conversation {
     color: white;
-    margin-bottom: 35%;
+    margin-bottom: 15%;
 }
 .conv{
-    margin-top: 27.5%;
-    margin-bottom:-27%;
+    position: relative;
+    left: -34%;
+    margin-top:10.5%;
+    margin-bottom:-8%;
     margin-left: 40%;
     font-size: 150%;
     font-family: "p5hatty";
 }
 .message{
-    right: 11%;
-    top: -148px;
-    margin-top: 0%;
+    left:33%;
+    top: -182px;
+    margin-top: 5%;
     z-index: 2;
     position: relative;
 }
+
 .nomutilisateur{
     position: relative;
     text-align: center;
@@ -286,8 +285,60 @@ select{
     font-family: "p5hatty";
     color: #ffffff;
     width: 12%;
-    left: -37%;
-    top: -48px;
+    left: 4.8%;
+    top: -46px;
     font-size: 125%;
     letter-spacing: .3rem;
+    transform: rotate(-4deg);
+}
+
+.conv-container {
+    text-align: right;
+    /* Autres styles de positionnement souhaités */
+}
+
+.conv1 {
+    margin-top: 20px;
+    float: right;
+    transform: rotateY(180deg); /* Ajoute une rotation sur l'axe horizontal */
+    margin-right: 5%;
+    font-family: "p5hatty";
+    font-size: 150%;
+}
+
+.conv1 .message1 {
+    transform: rotateY(180deg); /* Inverse la rotation du message */
+    position: fixed;
+    top: 20%;
+    left: 68%;
+    font-family: "p5hatty";
+    font-size: 150%;
+}
+
+.nomutilisateur1{
+    position: relative;
+    text-align: center;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    font-family: "p5hatty";
+    color: #ffffff;
+    width: 12%;
+    left: 4.8%;
+    top: -24px;
+    font-size: 125%;
+    letter-spacing: .3rem;
+    transform: rotateY(180deg);
+}
+
+.fucks1{
+    transform: rotateY(180deg);
+}
+
+.blo1{
+    transform: rotateY(180deg);
+}
+
+.rouge1{
+    transform: rotateY(180deg);
 }
