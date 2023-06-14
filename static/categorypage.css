@@ -182,3 +182,25 @@ select{
     margin-top: 5%;
     display: flex;
 }
+
+.subtitle:hover img,
+.subtitle:hover p {
+  transition: transform 0.5s;
+  transform: rotate(360deg);
+}
+
+.categories .subtitle {
+  display: inline-block;
+  margin: 20px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.categories .subtitle img {
+  width: 100px;
+  height: 100px;
+}
+
+.categories .subtitle p {
+  margin-top: 10px;
+}

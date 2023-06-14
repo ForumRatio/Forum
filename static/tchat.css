@@ -64,9 +64,11 @@ li a {
     margin-left: 14px;
     padding: 14px 16px;
     text-decoration: none;
+    display: flex;
+    flex-direction: column;
 }
 
-li a:hover{
+li a:hover:not(.active) {
     background-color: #111;
 }
 
@@ -75,13 +77,16 @@ li a:hover{
 }
 
 .home img {
-    width : 7.5%;
+    width : 10%;
     height : auto;
+    background-color: transparent;
 }
 .home{
     color: transparent;
     max-width: 700px;
     display: flex;
+    flex-direction: row;
+    align-items: center;
 }
 
 .home:hover{
@@ -101,12 +106,14 @@ li a:hover{
     width: 80%;
     height: auto;
 }
+
 #vol{
     position: absolute;
     right:0%;
     max-width: 128px;
     max-height: 128px;
-}
+  }
+
 select{
     color: black;
     font-family: "p5hatty";
@@ -132,6 +139,18 @@ select{
     background-color: transparent;
 }
 
+.sub text, .profil text, .dropdown text, .map text {
+    visibility: hidden;
+    font-family: "p5hatty";
+    background-color: transparent;
+    display: flex;
+    justify-content: center;
+    margin-top: 25%;
+}
+
+.sub:hover text, .profil:hover text, .dropdown:hover text, .map:hover text {
+    visibility: visible;
+}
 /* header */
 
 .games{

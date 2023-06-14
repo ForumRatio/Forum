@@ -155,7 +155,7 @@ select{
 .categories .subtitle p {
     color: white;
     position:absolute;
-    left: 33%;
+    left: 30%;
     font-family: "p5hatty";
     font-size: 50px;
     background: transparent;
@@ -189,6 +189,8 @@ select{
     padding-bottom: 5%;
   }
 
+  
+
 .normal {
     width: 30%;
     height: auto;
@@ -203,6 +205,42 @@ select{
     margin-left: auto;
 
 }
+
+
+/* ... Autres styles ... */
+
+.tobecontinued {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+}
+
+.tobecontinued img.normal {
+    order: 2;
+    margin-right: 15px;
+}
+
+.tobecontinued img.flipped {
+    order: 1;
+    margin: 5px;
+    padding-bottom: 5%;
+}
+
+.tobecontinued img {
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .tobecontinued img:hover {
+    transform: rotate(360deg);
+  }
+  
+
+/* ... Autres styles ... */
+
+
 .subtitle{
     z-index: 3;
     min-width: 800px;
@@ -211,6 +249,16 @@ select{
     background-image: url('../asset/bullesujet2.png');
     background-repeat: no-repeat;
 }
+
+.subtitle {
+    transition: transform 0.3s;
+  }
+  
+  .subtitle:hover {
+    transform: scale(1.1);
+  }
+
+
 #vol{
     /* display:flex; */
     position: absolute;
