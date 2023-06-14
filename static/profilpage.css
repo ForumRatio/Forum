@@ -37,6 +37,8 @@ li a {
     margin-left: 14px;
     padding: 14px 16px;
     text-decoration: none;
+    display: flex;
+    flex-direction: column;
 }
 
 li a:hover:not(.active) {
@@ -56,6 +58,8 @@ li a:hover:not(.active) {
     color: transparent;
     max-width: 700px;
     display: flex;
+    flex-direction: row;
+    align-items: center;
 }
 
 .home:hover{
@@ -106,6 +110,19 @@ select{
     align-items: center;
     margin-left: 10%;
     background-color: transparent;
+}
+
+.sub text, .map text, .dropdown text, .active text {
+    visibility: hidden;
+    font-family: "p5hatty";
+    background-color: transparent;
+    display: flex;
+    justify-content: center;
+    margin-top: 25%;
+}
+
+.sub:hover text, .map:hover text, .dropdown:hover text, .active:hover text {
+    visibility: visible;
 }
 /*header*/
 
