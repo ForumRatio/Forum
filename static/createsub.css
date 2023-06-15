@@ -84,6 +84,7 @@ li a:hover:not(.active) {
     right:0%;
     max-width: 128px;
     max-height: 128px;
+    cursor: pointer;
   }
 
 select{

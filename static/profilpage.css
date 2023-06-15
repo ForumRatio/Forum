@@ -85,6 +85,7 @@ li a:hover:not(.active) {
     right:0%;
     max-width: 128px;
     max-height: 128px;
+    cursor: pointer;
   }
 
 select{
@@ -148,6 +149,7 @@ select{
 
 .pdp{
     display: flex;
+    justify-content: center;
     align-items: center;
 }
 
@@ -163,7 +165,7 @@ select{
 }
 
 .changeme img {
-    height: 35rem;
+    height: 15rem;
     width: auto;
 }
 
@@ -289,9 +291,6 @@ select{
   transform:scale(1.5);
 }
 
-
-
-
 .save {
     height: 500px;
     width: 500px;
@@ -365,5 +364,11 @@ select{
     right:0%;
     max-width: 128px;
     max-height: 128px;
+  }
+  img.edit:hover{
+    cursor: pointer;
+  }
+  img.delete:hover{
+    cursor: pointer;
   }
 

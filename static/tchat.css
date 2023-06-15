@@ -112,6 +112,7 @@ li a:hover:not(.active) {
     right:0%;
     max-width: 128px;
     max-height: 128px;
+    cursor: pointer;
   }
 
 select{
@@ -205,43 +206,17 @@ select{
 
 .pdp{
     position: relative;
-    /* height: 50%; */
-    /* top: -16%; */
     left: -42%;
     max-width: 20%;
     margin-top: -3%;
 }
 .bulletext{
     position: relative;
-    /* top: 77%; */
     left: -44%;
     margin-top: auto;
     min-width: 60%;
 }
-.blo{
-    width: 9%;
-    flex-grow: 1;
-}
-.pouceblo{
-    max-width: 19%;
-}
-.pouceblo:hover{
-    pointer-events: click;
-}
-.rouge{
-    width: 0%;
-    flex-grow: 2;
-}
-.poucerouge{
-    max-width: 20%;
-}
-.fucks{
-    width: 63%;
-    flex-grow: 3;
-}
-.fuck{
-    max-width: 4.3%;
-}
+
 .bulleecrit{
     position: fixed;
     top: 82.5%;
@@ -272,9 +247,18 @@ select{
     display: flex;
     left: 0%;
     margin-top:-7%;
-  }
-  
+}
+
+.container1 {
+    position: relative;
+    display: flex;
+    left: 35%;
+    margin-top:-7%;
+}
 .container div {
+    margin-right: -100px;
+}
+.container1 div {
     margin-right: -100px;
 }
 
@@ -283,7 +267,9 @@ select{
     margin-bottom: 35%;
 }
 .conv{
-    margin-top: 27.5%;
+    position: relative;
+    left: -15%;
+    margin-top: 25.5%;
     margin-bottom:-27%;
     margin-left: 40%;
     font-size: 150%;
@@ -309,4 +295,98 @@ select{
     top: -48px;
     font-size: 125%;
     letter-spacing: .3rem;
+}
+.blo{
+    width: 9%;
+    flex-grow: 1;
+}
+.pouceblo{
+    max-width: 19%;
+}
+.rouge{
+    width: 0%;
+    flex-grow: 2;
+}
+.poucerouge{
+    max-width: 20%;
+}
+.fucks{
+    width: 63%;
+    flex-grow: 3;
+}
+.fuck{
+    max-width: 4.3%;
+}
+.conv1 {
+    position: relative;
+    margin-top: 25.5%;
+    margin-bottom:-27%;
+    margin-left: 40%;
+    font-size: 150%;
+    font-family: "p5hatty";
+    float: right;
+    right: 25%;
+    transform: rotateY(180deg); 
+    /* Ajoute une rotation sur l'axe horizontal */
+}
+
+.message1 {
+    right:70%;
+    top: -182px;
+    margin-top: 2%;
+    z-index: 2;
+    position: relative;
+    transform: rotateY(180deg); /* Inverse la rotation du message */
+}
+
+.nomutilisateur1{
+    position: relative;
+    text-align: center;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    font-family: "p5hatty";
+    color: #ffffff;
+    width: 12%;
+    left: -37%;
+    top: -60px;
+    font-size: 125%;
+    letter-spacing: .3rem;
+    margin-top: 1%;
+    transform: rotateY(180deg);
+}
+
+.blo1{
+    position: relative;
+    right: 30%;
+    width: 9%;
+    flex-grow: 1;
+    transform: rotateY(180deg);
+}
+.pouceblo1{
+    max-width: 19%;
+    transform: rotateY(180deg);
+}
+.rouge1{
+    position: relative;
+    right: 57%;
+    width: 0%;
+    flex-grow: 2;
+    transform: rotateY(180deg);
+}
+.poucerouge1{
+    max-width: 20%;
+    transform: rotateY(180deg);
+}
+.fucks1{
+    /* max-width: 180px; */
+    /* width: 63%; */
+    right: 140%;
+    position: relative;
+    flex-grow: 3;
+    transform: rotateY(180deg);
+}
+.fuck1{
+    max-width: 4.3%;
+    transform: rotateY(180deg);
 }

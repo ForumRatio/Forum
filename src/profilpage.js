@@ -9,7 +9,11 @@ let cat = document.getElementsByClassName('cat')
 let table = document.querySelector('tbody')
 let vol = document.getElementById('vol')
 let closet = document.getElementById('closet')
-let image = ["morganapdp.png","igypdp.png"]
+let image = ["morganapdp1.png","igypdp1.png","2a.png","9s.png","aizen.png","ana.png","arisa.png","babil.png","basile.png","caellus.png",
+"cereza.png","din.png","double.png","emil.png","emil2.png","farore.png","fortnite.png","gangsta.png","gangsta2.png","gangsta3.png",
+"gangsta4.png","gangsta5.png","ganondorf.png","gojo.png","goku.png","isagi.png","justice.png","marc.png","meme.png","mipha.png",
+"moriarty.png","moriarty2.png","moriarty3.png","nayru.png","nier.png","nobody.png","nsymbol.png","omori.png","rachel.png","riju.png",
+"shadow.png","sonic.png","sidon.png","stelle.png","tanya.png","tower.png","triforce.png","trigun.png"]
 let playing = false;
 let delete1;
 let message1;
@@ -47,7 +51,7 @@ let resp = fetch('/loadUser').then((res) => {
     return res.json()
 }).then((d) => {
    // console.log(d[0].Category_id)
-    profileImage.src = '../asset/' + image[d.Picture]
+    profileImage.src = '../asset/pp/' + image[d.Picture]
     IdUser.innerText = d.Id
     IdName.value = d.Name
 });
@@ -155,7 +159,7 @@ triangle.addEventListener('click', () => {
     } else {
         imageChanged++
     }
-    profileImage.src = '../asset/' + image[imageChanged]
+    profileImage.src = '../asset/pp/' + image[imageChanged]
 });
 
 save[0].addEventListener('click', () => {
