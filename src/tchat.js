@@ -217,7 +217,7 @@ inputElement.addEventListener('keyup', function(event) {
 
 function sendMessage(Content,User,Picture){
 sendMessage2(Content,User,Picture)
-console.log(document.querySelectorAll('.conv'))
+// console.log(document.querySelectorAll('.conv'))
 SavedPost(Content, id_sub, id_cat)
   }
 
