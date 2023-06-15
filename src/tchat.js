@@ -249,15 +249,15 @@ ${Picture}
        <div class="container">
          <div class="blo1">
          <span id="poucebloClics-${bubbleIdCounter}" class="poucebloClics" data-count="0" style="font-size: 250%;">0</span>
-         <input type="image" class="pouceblo" src="/asset/cool.png"></input>
+         <input type="image" class="pouceblo1" src="/asset/cool.png"></input>
          </div>
          <div class="rouge1">
          <span id="poucerougeClics-${bubbleIdCounter}" class="poucerougeClics" data-count="0" style="font-size: 250%;">0</span>
-         <input type="image" class="poucerouge" src="/asset/ugh.png"></input>
+         <input type="image" class="poucerouge1" src="/asset/ugh.png"></input>
          </div>
          <div class="fucks1">
          <span id="fuckClics-${bubbleIdCounter}" class="fuckClics" data-count="0" style="font-size: 250%;">0</span>
-         <input type="image" class="fuck" src="/asset/duh.png"></input>
+         <input type="image" class="fuck1" src="/asset/duh.png"></input>
          </div>
        </div>
        <input class="nomutilisateur1" type="text" placeholder="Nom" value="${User}" disabled>

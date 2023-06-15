@@ -202,9 +202,6 @@ select{
 .pouceblo{
     max-width: 19%;
 }
-.pouceblo:hover{
-    pointer-events: click;
-}
 .rouge{
     width: 0%;
     flex-grow: 2;
@@ -247,7 +244,7 @@ select{
 .container {
     position: relative;
     display: flex;
-    left: 42%;
+    left: 35%;
     margin-top:-7%;
   }
   
@@ -271,7 +268,7 @@ select{
 .message{
     left:33%;
     top: -182px;
-    margin-top: 5%;
+    margin-top: 2%;
     z-index: 2;
     position: relative;
 }
@@ -298,21 +295,23 @@ select{
 }
 
 .conv1 {
-    margin-top: 20px;
+    position: relative;
+    margin-top:10.5%;
+    margin-bottom:-8%;
+    margin-left: 40%;
+    font-size: 150%;
+    font-family: "p5hatty";
     float: right;
     transform: rotateY(180deg); /* Ajoute une rotation sur l'axe horizontal */
-    margin-right: 5%;
-    font-family: "p5hatty";
-    font-size: 150%;
 }
 
-.conv1 .message1 {
+.message1 {
+    right:25%;
+    top: -182px;
+    margin-top: 1%;
+    z-index: 2;
+    position: relative;
     transform: rotateY(180deg); /* Inverse la rotation du message */
-    position: fixed;
-    top: 20%;
-    left: 68%;
-    font-family: "p5hatty";
-    font-size: 150%;
 }
 
 .nomutilisateur1{
@@ -325,20 +324,39 @@ select{
     color: #ffffff;
     width: 12%;
     left: 4.8%;
-    top: -24px;
+    top: -57px;
     font-size: 125%;
     letter-spacing: .3rem;
     transform: rotateY(180deg);
 }
 
-.fucks1{
-    transform: rotateY(180deg);
-}
-
 .blo1{
+    width: 9%;
+    flex-grow: 1;
     transform: rotateY(180deg);
 }
-
+.pouceblo1{
+    max-width: 19%;
+    transform: rotateY(180deg);
+}
 .rouge1{
+    width: 0%;
+    flex-grow: 2;
+    transform: rotateY(180deg);
+}
+.poucerouge1{
+    max-width: 20%;
+    transform: rotateY(180deg);
+}
+.fucks1{
+    /* max-width: 180px; */
+    /* width: 63%; */
+    right: 105%;
+    position: relative;
+    flex-grow: 3;
+    transform: rotateY(180deg);
+}
+.fuck1{
+    max-width: 4.3%;
     transform: rotateY(180deg);
 }
