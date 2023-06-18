@@ -26,8 +26,12 @@ func LogPage(w http.ResponseWriter, r *http.Request) {
 	template.Execute(w, r)
 }
 func ChatPage(w http.ResponseWriter, r *http.Request, pp *User) {
+	db := InitDatabase("EXPLOSION")
 	session, _ := store.Get(r, "user")
 	auth := session.Values["auth"]
+	if SelectAllFromUsers(db, "users") == nil {
+		http.Redirect(w, r, "/register", http.StatusSeeOther)
+	}
 	if auth == nil || auth == "" {
 		http.Redirect(w, r, "/login", http.StatusSeeOther)
 	} else {
@@ -47,8 +51,12 @@ func ChatPage(w http.ResponseWriter, r *http.Request, pp *User) {
 	template.Execute(w, r)
 }
 func SubjectPage(w http.ResponseWriter, r *http.Request, pp *User) {
+	db := InitDatabase("EXPLOSION")
 	session, _ := store.Get(r, "user")
 	auth := session.Values["auth"]
+	if SelectAllFromUsers(db, "users") == nil {
+		http.Redirect(w, r, "/register", http.StatusSeeOther)
+	}
 	if auth == nil || auth == "" {
 		http.Redirect(w, r, "/login", http.StatusSeeOther)
 	} else {
@@ -68,8 +76,12 @@ func SubjectPage(w http.ResponseWriter, r *http.Request, pp *User) {
 	template.Execute(w, r)
 }
 func CreateSub(w http.ResponseWriter, r *http.Request, pp *User) {
+	db := InitDatabase("EXPLOSION")
 	session, _ := store.Get(r, "user")
 	auth := session.Values["auth"]
+	if SelectAllFromUsers(db, "users") == nil {
+		http.Redirect(w, r, "/register", http.StatusSeeOther)
+	}
 	if auth == nil || auth == "" {
 		http.Redirect(w, r, "/login", http.StatusSeeOther)
 	} else {
@@ -117,8 +129,12 @@ func Categories(w http.ResponseWriter, r *http.Request) {
 	template.Execute(w, r)
 }
 func Profil(w http.ResponseWriter, r *http.Request, pp *User) {
+	db := InitDatabase("EXPLOSION")
 	session, _ := store.Get(r, "user")
 	auth := session.Values["auth"]
+	if SelectAllFromUsers(db, "users") == nil {
+		http.Redirect(w, r, "/register", http.StatusSeeOther)
+	}
 	if auth == nil || auth == "" {
 		http.Redirect(w, r, "/login", http.StatusSeeOther)
 	} else {
@@ -142,21 +158,21 @@ func Profil(w http.ResponseWriter, r *http.Request, pp *User) {
 
 func SavedProfil(w http.ResponseWriter, r *http.Request, pp *User) {
 	var user ModifyProfil
-	db := InitDatabase("test")
+	db := InitDatabase("EXPLOSION")
 	body, _ := ioutil.ReadAll(r.Body)
 	json.Unmarshal(body, &user)
 	UpdateUser(db, pp.Id, user.Name, user.Pictures)
 }
 func SavedPost(w http.ResponseWriter, r *http.Request, pp *User) {
 	var user Post2
-	db := InitDatabase("test")
+	db := InitDatabase("EXPLOSION")
 	body, _ := ioutil.ReadAll(r.Body)
 	json.Unmarshal(body, &user)
 	InsertIntoContent(db, user.Check, user.Subject_id, user.Category_id, pp.Id)
 }
 func Savedlike(w http.ResponseWriter, r *http.Request, pp *User) {
 	var user Like2
-	db := InitDatabase("test")
+	db := InitDatabase("EXPLOSION")
 	body, _ := ioutil.ReadAll(r.Body)
 	json.Unmarshal(body, &user)
 	like := SelectLikeById2(db, "like", user.Post_id, user.User_id)
@@ -168,7 +184,7 @@ func Savedlike(w http.ResponseWriter, r *http.Request, pp *User) {
 }
 func Savedislike(w http.ResponseWriter, r *http.Request, pp *User) {
 	var user Like2
-	db := InitDatabase("test")
+	db := InitDatabase("EXPLOSION")
 	body, _ := ioutil.ReadAll(r.Body)
 	json.Unmarshal(body, &user)
 	like := SelectLikeById2(db, "dislike", user.Post_id, user.User_id)
@@ -180,7 +196,7 @@ func Savedislike(w http.ResponseWriter, r *http.Request, pp *User) {
 }
 func Savedfuck(w http.ResponseWriter, r *http.Request, pp *User) {
 	var user Like2
-	db := InitDatabase("test")
+	db := InitDatabase("EXPLOSION")
 	body, _ := ioutil.ReadAll(r.Body)
 	json.Unmarshal(body, &user)
 	like := SelectLikeById2(db, "fuck", user.Post_id, user.User_id)
@@ -194,7 +210,7 @@ func DeletePost(w http.ResponseWriter, r *http.Request, pp *User) {
 	var user BoolLogin
 	var b BoolLogin
 	checklog := false
-	db := InitDatabase("test")
+	db := InitDatabase("EXPLOSION")
 	body, _ := ioutil.ReadAll(r.Body)
 	json.Unmarshal(body, &user)
 	fmt.Println(user)
@@ -220,7 +236,7 @@ func EditPost(w http.ResponseWriter, r *http.Request, pp *User) {
 	var user BoolLogin2
 	var b BoolLogin
 	checklog := false
-	db := InitDatabase("test")
+	db := InitDatabase("EXPLOSION")
 	body, _ := ioutil.ReadAll(r.Body)
 	json.Unmarshal(body, &user)
 	user2 := SelectPostrByUser(db, pp.Id)
@@ -242,7 +258,7 @@ func SavedSub(w http.ResponseWriter, r *http.Request, pp *User) {
 	checke := false
 	var user CreateS
 	var b BoolLogin
-	db := InitDatabase("test")
+	db := InitDatabase("EXPLOSION")
 	body, _ := ioutil.ReadAll(r.Body)
 	json.Unmarshal(body, &user)
 	table := SelectAllFromSubject(db, user.Category_id)
@@ -269,7 +285,7 @@ func CheckUser(w http.ResponseWriter, r *http.Request, pp *User) {
 	checklog := false
 	var b BoolLogin
 	var user Checkuser
-	db := InitDatabase("test")
+	db := InitDatabase("EXPLOSION")
 	user2 := SelectAllFromUsers(db, "users")
 	body, _ := ioutil.ReadAll(r.Body)
 	json.Unmarshal(body, &user)
@@ -317,35 +333,35 @@ func Disconnect(w http.ResponseWriter, r *http.Request, pp *User) {
 	http.Redirect(w, r, "/", http.StatusSeeOther)
 }
 func LoadPostProfile(w http.ResponseWriter, r *http.Request, pp *User) {
-	db := InitDatabase("test")
+	db := InitDatabase("EXPLOSION")
 	user := SelectPostrByUser(db, pp.Id)
 	userf, _ := json.Marshal(user)
 	w.Write(userf)
 }
 func LoadPost(w http.ResponseWriter, r *http.Request) {
 	id, _ := strconv.Atoi(r.FormValue("id"))
-	db := InitDatabase("test")
+	db := InitDatabase("EXPLOSION")
 	user := SelectAllFromPosts(db, id)
 	userf, _ := json.Marshal(user)
 	w.Write(userf)
 }
 func LoadLike(w http.ResponseWriter, r *http.Request) {
 	id, _ := strconv.Atoi(r.FormValue("id"))
-	db := InitDatabase("test")
+	db := InitDatabase("EXPLOSION")
 	user := SelectLikeById(db, "like", id)
 	userf, _ := json.Marshal(user)
 	w.Write(userf)
 }
 func LoadDislike(w http.ResponseWriter, r *http.Request) {
 	id, _ := strconv.Atoi(r.FormValue("id"))
-	db := InitDatabase("test")
+	db := InitDatabase("EXPLOSION")
 	user := SelectLikeById(db, "dislike", id)
 	userf, _ := json.Marshal(user)
 	w.Write(userf)
 }
 func LoadFuck(w http.ResponseWriter, r *http.Request) {
 	id, _ := strconv.Atoi(r.FormValue("id"))
-	db := InitDatabase("test")
+	db := InitDatabase("EXPLOSION")
 	user := SelectLikeById(db, "fuck", id)
 	userf, _ := json.Marshal(user)
 	w.Write(userf)
@@ -369,7 +385,7 @@ func CheckCooks(w http.ResponseWriter, r *http.Request, pp *User) {
 }
 
 func CreateUser(w http.ResponseWriter, r *http.Request, pp *User) {
-	db := InitDatabase("test")
+	db := InitDatabase("EXPLOSION")
 	var b BoolLogin
 	session, _ := store.Get(r, "user")
 	check := false
@@ -404,27 +420,26 @@ func CreateUser(w http.ResponseWriter, r *http.Request, pp *User) {
 	}
 }
 func LoadUser(w http.ResponseWriter, r *http.Request, pp *User) {
-	db := InitDatabase("test")
+	db := InitDatabase("EXPLOSION")
 	user := SelectUserById(db, pp.Id)
 	userf, _ := json.Marshal(user)
 	w.Write(userf)
 }
 func LoadAllUser(w http.ResponseWriter, r *http.Request, pp *User) {
-	db := InitDatabase("test")
+	db := InitDatabase("EXPLOSION")
 	user := SelectAllFromUsers(db, "users")
-	// user := SelectUserById(db, pp.Id)
 	userf, _ := json.Marshal(user)
 	w.Write(userf)
 }
 func LoadSubjects(w http.ResponseWriter, r *http.Request) {
-	db := InitDatabase("test")
+	db := InitDatabase("EXPLOSION")
 	cat, _ := strconv.Atoi(r.FormValue("id"))
 	user := SelectAllFromSubject(db, cat)
 	userf, _ := json.Marshal(user)
 	w.Write(userf)
 }
 func LoadSubjectsTitle(w http.ResponseWriter, r *http.Request) {
-	db := InitDatabase("test")
+	db := InitDatabase("EXPLOSION")
 	cat, _ := strconv.Atoi(r.FormValue("id"))
 	user := SelectSubjectById(db, cat)
 	userf, _ := json.Marshal(user)
