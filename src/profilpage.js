@@ -116,9 +116,10 @@ let resp1 = fetch('/loadPostUser').then((res) => {
           method: "POST",
           headers: {"content-type":"application/json"},
           body: JSON.stringify({
-              Check : message2.innerHTML
+              Check : message2.textContent
           }) 
       }).then((res) => {
+        console.log(res.redirected)
         if (res.redirected){
           // location.reload(true);
           let cat2 = document.querySelectorAll('tr')

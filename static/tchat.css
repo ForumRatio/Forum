@@ -264,13 +264,14 @@ select{
 
 .conversation {
     color: white;
-    margin-bottom: 35%;
+    margin-top: -20%;
+    margin-bottom: 47%;
 }
 .conv{
     position: relative;
     left: -15%;
-    margin-top: 25.5%;
-    margin-bottom:-27%;
+    margin-top: 35.5%;
+    margin-bottom:-35%;
     margin-left: 40%;
     font-size: 150%;
     font-family: "p5hatty";
@@ -319,12 +320,12 @@ select{
 }
 .conv1 {
     position: relative;
-    margin-top: 25.5%;
-    margin-bottom:-27%;
+    margin-top: 35.5%;
+    margin-bottom:-35%;
     margin-left: 40%;
     font-size: 150%;
     font-family: "p5hatty";
-    float: right;
+    /* float: right; */
     right: 25%;
     transform: rotateY(180deg); 
     /* Ajoute une rotation sur l'axe horizontal */
@@ -369,8 +370,8 @@ select{
 }
 .rouge1{
     position: relative;
-    right: 57%;
-    width: 0%;
+    right: 51%;
+    max-width: 21%;
     flex-grow: 2;
     transform: rotateY(180deg);
 }

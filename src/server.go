@@ -132,6 +132,7 @@ func Profil(w http.ResponseWriter, r *http.Request, pp *User) {
 	db := InitDatabase("EXPLOSION")
 	session, _ := store.Get(r, "user")
 	auth := session.Values["auth"]
+	fmt.Println(auth)
 	if SelectAllFromUsers(db, "users") == nil {
 		http.Redirect(w, r, "/register", http.StatusSeeOther)
 	}
@@ -213,11 +214,12 @@ func DeletePost(w http.ResponseWriter, r *http.Request, pp *User) {
 	db := InitDatabase("EXPLOSION")
 	body, _ := ioutil.ReadAll(r.Body)
 	json.Unmarshal(body, &user)
-	fmt.Println(user)
+	// fmt.Println(user)
 	user2 := SelectPostrByUser(db, pp.Id)
 	for i := 0; i < len(user2); i++ {
 		if user.Check == user2[i].Content {
 			checklog = true
+			fmt.Println(SelectLikeById(db, "like", user2[i].Id))
 			DeleteLikeFromId2(db, "like", user2[i].Id)
 			DeleteLikeFromId2(db, "dislike", user2[i].Id)
 			DeleteLikeFromId2(db, "fuck", user2[i].Id)

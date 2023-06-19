@@ -179,7 +179,7 @@ function sendMessage2(Content,User,Picture){
   // Récupérer le contenu du champ de saisie
   let message = document.createElement('p');
   message.className=('message')
-  if (Content >= 34){
+  if (Content.length >= 30){
     let first = Content.substring(0, Content.length /2);
     let last = Content.substr(Content.length /2)
     message.innerHTML = `${first} <br> ${last}`
@@ -226,7 +226,7 @@ function sendMessage3(Content,User,Picture){
   // Récupérer le contenu du champ de saisie
   let message = document.createElement('p');
   message.className=('message1')
-  if (Content >= 34){
+  if (Content.length >= 30){
     let first = Content.substring(0, Content.length /2);
     let last = Content.substr(Content.length /2)
     message.innerHTML = `${first} <br> ${last}`
